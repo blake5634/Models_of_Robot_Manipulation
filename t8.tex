@@ -1,0 +1,132 @@
+%% Default Latex document template
+%%
+%%  blake@rcs.ee.washington.edu
+
+%%    Outline shell to create a proof of a chapter alone
+%
+%
+
+\documentclass[oneside]{book}
+
+% Uncomment for bibliog.
+%\bibliographystyle{unsrt}
+
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{boxedminipage}
+\usepackage{tex/lineno}
+\usepackage{hyperref}
+
+
+
+\newcommand{\grad}{\bigtriangledown}
+\newcommand{\pd}{\partial}
+\newcommand{\br}{\epsilon \mathcal{R}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%
+%  Set Up Margins
+\input{templates/pagedim.tex}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%         Page format Mods HERE
+%
+%Mod's to page size for this document
+\addtolength\textwidth{0cm}
+\addtolength\oddsidemargin{0cm}
+\addtolength\headsep{0cm}
+\addtolength\textheight{0cm}
+%\linespread{0.894}   % 0.894 = 6 lines per inch, 1 = "single",  1.6 = "double"
+
+%\pagestyle{fancy}
+\lhead{Chapter \thechapter}
+%\chead{CENTER HEADER}
+\rhead{\today}
+%\lfoot{Hannaford, U. of Washington}
+%\rfoot{\today}
+\cfoot{\thepage/\pageref{LastPage}}
+
+
+%%%%%%%%%%%%
+%  Stuff to help floats behave better for large figures
+%
+ \renewcommand{\topfraction}{0.9}	
+    \renewcommand{\bottomfraction}{0.8}	
+    \setcounter{topnumber}{2}
+    \setcounter{bottomnumber}{2}
+    \setcounter{totalnumber}{4} 
+    \setcounter{dbltopnumber}{2} 
+    \renewcommand{\dbltopfraction}{0.9}	
+    \renewcommand{\textfraction}{0.07}	
+    \renewcommand{\floatpagefraction}{0.7}	
+	% floatpagefraction MUST be less than topfraction !!
+    \renewcommand{\dblfloatpagefraction}{0.7}
+
+%%%%%%%%%%%%%%%%%%%%
+\input{rbook_environments.tex}
+
+\begin{document}
+\setpagewiselinenumbers
+\modulolinenumbers[5]
+
+\setcounter{chapter}{0}
+
+%  \frontmatter
+
+ \title{Robot Manipulators}
+
+ \author{Blake Hannaford and Jacob Rosen}
+
+ \date{\today\\(C) Copyright 2007-2010 Jacob Rosen and Blake Hannaford}
+
+ \maketitle
+
+\tableofcontents
+
+\mainmatter
+
+\linenumbers
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%           Uncomment the chapter(s) you wish to draft
+%
+%
+
+%  \part{Fundamentals}
+%  \input{Chapt01.tex}
+%  \input{Chapt02.tex}
+%  \input{Chapt03.tex}
+%  \input{Chapt04.tex}
+%  \input{Chapt05.tex}
+%  \input{Chapt06.tex}
+\setcounter{chapter}{7}
+%  \input{Chapt07.tex}
+ \input{Chapt08.tex}
+% \input{Chapt09.tex}
+% \setcounter{chapter}{9}
+%  \input{Chapt10.tex}
+% \input{Chapt11.tex}
+% 
+% 
+%  \part{Advanced Topics}
+% \input{Chapt12.tex}
+% \input{Chapt13.tex}
+%  \input{Chapt14.tex}
+% \input{Chapt15.tex}
+% \input{Chapt16.tex}
+% \input{Chapt17.tex}
+
+% \appendix
+
+% \input{apdces.tex}
+
+%\backmatter
+%\bibliography{brl}
+\label{LastPage}
+\end{document}
+

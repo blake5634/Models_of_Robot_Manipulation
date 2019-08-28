@@ -1,0 +1,420 @@
+%  Robotics Text  by Jacob Rosen and Blake Hannaford
+% (c) 2007  Jacob Rosen and Blake Hannaford
+%
+
+\chapter{Teleoperation}
+
+\section{Problem Statement and Learning Objectives}
+\input{includes/Prob_and_Obj_14.tex}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%                Combined Systems and Networks
+%
+%
+
+
+%\begin{slide}
+
+\section*{Kinematics of Teleoperation Systems}
+
+%%%%** Section 1
+\section{Introduction}
+This chapter will introduce analytical models of teleoperation systems with multiple degrees of freedom.
+
+
+
+	%<*>
+%\end{slide}
+%\begin{slide}
+%%%%** Section 2
+\section{Four Approaches}
+\begin{enumerate}
+	\item Joint Rate Control
+	\item Resolved Rate Control
+	\item Master-Slave Control
+	\item Generalized Master-Slave Control
+\end{enumerate}
+
+
+%%%%** Section 2.1
+\subsection{Joint Rate Control}
+
+\includegraphics[width=4.0in]{figs14/00398.eps}
+
+A basic control panel with knobs to control the rate of each joint.
+
+Examples:   Hydraulic construction Equipment
+
+Must have spring return to zero!
+
+\subsubsection*{Advantage}
+Cheap!
+\subsubsection*{Disadvantage}
+Human must do inverse kinematics in their heads.
+
+
+	%<*>
+%\end{slide}
+%\begin{slide}
+
+%%%%** Section 2.2
+\subsection{Resolved Rate Control}
+
+\includegraphics[width=4.0in]{figs14/00399.eps}
+
+
+\subsubsection*{Advantages}
+\begin{itemize}
+	\item Modest computational requirements
+	\item Can be adapted to task (i.e. change of reference frame or reference point).
+
+	\includegraphics[width=4.0in]{figs14/00400.eps} \includegraphics[width=2.5in]{figs14/hubbleRMS.eps}	%<hn>
+
+        Example of the Hubble space telescope manipulated by space shuttle robot arm (RMS).   The reference frame for resolved rate control can be programmed to the center of mass of the telescope or any convenient point. 	%<hn>
+\end{itemize}
+
+
+%\end{slide}
+%\begin{slide}
+%	\includegraphics[width=2.5in]{figs14/00400.eps} \includegraphics[width=1.5in]{figs14/hubbleRMS.eps}
+%\end{slide}
+%\begin{slide}
+
+
+\subsubsection*{Disadvantages}
+\begin{itemize}
+   \item Cognitive Load
+           \begin{itemize}
+                 \item Operator must differentiate desired trajectory.
+		 \item Rate control of orientation is difficult
+            \end{itemize}
+   \item Need to watch out for singualrities in Jacobian Matrices.
+
+System may demand infinite joint rates from slave robot.
+\end{itemize}
+
+
+	%<*>
+
+
+
+%\end{slide}
+%\begin{slide}
+
+%%%%** Section 2.3
+\subsection{Master Slave Control}
+
+This situation describes teleoperators where the master and slave devices are kinematically the same.
+
+\includegraphics[width=4.0in]{figs14/00401.eps}
+
+Controller must make sure that
+\bq
+\theta_s = \theta_m
+\eq
+Since the kinematic parameters (i.e. Denavit Hartenberg Parameters) are the same, this implies
+\bq
+^0_6T_s = ^0_6T_m
+\eq
+Also, if
+\[
+\tau_m = \tau_s
+\]
+then
+\bq
+F_m = F_s
+\eq
+
+One such controller is
+
+\includegraphics[width=4.0in]{figs14/00403.eps}
+
+%\end{slide}
+%\begin{slide}
+
+
+\subsubsection*{Advantages}
+\begin{itemize}
+   \item Simple Architecture (e.g. six separate analog controllers in 1950's).
+   \item Good operator interface (1:1 motion and force feedback)
+\end{itemize}
+
+\subsubsection*{Disadvantages}
+\begin{itemize}
+   \item Master and Slave must be same design.
+   \item Master and Slave must be in same configuration
+   \item Can't index or scale the motion.
+\end{itemize}
+
+%\end{slide}
+%\begin{slide}
+
+%%%%** Section 2.4
+\subsection{Indexing and Scaling}
+%%%%** Section 2.4.1
+\subsubsection{Definitions}
+
+\begin{description}
+\item [Indexing:] Provision of an arbitrary offsett between master and slave configurations.
+\item [Scaling:]  Ability to multiply position commands by an arbitrary constant.
+\end{description}
+
+
+%%%%** Section 2.4.2
+\subsubsection{Problems with Scaling and Indexing}
+Consider a Master/slave system which is moved by $\Delta x_i$ at the master resulting in slave motion $\Delta x_0$.
+
+\includegraphics[width=4.0in]{figs14/00402.eps}
+
+
+if $\lambda_p =1$ and $\theta_0 = 0$, then
+\bq
+\theta_m = \theta_s, J_m(\theta_m) = J_s(\theta_s)
+\eq
+	%<*>
+
+and
+
+\[
+\Delta x_0 = J_s(\theta_s)J^{-1}_m(\theta_m)\Delta x_i
+\]
+\[
+\Delta x_0 = \Delta x_i
+\]
+
+%\end{slide}
+%\begin{slide}
+
+Consider indexing:
+
+if $\theta_0 \ne 0$
+\[
+\theta_s = \theta_m + \theta_0
+\]
+\[
+J_s(\theta_m+\theta_0)J^{-1}_m(\theta_m) \ne I
+\]
+
+%\end{slide}
+%\begin{slide}
+
+Consider scaling:
+
+if $\lambda_p \ne 1$
+\[
+\theta+s = \lambda_p\theta_m
+\]
+\[
+J_s(\lambda_p\theta_m)J^{-1}_m(\theta_m) \ne \lambda_p I
+\]
+
+
+
+%\end{slide}
+%\begin{slide}
+
+%%%%** Section 2.5
+\subsection{Generalized Master Slave Control}
+
+\includegraphics[width=4.0in]{figs14/00404.eps}
+
+Master and Slave mechanisms kinematically different.
+
+Communication options:
+
+1) send 4x4 matrices indicating end effector frame (absolute coordinates)
+
+2) send cartesian increment commands.
+
+%\end{slide}
+%\begin{slide}
+
+%%%%** Section 2.5.1
+\subsubsection{Indexing (using 4x4 Frames)}
+
+1) No indexing:
+
+\includegraphics[width=3.0in]{figs14/00405.eps}
+
+ The master and slave frames are superimposed on the same points(!)    There is actually of course an offset between the frames but mathematically we ignore it to lock their motions together. 	%<hn>
+
+
+%\end{slide}
+%\begin{slide}
+
+2) With an index offset:
+
+\includegraphics[width=3.0in]{figs14/00406.eps}
+
+ Operator first works with index offset $j$, and then creates a new offset $^m_sT_{j+1}$ by pressing a button and moving the master to a new location (with the slave frozen).  Analyzing the diagram, 	%<hn>
+
+\bq
+^m_sT_{j+1} = \left ( ^6_0T'_m \right )^{-1} {^6_0T_s}
+\eq
+
+%\end{slide}
+%\begin{slide}
+
+The system then discards $^m_sT_j$ and continues on with $^m_sT_{j+1}$
+
+\includegraphics[width=3.0in]{figs14/00407.eps}
+
+%\end{slide}
+%\begin{slide}
+%%%%** Section 2.5.2
+\subsubsection{Procedure for Change of Index Offset}
+
+\noindent
+1) Normal Teleoperation:
+\bq
+^0_6T_s = ^0_6T_m(t)^M_sT_j
+\eq
+
+\noindent
+2) Operator presses and holds index button:
+
+
+\bq
+\mathrm{Slave \quad position \quad locked} \qquad ^0_6T_s = constant
+\eq
+
+\noindent
+3) Operator moves to new position, $^0_6T'_m$:
+
+\bq
+^M_sT_{j+1} = \left (^0_6T'_m\right )^{-1} {^0_6T_s}
+\eq
+
+\noindent
+4) Resume Manipulation:
+
+\bq
+^0_6T_s = ^0_6T_m(t)^M_sT_{j+1}
+\eq
+
+
+
+
+%\end{slide}
+%\begin{slide}
+
+%%%%** Section 2.5.3
+\subsubsection{Indexing (using incremental cartesian commands)}
+
+Easier!
+
+
+\bq\label{IncTeleop}
+\Delta X_s = \Delta X_m = X_m(t) - X_m(t-\Delta t)
+\eq
+
+to index:
+\begin{enumerate}
+	\item Set $\Delta X_s = 0$
+	\item Move master device to new position.
+	\item resume teleoperation using equation \ref{IncTeleop}
+\end{enumerate}
+
+
+%\end{slide}
+%\begin{slide}
+%%%%** Section 2.5.4
+\subsubsection{Scaling (using 4x4 Frames)}
+
+We might apply the following method to scale the command to the slave:
+\bq
+^0_6T_s =  \lambda_p I \left (
+                 {^0_6T_m}{^m_sT_j}
+                 \right )
+\eq
+this is {\bf not} OK.  (Why?)
+
+However we could break inside the $T$ matrix and use
+
+\bq
+^0_6T_s = \left [
+ \begin{array}{cc}
+     \left [ R \right ]      & \lambda_p \left [ \begin{array}{c} P_x \\ P_y \\  P_z \end{array}\right ] \\
+     \left [ 0 \quad 0 \quad 0 \right ] & 1 \\
+ \end{array}
+\right]
+\eq
+
+because orientation is not scaled by $\lambda_p$.
+
+
+%\end{slide}
+%\begin{slide}
+
+%%%%** Section 2.5.5
+\subsubsection{Scaling (using incremental cartesian commands)}
+
+
+\bq
+\Delta x_s = \lambda_p \Delta x_m
+\eq
+
+Simple!
+
+
+%\end{slide}
+%\begin{slide}
+
+
+%%%%** Section 2.5.6
+\subsubsection{Rate Control Option for Generalized Master Slave}
+
+
+Resolved rate control is an option which can be software selected in a generalized master slave system.	%<hn>
+
+\bq
+\Delta x_s = \alpha_i(x_m-x_0)
+\eq
+where $x_0$ is a zero reference position such as the middle of the master device motion range.	%<hn>
+
+Slave moves with a velocity proportional to master deflection
+
+Need hardware or software spring return.
+
+%\end{slide}
+%\begin{slide}
+
+%%%%** Section 3
+\section{Position Teloperation Kinematics: Summary}
+
+Modes:
+
+\begin{itemize}
+	\item Joint Rate Control
+	\item Resolved Rate Control
+	\item Master Slave Control
+	\item Generalized Master Slave Control
+\end{itemize}
+
+%\end{slide}
+%\begin{slide}
+
+\begin{tabular}{l|cccc}
+                & Indexing         & Scaling        & Kinesthesia      & Ease   \\ \hline
+Joint Rate      &    Y             &   Y            &    N             &  Low     \\
+Resolved Rate   &    Y             &   Y            &    N             &        \\
+Master Slave    &    N             &   N            &    Y             &        \\
+Generalized Master Slave
+                &    Y             &   Y            &    Y             & High  \\ \hline
+\end{tabular}
+
+
+
+
+
+
+\section{Applications}
+
+
+\section{Summary of Notation}
+
+\input{includes/notation14.tex}
+
