@@ -1,0 +1,661 @@
+<nh>\documentclass{article}
+<s>\documentclass{beamer}
+<*nhs>
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{amsmath}
+
+<*s>
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamercolor{frametitle}{fg=black,bg=white}
+\setbeamercolor{title}{fg=black,bg=yellow!85!orange}
+\usetheme{AnnArbor}
+%\usetheme{Torino}
+\beamersetuncovermixins{\opaqueness<1>{25}}{\opaqueness<2->{15}}
+
+% \logo{\includegraphics[width=0.75in]{ \includegraphics[width=3.5in]{../PMP_Logo_RGB_small.png} }}
+\useoutertheme{infolines}
+<*>
+
+\title{
+  \begin{tabular}{c}
+       EE543: In Class Problem Sets
+   \end{tabular}
+}
+\author{Blake Hannaford}
+<s>\institute{University of Washington}
+\date{\today}
+
+
+<*hn>
+\usepackage{fancyhdr}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%
+%  Set Up Margins
+\input{templates/pagedim.tex}
+%\input{~blake/templates/pagedim.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Correct top margin when using pdflatex
+%         (uncomment for pdflatex)
+%\addtolength\topmargin{-0.5in}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%         Page format Mods HERE
+%
+%Mod's to page size for this document
+\addtolength\textwidth{0cm}
+\addtolength\oddsidemargin{0cm}
+\addtolength\headsep{0cm}
+\addtolength\textheight{0cm}
+%\linespread{0.894}   % 0.894 = 6 lines per inch, 1 = "single",  1.6 = "double"
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% HEADER / FOOTER
+\pagestyle{fancy}
+
+
+
+\linespread{1.0}
+
+<*>
+\begin{document}
+
+<s>\begin{frame}
+<s>\titlepage
+<hn>\maketitle
+<s>\end{frame}  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+<*>
+
+%%%%** Section 1
+<hn>\newpage \section{Spatial Relationships and Rigid Body Motions}
+%%%%** Section 1.1
+<hn>\subsection{}
+
+A frame $F_0$ exists in the 2D plane.  A point $P$ is located such that
+\[
+P_0 = [4, 1.5]^T
+\]
+A second frame, $F_1$ is displaced so that its origin is $[5,1]^T$ in Frame 0. Find $^1P$, the representation of $P$ in frame 1.
+
+
+
+%%%%** Section 1.2
+\subsection{}
+
+ Continuing the situation of ICP 6.1, a third frame, $F_2$, has origin $[5,1]^T$ in Frame 0, and is rotated clockwise from Frame 0 by $135^{\circ}$.  What is $^2P$?
+
+
+
+
+%%%%** Section 1.3
+\subsection{}
+
+Frames A and B are initially superimposed.
+\begin{itemize}
+	\item Frame B is then rotated by $30^{\circ}$ about $x_A$.
+	\item Frame B is then rotated by $60^{\circ}$ about $y_B$.
+\end{itemize}
+
+A) What is $^A_BR$?
+
+B) If $^BP = [17, -10, 3]^T$, what is $^AP$?
+
+
+%%%%** Section 1.4
+\subsection{}
+
+Frames A and B are initially superimposed.
+\begin{itemize}
+	\item Frame B is then rotated by $\theta_1$ about $z_A$.
+	\item Frame B is then rotated by $\theta_2$ about $y_A$.
+	\item Frame B is then rotated by $\theta_3$ about $x_B$.
+\end{itemize}
+
+What is $^A_BR$ after these rotations?
+
+
+%%%%** Section 1.5
+\subsection{}
+
+
+Find a homogeneous 4x4 transform which represents the brick's position and orientation on the table, $^T_BT$.
+
+\includegraphics[width=3.5in]{00481.png}
+
+%%%%** Section 1.6
+\subsection{}
+
+Book Retriever
+
+<*h>
+\begin{tabular}{cp{2.0in}}
+\includegraphics[width=3.5in]{00482.png}
+
+&
+\vspace{-1.5in}
+The following relationships are known:
+$
+{^W_BT}, {^C_BT}, {^C_GT}, {^C_{Bk}T}
+$
+
+Draw the transform graph and find $^W_{Bk}T$.
+\end{tabular}
+<*>
+
+
+
+\newpage
+%%%%** Section 2
+\section{Forward Manipulator Kinematics}
+
+%%%%** Section 2.1
+\subsection{}
+
+For a single link manipulator:
+
+\includegraphics[width=3.5in]{H004.png}
+
+If the base is located at $x_0 = 3, y_0=0$, and the arm length is $l$, find the position of the end effector in frame 0.
+
+
+
+
+
+%%%%** Section 2.2
+\subsection{}
+
+Assign link frames and find the DH parameters for the following planar robot.
+
+
+\includegraphics[width=3.5in]{H007.png}
+
+
+
+
+
+%%%%** Section 2.3
+\subsection{}
+
+
+Assign link frames to the following virtual manipulator represented as a stick figure.
+
+\includegraphics[width=3.5in]{H006.png}
+
+
+%%%%** Section 2.4
+\subsection{}
+
+
+Find the DH parameters of the robot of 7.3.
+
+
+%%%%** Section 2.5
+\subsection{}
+
+
+
+Here is part of a robot manipulator.  Derive the Denavit Hartenberg parameters for link 5.  If any parameters are unlabeled in this drawing, identify them.  Assume axis 6 is rotated by $90^\circ$ from axis 5 around the common normal.
+
+\includegraphics[width=3.5in]{H005.png}
+
+
+
+%%%%** Section 2.6
+\subsection{}
+
+Assign link frames and find the DH parameters for the following  robot.
+
+
+\includegraphics[width=3.5in]{H008.png}
+
+
+
+
+%%%%** Section 2.7
+\subsection{}
+
+Given the following DH parameters, compute the forward kinematic equations:
+
+\begin{tabular}{ccccc}
+N	&	$\alpha_{N-1}$	&	$a_{N-1}$	&	$d_N$	&	$\theta_N$ \\
+\hline
+1	&	$\pi/2$		&	0		&	$l_1$	&	$\theta_1$ \\
+2	&	0		&	$l_2$		&	$d_2$	&	0	   \\
+3	&	$-\pi/2$	&	0		&	0	& 	$\theta_3$ \\
+\end{tabular}
+
+
+<*>
+
+%%%%** Section 3
+\newpage \section{Inverse Manipulator Kinematics}
+
+%%%%** Section 3.1
+\subsection{}
+
+
+Plot the workspace of the 2-link planar manipulator for $l_1=5, l_2=3$ for the joint motion ranges:
+\[
+45^\circ < \theta_1 < 135^\circ  \qquad  -45^\circ < \theta_2 < 180^\circ
+\]
+
+
+
+
+
+
+%%%%** Section 3.2
+\subsection{}
+Compute the inverse of the 4x4 transform:
+\[
+^1_2T =
+\begin{bmatrix}
+\begin{bmatrix}  1 & 0  &  0 \\ 0  & 0 & -1 \\ 0  & 1 & 0\\ \end{bmatrix}      &
+ \begin{bmatrix} 3 \\ 10 \\ -7 \end{bmatrix}            \\
+ 0 \quad 0 \quad 0      &   1
+\end{bmatrix}
+\]
+
+
+
+
+%%%%** Section 3.3
+\subsection{}
+
+
+Solve the inverse kinematics of the following planar robot.  Find all solutions:
+
+\includegraphics[width=3.0in]{00491.png}
+
+
+
+
+
+%%%%** Section 3.4
+\subsection{}
+
+
+Geometric Method / Spatial Manipulator
+
+
+%%%%** Figure 1
+\begin{figure}[hb]
+\centering
+  \includegraphics[width=1.9in]{00351a.png}
+  \includegraphics[width=1.9in]{00351b.png}
+
+  \includegraphics[width=1.9in]{00352.png}
+
+\caption{Inverse Kinematics Arm}\label{IKArm}
+\end{figure}
+
+Please find all solutions for this arm to reach the point ${X,Y,Z}$.    Geometric method is suggested.
+
+<n>\vspace{0.2in}
+<*n>
+{\tt Solution:
+
+
+\scalebox{.75}{
+  \includegraphics{00353.png}  \hspace{0.25in}
+  \includegraphics{00354.png}
+   }
+
+\vspace{0.3in}
+Start with the top view:
+\[
+\theta_1 = \mathrm{atan2}(Y,X) + n\pi
+\]
+Now, referring to the side view,
+let
+\[
+r = \sqrt{X^2+Y^2}   \qquad \mathrm{and} \qquad r' = r \pm L_2
+\]
+\[
+d_3 = \pm\sqrt{(r')^2+(Z-L_1)^2}
+\]
+\[
+\theta_2 = \mathrm{atan2}((Z-L_1), r') +n\pi
+\]
+There are 4 solutions since for each of the two $r'/\theta_1$ solutions shown in the side view, there are two $d_3/\theta_2$ solutions.  (Consider the case of  $\theta_2+\pi, d_3 < 0$).
+}
+
+<*>
+
+
+%%%%** Section 3.5
+\subsection{}
+
+A manipulator has the following forward kinematic equations:  (Peter Braathen)
+
+
+\[
+^0_4T =
+\begin{bmatrix}
+\begin{bmatrix}  c_4c_1s_{23}-s_4s_1 &  -s_4c_1s_{23} -s_1c_4 &  c_1c_{23} \\
+                 c_4s_1s_{23}-s_4c_1 &  -s_4s_1s_{23} -c_1c_4 &  s_1c_{23} \\
+                 -c_4c_{23}          &  s_4c_{23}             &  s_{23}      \\
+                 \end{bmatrix}      &
+\begin{bmatrix} c_1c_2a_2-s_1d_2 \\ s_1c_2a_2+c_1d_2 \\ s_2a_2+d_1 \end{bmatrix}            \\
+ 0 \quad 0 \quad 0      &   1
+\end{bmatrix}
+\]
+
+
+solve for $\theta_1, \theta_2, \theta_3, \theta_4$.
+
+
+
+<*>
+
+%%%%** Section 4
+\newpage \section{Velocities and Jacobian Matrix}
+
+%%%%** Section 4.1
+\subsection{} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\includegraphics[width=2.5in]{00852.png}
+
+A turntable is sliding down a ramp.  We have the following facts:
+
+\begin{itemize}
+   \item  The turntable has a base and a turning portion with  frames, $B$ and $T$ respectively (top view at top of figure).
+   \item The base slides down the ramp  with speed $v$.  The sliding velocity vector is in the $X_w,Z_w$ plane at $45^\circ$ downward.
+   \item $X_B$ points down the ramp in the direction of sliding.
+   \item The turntable rotates around $Z_T$ at $\omega$ rad/sec.
+   \item Point P lies on the $X_T$ axis at a distance $r$ from the $Z_T$ axis.
+   \item $Z_T$ is colinear with $Z_B$.
+\end{itemize}
+
+%%%%** Section 4.1.1
+\subsubsection{}
+Find
+\[
+^T{(^TV_P)}
+\]
+
+<*n>
+{\tt SOLUTION:
+
+
+\[
+^T{(^TV_P)} = 0
+\]
+This is true in any frame because point $P$ is fixed in frame $T$
+}
+<*>
+
+%%%%** Section 4.1.2
+\subsubsection{}
+Find
+\[
+^T{(^WV_P)}
+\]
+
+<*n>
+{\tt SOLUTION:
+Let $\theta = \omega t$.
+\[
+^T{(^WV_P)} = {^T_BR}\;{^B_WR}\;{^WV_B} =
+\begin{bmatrix}
+c\theta		& -s\theta	& 0 \\
+s\theta		& c\theta		& 0 \\
+0		& 0		& 1 \\
+\end{bmatrix}
+\begin{bmatrix}
+.707		& 0		& -.707 \\
+0		& 1		& 0     \\
+.707		& 0		& .707  \\
+\end{bmatrix}
+{^WV_B}
+\]
+\[
+{^T_W}R =
+\begin{bmatrix}
+.707c\theta	& -s\theta	& -.707c\theta	\\
+.707s\theta	& c\theta	& -.707s\theta 	\\
+.707		& 0		& .707
+\end{bmatrix}
+\]
+
+By inspection we can see that
+
+\[
+^W(^WV_B) = \begin{bmatrix} .707v \\ 0 \\ -.707v \end{bmatrix}
+\qquad
+^T(^WV_P) = \begin{bmatrix} 0 \\ r\omega \\ 0    \end{bmatrix}
+\]
+
+Adding together the two components of velocity:
+\[
+^T(^WV_P) = {^T_WR}\begin{bmatrix} .707v \\ 0 \\ -.707v \end{bmatrix} + \begin{bmatrix} 0 \\ r\omega \\ 0    \end{bmatrix}
+\]
+
+\[
+= \begin{bmatrix} vc\theta \\ vs\theta + r\omega \\ 0    \end{bmatrix}
+\]
+}
+
+
+<*>
+%%%%** Section 4.1.3
+\subsubsection{}
+Find
+\[
+^W{(^WV_P)}
+\]
+
+
+<*n>
+{\tt SOLUTION:
+
+
+\[
+^W{(^WV_P)} = {^W_TR}\;^T(^WV_P) = {^T_WR^T}\;^T(^WV_P)
+\]
+\[
+= \begin{bmatrix}
+.707vc^2\theta+.707vs^2\theta + .707r\omega s\theta    \\
+-vs\theta c\theta + vs\theta c\theta+r\omega c\theta  \\
+-.707vc^2\theta-.707vs^2\theta-.707r\omega s\theta  \\
+\end{bmatrix} =
+\begin{bmatrix}
+.707 \left [ v + r\omega s\theta \right ] \\
+r\omega c\theta \\
+-.707 \left [ v + r\omega s\theta \right ] \\
+\end{bmatrix}
+\]
+
+
+
+}
+<*>
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%** Section 4.2
+\subsection{Jacobian Matrix}
+A manipulator has the following DH parameters;
+
+\begin{center}
+\begin{tabular}{c|cccc}
+$N$   	& $\alpha_{N-1}$	& $a_{N-1}$	& $d_N$		& $\theta_{N}$   \\ \hline
+1	&  0			& 0		&  0		& $\theta_1$     \\
+2	&  0			& $l_1$		& $d_2$		& $0$	 \\
+3 	&  $90^\circ$		& 0		& $l_2$		& $\theta_3$	 \\
+4	& $-90^\circ$		& $l_3$		& 0		& $\theta_4$ \\
+\end{tabular}
+\end{center}
+
+Calculate the Jacobian matrix, $^4J_4$,  by the method of velocity propagation.
+The variable parameters are $\theta_1, d_2, \theta_3, \theta_4$.
+
+
+<*n>
+{\tt SOLUTION:
+
+Plug these DH parameters in to get ${^0_1T}$ etc.
+
+Velocity propagation gives you:
+
+\[
+^4\omega_4 = \begin{bmatrix}
+ c_4s_3\dot{\theta}_1-s_4\dot{\theta}_3		\\
+-s_4c_3\dot{\theta}_1+c_4\dot{\theta}_3		\\
+c_3\dot{\theta}_1 + \dot{\theta}_4		\\
+\end{bmatrix}
+\]
+
+\[
+^4V_4 = \begin{bmatrix}
+ c_4(s_2c_3l_1+c_3l_2) \dot{\theta}_1 + s_4(c_2l_1+c_3l_3)\dot{\theta}_1 + s_3c_4\dot{d}_2	\\
+-s_4(s_2c_3l_1+c_3l_2) \dot{\theta}_1 + c_4(c_2l_1+c_3l_3)\dot{\theta}_1 + s_3s_4\dot{d}_2	\\
+(-s_2s_3l_1-s_3l_2)\dot{\theta}_1 + l_3\dot{\theta}_3+c_3\dot{d}_2 \\
+\end{bmatrix}
+\]
+
+From these, derive the Jacobian by factoring out $\dot{\theta}_1, \dot{d}_2, \dot{\theta}_3, \dot{\theta}_4.$
+
+\[
+^4J_4 =
+\begin{bmatrix}
+ c_4(s_2c_3l_1+c_3l_2) + s_4(c_2l_1+c_3l_3)	&  s_3c_4	& 0   &   0 \\
+-s_4(s_2c_3l_1+c_3l_2) + c_4(c_2l_1+c_3l_3)	& -s_3s_4	& 0   &   0 \\
+ -s_2s_3l_1-s_3l_2				&  c_3l_2	& l_3  &   0 \\
+ s_3c_4						&  0		& -s_4& 0   \\
+-c_3s_4						&  0		&  c_4& 0    \\
+c_3						&  0		& 0   & 1   \\
+\end{bmatrix}
+\]
+
+
+}
+
+<*>
+
+<*>
+
+%%%%** Section 5
+\newpage \section{Trajectory Generation}
+
+%%%%** Section 5.1
+\subsection{} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+A cubic polynomial trajectory is
+\[
+\theta(t) = a_0 + a_1t+a_2t^2+a_3t^3
+\]
+Solve for the coefficients, $a_i$ such that
+\[
+\begin{array}{lccr}
+(1) & \theta(0) = 10 			&    \theta(25) = 85 		& (2) \\
+(3) & \dot{\theta}(0) = 0		&    \dot{\theta}(25) = 3.0	& (4)\\
+\end{array}
+\]
+
+<*n> {\tt
+
+SOLUTION:
+
+using (1)
+\[
+a_0 = 10
+\]
+
+using (2)
+\[
+\dot{\theta}(t) = a_1 +2a_2t+3a_3t^2 =0
+\]
+For t=0,
+\[
+a_1 = 0
+\]
+using (3)
+\[
+\theta(25) = 85 = 10 + 625a_2 + 15625a_3
+\]
+using (4)
+\[
+\dot{\theta}(25) = 3 = 50a_2 + 1875a_3
+\]
+Solving the last two equations in two unknowns:
+
+\[
+a_2 = 0.24 \qquad a_3 = -4.8\times10^{-3}
+\]
+
+<*>
+
+%%%%** Section 5.2
+\subsection{} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+A trajectory generator uses
+\[
+\theta(t) = \theta_a + A \sin (\omega t + \phi)
+\]
+
+Find $\theta_a, A, \omega, \phi$ for a trajectory taking $t_f$ seconds such that
+\[
+\begin{array}{ll}
+\theta(0) = \theta_1		& \theta(t_f) = \theta_2\\
+\dot{\theta}(0) = 0		& \dot{\theta}(t_f) = 0
+\end{array}
+\]
+
+<*n>
+{\tt
+{\bf SOLUTION:}
+
+\includegraphics[width=4in]{00855.png}
+
+Generically, the function $\sin(\tau)$ fits the bill if we can make the argument, $\tau$, equal to $-pi/2$ at the start of the trajectory.
+
+
+By inspection:
+\[
+A = \frac{1}{2}(\theta_2-\theta_1)
+\]
+$t_f$ = 1/2 of a period so
+\[
+\omega t_f = \pi
+\]
+\[
+\omega= \pi/t_f
+\]
+for $t=0$, $\omega t + \phi = -\pi/2$ so
+\[
+\phi = -\pi/2
+\]
+for the start of the trajectory, $\theta=\theta_1, t=0$ so
+\[
+\theta_1 = \theta_a + A\sin(-\pi/2) = \theta_a - \theta_2/2+\theta_1/2
+\]
+\[
+\theta_a = \frac{1}{2}(\theta_1+\theta_2)
+\]
+
+
+Checking:
+\[
+\theta(t) =\frac{1}{2}(\theta_1+\theta_2) +  \frac{1}{2}(\theta_2-\theta_1)\sin(\frac{\pi}{t_f} t -\pi/2)
+\]
+\[
+\dot{\theta}(t) = \frac{1}{2}(\theta_2-\theta_1)\cos(\frac{\pi}{t_f}t -\pi/2)\pi/t_f
+\]
+\[
+\dot{\theta}(0) =  \frac{1}{2}(\theta_2-\theta_1)\times 0 \times \pi/t_f = 0
+\]
+The same check works for $\dot{\theta}(t_f) = 0$.
+}
+
+<*>
+\end{document}
+

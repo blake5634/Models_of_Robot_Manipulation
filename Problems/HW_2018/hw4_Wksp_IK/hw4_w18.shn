@@ -1,0 +1,247 @@
+%  hw 4   Winter 2018   EE543   U. of Washington
+%  Blake Hannaford    Dec 2017
+<*>
+
+\documentclass{article}
+
+\usepackage{graphicx}
+\usepackage{graphpap}
+\usepackage{amsmath}
+\usepackage{fancyhdr}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%
+%  Set Up Margins
+\input{templates/pagedim.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%         Page format Mods HERE
+%
+%Mod's to page size for this document
+\addtolength\textwidth{0cm}
+\addtolength\oddsidemargin{0cm}
+\addtolength\headsep{0cm}
+\addtolength\textheight{0cm}
+%\linespread{0.894}   % 0.894 = 6 lines per inch, 1 = "single",  1.6 = "double"
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% HEADER / FOOTER
+\pagestyle{fancy}
+%%%%%  Page header/footer fields for "NSF Style" proposal
+%%%%%  \chead will be changed with each section
+\lhead{\small\sc EE543}
+\rhead{Wtr 2018}
+\chead{HW 4}
+\lfoot{Hannaford, U. of Washington}
+\rfoot{\today}
+\cfoot{\thepage}
+%\renewcommand\headrulewidth{1pt}
+%\renewcommand\footrulewidth{1pt}
+
+\begin{document}
+
+\title{{\small University of Washington}\\EE543 Problem Set 4\\
+<n>{\Large\tt SOLUTION KEY} \\
+}
+
+\setcounter{section}{3}
+%%%%** Section 1
+\section{Problem Set 4}
+
+
+
+
+\subsection{Workspace}
+
+A 2-link planar manipulator has $l_1 = 2, l_2 =4$.   Draw the workspace using a compass and ruler (neatness counts!).
+\[
+-30^\circ < \theta_1 < 45^\circ
+\]
+\[
+-45^\circ < \theta_2 < 135^\circ
+\]
+
+<*n>
+{\bf SOLUTION:}
+
+\includegraphics[width=1.250in]{01137a.png}
+\includegraphics[width=4.0in]{01137b.png}
+<*>
+
+
+\subsection{Workspace in 3D}
+
+Sketch the 3D workspace (at least side view and top view) of the following manipulator for
+
+\[
+0<d<7 \qquad 0^\circ<\theta_1<90^\circ \qquad -30^\circ < \theta_2 < 30^\circ
+\]
+
+\begin{center}
+\includegraphics[width=3.5in]{00585.png}
+\end{center}
+
+{\bf *} For 2 extra points, make a decent perspective drawing of this shape.
+
+<*n>
+{\bf SOLUTION: }
+
+First, look at the manipulator with $d$ held constant:
+
+\includegraphics[width=3.5in]{00583.png}
+
+Now sweep this shape along the $d$ axis:
+
+\includegraphics[width=3.5in]{00584.png}
+
+
+Thank you James Grey (W2011)!
+
+\includegraphics[width=3.5in]{grey.png}
+
+<*>
+<n>\newpage
+\subsection{Algebraic Method}
+
+Find the solution by the algebraic method.  How many solutions are there?   Are there any joint angle values which cause a problem for the solution (also known as a singularity)?    If so, what {\bf can} you solve in that singular case?
+
+\[
+\begin{bmatrix}
+r_{11}  & r_{12} & r_{13} &   X \\
+r_{21}  & r_{22} & r_{23} &   Y \\
+r_{31}  & r_{32} & r_{33} &   Z \\
+0 & 0 & 0 & 1 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+c_1c_{23}  & s_1c_{23}  & -s_{23} &  -a_2c_3  \\
+-c_1s_{23} & -s_1c_{23}  & -c_{23}  &  a_2s_3   \\
+-s_1       &  c_1       &  0      &  -d_3     \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+\]
+
+Assume that $r_{33} = 0$.  Find $\theta_1, \theta_2, \theta_3$.
+
+<*n>
+{\bf SOLUTION: }
+
+
+\includegraphics[width=5.5in]{00586.png}
+
+There is one solution and there is no singularity.
+<*>
+<s>\newpage
+\subsection{Algebraic Method}
+
+Find the solution by the algebraic method.  How many solutions are there?   Are there any joint angle values which cause a problem for the solution (also known as a singularity)?    If so, what {\bf can} you solve in that singular case?
+
+ 
+\[
+\begin{bmatrix}
+r_{11}  & r_{12} & r_{13} &   0 \\
+r_{21}  & r_{22} & r_{23} &   0 \\
+r_{31}  & r_{32} & r_{33} &   Z \\
+0 & 0 & 0 & 1 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+c_4c_5c_6-s_4s_6	& -c_4c_5s_6-s_4c_6	& c_4s_5	& 0	\\
+s_4c_5c_6-c_4s_6	& -s_4c_5s_6+c_4c_6	& s_4s_5	& 0	\\
+s_5s_6			& s_5c_6		& c_5		& d_3	\\
+0 & 0 & 0 & 1
+\end{bmatrix}
+\]
+ Find $\theta_4, \theta_5, \theta_6, d_3$.
+
+
+<*n>
+{\bf SOLUTION: }
+
+
+\includegraphics[width=6.5in]{00587.png}
+ 
+\includegraphics[width=6.5in]{00588.png}
+  
+<*>
+
+<n>\newpage
+%%%%** Section 2.2
+\subsection{Geometric Method}
+
+\includegraphics[height=2.5in]{00347.png}
+
+How many solutions are there and how do you find them?
+
+<h>\vspace{5in}
+
+<*n>
+{\tt
+\section*{\tt Solution:}
+
+
+  \includegraphics[height=5.0cm]{00349.png}
+
+\vspace{0.2in}
+
+View in plane of the $l_2$ link (orthogonal to $l_1$):
+
+  \includegraphics[height=5.5cm]{00348.png}
+
+% (horizontal labeled '$r$' should be '$r'$')
+
+\vspace{0.2in}
+First, refer to TOP VIEW:  let
+\[
+r = \sqrt{X^2+Y^2}
+\]
+\[
+\sin(\gamma) = l_1/r \qquad \qquad \cos(\gamma) = \sqrt{1 - l_1^2/r^2}
+\]
+\[
+\gamma = \mathrm{atan2}(l_1/r, \pm \sqrt{1 - l_1^2/r^2}) \qquad   r \ge l_1
+\]
+Let
+\[
+r' = r \cos(\gamma)
+\]
+Now, refering to the side view,
+\[
+l^2_2 = r'^2 + (Z-d_1)^2
+\]
+\[
+d_1^2 -2d_1Z+Z^2-l_2^2+r'^2 = 0
+\]
+Let
+\[
+c = Z^2-l_2^2+r'^2
+\]
+then
+\[
+d_1 = \frac{2Z\pm\sqrt{4Z^2-4c}}{2}
+\]
+\[
+d_1 = Z\pm\sqrt{l_2^2-r'^2}
+\]
+Point is reachable if $l_1^2 \ge r^2$ and $r'^2 \le l_2^2$.
+\[
+\theta_2 = \mathrm{atan2}(Z-d_1,r')
+\]
+
+Now back to the top view:
+\[
+\beta = \pi/2 - \gamma,  \qquad  \delta = \mathrm{atan2}(Y,X)
+\]
+\[
+\theta_1 = \delta \pm \beta = \mathrm{atan2}(Y,X) \pm (\pi/2 - \mathrm{atan2}(l_1, l_2c_2))
+\]
+
+There are four solutions, obtained by taking either positive or
+negative root of $d_1$.  Choice of $\theta_2$   follows choice of $d_1$. There are 4 solutions according to 1) choice of sign above 2) choice of  $\theta_2$.solution.
+} %end of \tt
+
+<*>
+\end{document}
+

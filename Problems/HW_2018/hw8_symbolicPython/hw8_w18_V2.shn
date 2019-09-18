@@ -1,0 +1,168 @@
+<nh>\documentclass{article}
+<*>
+\usepackage{graphicx}
+\usepackage{amsmath}
+% \usepackage{graphpap}
+
+<*hn>
+\usepackage{fancyhdr}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%
+%  Set Up Margins
+\input{templates/pagedim.tex}
+
+%\linespread{0.894}   % 0.894 = 6 lines per inch, 1 = "single",  1.6 = "double"
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% HEADER / FOOTER
+\pagestyle{fancy}
+%%%%%  Page header/footer fields for "NSF Style" proposal
+%%%%%  \chead will be changed with each section
+\lhead{\small\sc EE543}
+<h>\rhead{Due 12-Mar-18}
+<n>\rhead{SOLUTION (Feb 18)}
+\chead{HW 8(rev)}
+\lfoot{Hannaford, U. of Washington}
+\rfoot{\today}
+\cfoot{\thepage}
+%\renewcommand\headrulewidth{1pt}
+%\renewcommand\footrulewidth{1pt}
+
+
+\linespread{1.0}
+
+<*>
+\begin{document}
+
+
+%  Table row height
+\renewcommand\arraystretch{1.0}% Vertical Row size, 1.0 is for standard spacing)
+
+\setcounter{section}{8}   % set to N
+
+\section*{HW 8}
+
+
+%%%%** Section 5.1
+\subsection{IKBT Setup}
+\begin{enumerate}
+    \item  You should have completed this installation in ICP 8.  But {\tt make sure to re-install} because we may have pushed some 
+    changes to github since then. 
+
+ \item  go to your {\tt IKBT} folder/directory 
+ 
+ 
+ \item Run the IKBT Tests and generate an html test report:
+   \begin{enumerate}
+      \item read {IKBT/tests/HOWTO.txt}
+      \item test all leaves and generate an html test report.  You should get all leaves passing (based on latest {\tt master} branch in Github.
+      \item open the html test report in your browser ({\tt ctl+O})
+      \item Save your html test report as a {\tt pdf} and append it to your homework.
+   \end{enumerate}
+
+\end{enumerate}
+ 
+\subsection{Velocities and Jacobian}
+\begin{enumerate}
+  \item Download the template python file {\tt hw8p2\_W18\_template.py}, you will be editing it to work with the Puma robot symbolically. 
+  Rename it to {\tt hw8p2\_W18\_[YOUR LAST NAME].py}
+
+  \item go into {\tt ikbtbasics/kin\_cl.py} and familiarize yourself with the  class {\tt mechanism:} and the {\tt forward\_kinematics()}
+  method. 
+  \item add code to your template file for the following output for the Puma in symbolic form.   Create compact output using the 
+  {\tt notation\_squeeze()} function.
+  \begin{enumerate}
+    \item The Forward Kinematic equations:  (${^0_6T}$ in symbolic form).
+    \item $^3\omega_3$ (still pretty simple for only the first 3 joints!)
+    \item $^6\omega_6$ and $^6V_6$
+    \item Print the following elements of the manipulator Jacobian matrix
+    \begin{itemize}
+        \item $J_{3,1}$
+        \item $J_{1,3}$
+        \item $J_{3,3}$ {\bf NOTE: } remember the element indices are $0 \to (N-1)$ in python! 
+    \end{itemize}
+  \end{enumerate}
+\end{enumerate}
+\begin{solution}
+
+\begin{verbatim}
+m = kc.mechanism(dh, params, vv)
+m.pvals = pvals  # store numerical values of parameters
+m.forward_kinematics()
+print "Completed Forward Kinematics"
+print m.T_06
+
+print '\n\n\n\n'
+sp.pprint(notation_squeeze(m.T_06))
+
+print ' w66'
+sp.pprint(notation_squeeze(m.w_66))
+print '-------------'
+
+print ' v66'
+sp.pprint(notation_squeeze(m.v_66)) 
+ 
+
+print '\n\nManipulator Jacobian Matrix: '+robot
+
+sp.pprint(notation_squeeze(ManipJacobian_S(m.v_55, m.w_55, [qd_1, qd_2,qd_3,qd_4,qd_5])))
+
+------------------- output produced  -------------------------------
+\end{verbatim}
+
+\includegraphics[width=5.5in]{fk_textoutput.png}\\
+\includegraphics[width=5.5in]{fk_textoutput2.png}
+
+Jacobian: (here it is using the {\tt sp.latex()} print formating:
+\[
+\left[\begin{matrix}- a_{2} c_{2} c_{5} s_{4} - a_{3} c_{23} c_{5} s_{4} - c_{23} c_{4} c_{5} d_{3} + c_{5} d_{4} s_{23} s_{4} - d_{3} s_{23} s_{5} & - a_{2} c_{3} s_{5} + a_{2} c_{4} c_{5} s_{3} - a_{3} s_{5} - c_{4} c_{5} d_{4} & - a_{3} s_{5} - c_{4} c_{5} d_{4} & 0 & 0\\a_{2} c_{2} s_{4} s_{5} + a_{3} c_{23} s_{4} s_{5} + c_{23} c_{4} d_{3} s_{5} - c_{5} d_{3} s_{23} - d_{4} s_{23} s_{4} s_{5} & - a_{2} c_{3} c_{5} - a_{2} c_{4} s_{3} s_{5} - a_{3} c_{5} + c_{4} d_{4} s_{5} & - a_{3} c_{5} + c_{4} d_{4} s_{5} & 0 & 0\\- a_{2} c_{2} c_{4} - a_{3} c_{23} c_{4} + c_{23} d_{3} s_{4} + c_{4} d_{4} s_{23} & - a_{2} s_{3} s_{4} + d_{4} s_{4} & d_{4} s_{4} & 0 & 0\\c_{23} s_{5} - c_{4} c_{5} s_{23} & - c_{5} s_{4} & - c_{5} s_{4} & - s_{5} & 0\\c_{23} c_{5} + c_{4} s_{23} s_{5} & s_{4} s_{5} & s_{4} s_{5} & - c_{5} & 0\\s_{23} s_{4} & - c_{4} & - c_{4} & 0 & 1\end{matrix}\right]
+\]
+\end{solution}
+
+
+\subsection{Inverse Kinematics}
+\includegraphics[width=3in]{SchienmanArm1969.jpg}
+
+\subsubsection{}
+Run the inverse kinematics for the Stanford (Scheinman) arm:
+
+{\tt > python ikSolver.py Stanford }
+
+Make sure it runs to completion.   Time the execution.  How long did it take on your computer?
+
+\begin{solution}
+
+3 min 38 sec.  (Intel Core i7)
+
+\end{solution}
+
+\subsubsection{Testing the IK solution(s)}
+The objective of this problem is to rigorously test the solution and the code generated by IKBT.   We will do it as follows:
+
+\includegraphics[width=5.5in]{Verification2.eps}
+\begin{enumerate}
+    \item Pick some random values for the joint variables (both rotary and prismatic)
+    \item Run them through the FK to get a ${^0_6T_d}$
+    \item Run the IK code on  ${^0_6T_d}$ giving $n$ solution vectors.
+    \item Is exactly one of the solutions equal to the initial random values?
+    \item for each solution vector (set of joint values) run that through FK again to get  ${^0_6T_i}$
+    \item \hspace{0.35in} Does ${^0_6T_i} = {^0_6T_d}$???  (it won't be {\bf exact} so subtract them and check biggest diff.)
+\end{enumerate}
+
+We are calling this a ``loop test" of inverse kinematics. 
+
+Specifically: 
+\begin{enumerate}
+    \item download {\tt hw8\_IK\_loop\_test\_template.py} and rename it {\tt hw8\_IK\_loop\_test\_Stan\_[LASTNAME].py}
+    \item Python code for the IKBT Stanford Arm solution is in {\tt IKBT/CodeGen/Python}  open that in your editor.
+    \item copy/paste the function body from the generated python file in {\tt IKBT/CodeGen/Python} to 
+    the appropriate section of  {\tt hw8\_IK\_loop\_test\_Stan\_[LASTNAME].py}.  Make sure no code is duplicated at the start 
+    or end of the block you pasted. 
+    \item Write code to generate the two tests above.
+    
+\end{enumerate}
+
+
+<*>
+\end{document}
+

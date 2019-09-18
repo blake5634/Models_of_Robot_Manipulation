@@ -1,0 +1,132 @@
+\documentclass{article}
+
+\usepackage{graphicx}
+\usepackage{graphpap}
+
+
+\usepackage{fancyhdr}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%
+%  Set Up Margins
+\input{templates/pagedim.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%         Page format Mods HERE
+%
+%Mod's to page size for this document
+\addtolength\textwidth{0cm}
+\addtolength\oddsidemargin{0cm}
+\addtolength\headsep{0cm}
+\addtolength\textheight{0cm}
+%\linespread{0.894}   % 0.894 = 6 lines per inch, 1 = "single",  1.6 = "double"
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% HEADER / FOOTER
+\pagestyle{fancy}
+%%%%%  Page header/footer fields for "NSF Style" proposal
+%%%%%  \chead will be changed with each section
+\lhead{\small\sc EE543}
+\rhead{}
+\chead{Problem Set 1}
+\lfoot{Hannaford, U. of Washington}
+\rfoot{\today}
+\cfoot{\thepage}
+%\renewcommand\headrulewidth{1pt}
+%\renewcommand\footrulewidth{1pt}
+
+\begin{document}
+
+%%%%** Section 1
+\section{Problem Set 1}
+
+\subsection{}
+Two frames are superimposed as shown below
+
+\includegraphics[width=1.5in]{00831.png}
+
+Give the rotation matrix, $^A_BR$
+
+
+\subsection{}
+Two frames, $A, B$ start out superimposed.
+
+1) Frame $B$ is rotated by $45^\circ$ around $Z_A$
+
+
+2) Frame $B$ is rotated by $90^\circ$ around $X_B$
+
+
+3) Frame $B$ is rotated by $30^\circ$ around $Y_B$
+
+Find $^A_BR$
+
+\subsection{}
+Two frames, $A, B$ start out superimposed.
+
+1) Frame $B$ is rotated by $23^\circ$ around $Y_B$
+
+
+2) Frame $B$ is rotated by $67^\circ$ around $Z_A$
+
+
+3) Frame $B$ is rotated by $16^\circ$ around $Y_B$
+
+Find $^A_BR$
+
+
+\subsection{}
+A car has the same attached frame as Example 2.6 in the notes.  Its initial orientation is level, with $X_0$ pointing North.
+
+1) It drives up a $30^\circ$ ramp.
+
+2) It turns left by $45^\circ$ (still on the ramp)
+
+3) It turns about $Z_0$ until it's compass reads straight West.
+
+
+Find $^0_3R$
+
+{\bf Warning - tough problem!}
+
+\subsection{}
+The car of Example 2.6
+
+1) Drives forward 10 meters
+
+2) turns left by $60^\circ$
+
+3) drives in reverse for 5m
+
+4) turns right $90^\circ$ and drives forward 6m
+
+5) goes down a ramp at $30^\circ$ angle for 3m
+
+Assume that when the car turns it does not displace at all (not true of real cars!).
+
+Find the 4x4 homogeneous transform $^0_5T$ whcih representes the final position and orientation
+
+\newpage
+\subsection{}
+An industrial robot must put individual chocolates in a box, $B$, which sits on table, $T$.   The box is located on a table with laser scanner, $S$. 
+
+\includegraphics[width=6.5in]{hw1_543_W13_p6a.png}
+
+The following relationships are known:
+
+\[
+{^O_GT}\quad{^O_WT}\quad{^T_WT}\quad{^T_ST}\quad{^S_BT}
+\]
+
+\subsubsection{}
+Draw the transform graph.
+
+\subsubsection{}
+Find ${^O_BT}$
+
+
+
+\end{document}
+

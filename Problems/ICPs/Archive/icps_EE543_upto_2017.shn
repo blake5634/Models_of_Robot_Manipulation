@@ -1,0 +1,1797 @@
+%     EE 543 ICPs -- modified  March 2013 for full 10 wks.
+%
+
+<nh>\documentclass{article}
+<*>
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{amsmath}
+
+\title{
+  \begin{tabular}{c}
+       EE543: In Class Problem Sets
+   \end{tabular}
+}
+\author{Blake Hannaford}
+<s>\institute{University of Washington}
+\date{\today}
+
+
+<*hn>
+\usepackage{fancyhdr}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%
+%  Set Up Margins
+\input{templates/pagedim.tex}
+%\input{~blake/templates/pagedim.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Correct top margin when using pdflatex
+%         (uncomment for pdflatex)
+%\addtolength\topmargin{-0.5in}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%         Page format Mods HERE
+%
+%Mod's to page size for this document
+\addtolength\textwidth{0cm}
+\addtolength\oddsidemargin{0cm}
+\addtolength\headsep{0cm}
+\addtolength\textheight{0cm}
+%\linespread{0.894}   % 0.894 = 6 lines per inch, 1 = "single",  1.6 = "double"
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% HEADER / FOOTER
+\pagestyle{fancy}
+
+
+
+\linespread{1.0}
+
+<*>
+\begin{document}
+%
+% \newcommand\bmat{\begin{bmatrix}}
+% \newcommand\emat{  \end{bmatrix}}
+
+<hn>\maketitle
+
+<n>\begin{center}
+<n> {\Large \tt SOLUTIONS}
+<n>\end{center}
+
+
+
+
+<*>
+
+%%%%** Section 1 
+<hn>\newpage \section{Spatial Relationships and Rotations}
+
+%%%%** Section 1.1
+\subsection{}
+Give the rotation matrix which describes a rotation about the Y-axis by $60^\circ$.
+
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:
+
+\[
+R = \begin{bmatrix} 0.5 & 0 &  .866\\
+                    0   & 1 &    0 \\
+                    -.866& 0 & .5   \end{bmatrix}
+\]
+}
+<*>
+
+
+%%%%** Section 1.2
+<hn>\subsection{}\label{2Dframe}
+
+A frame $F_0$ exists in the 2D plane.  A point $P$ is located such that
+\[
+^0P = [4, 1.5]^T
+\]
+A second frame, $F_1$ is displaced so that its origin is $[5,1]^T$ in Frame 0. Find $^1P$, the representation of $P$ in frame 1.
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:
+
+\includegraphics[width=5.5in]{icp1_1ans.png}
+}
+<*>
+
+
+%%%%** Section 1.3
+\subsection{}
+
+ Continuing the situation of ICP \ref{2Dframe}, a third frame, $F_2$, has origin $[5,1]^T$ in Frame 0, and is rotated clockwise relative to  Frame 0 (but without changing the origin) by $135^{\circ}$.  What is $^2P$?
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:
+
+% \includegraphics[width=4.5in]{icp1_2ans.png}
+
+\includegraphics[width=3.0in]{00899.png}
+
+\[
+P_{2a} = P_0-[5,1]^T = P_1 = [-1,0.5]^T
+\]
+
+\[
+{^1_2R} = \bmat \cos(-135) & -\sin(-135) & 0\\\sin(-135) & \cos(-135) & 0 \\ 0 & 0 & 1\emat
+\]
+\[
+^2P = {^1_2R}^T\; ^1P = \bmat -.707 & -.707 & 0\\.707 & -.707 & 0 \\ 0& 0& 1\emat \bmat -1\\.5\\0 \emat
+\]
+\[
+ = \bmat 0.354 \\ -1.06 \\ 0 \emat
+\]
+
+}
+<*>
+
+
+
+%%%%** Section 1.4
+\subsection{}
+
+Frames A and B are initially superimposed.
+\begin{itemize}
+	\item Frame B is then rotated by $30^{\circ}$ about $x_A$.
+	\item Frame B is then rotated by $60^{\circ}$ about $y_B$.
+\end{itemize}
+
+A) What is $^A_BR$?
+
+
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:
+
+\includegraphics[width=4.5in]{icp1_3ans.png}
+}
+<*>
+
+
+B) If $^BP = [17, -10, 3]^T$, what is $^AP$?
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:
+
+\includegraphics[width=5.5in]{icp1_4ans.png}
+}
+<*>
+
+
+%
+%
+% %%%%** Section 1.4
+% \subsection{}
+%
+% Frames A and B are initially superimposed.
+% \begin{itemize}
+% 	\item Frame B is then rotated by $\theta_1$ about $z_A$.
+% 	\item Frame B is then rotated by $\theta_2$ about $y_A$.
+% 	\item Frame B is then rotated by $\theta_3$ about $x_B$.
+% \end{itemize}
+%
+% What is $^A_BR$ after these rotations?
+%
+%
+% <*n>
+% \vspace{0.1in}{\tt SOLUTION:
+%
+% \includegraphics[width=5.5in]{icp1_5ans.png}
+% }
+
+
+
+<*>
+%%%%** Section 1.5
+\subsection{}\label{FramesP1}
+
+\includegraphics[width=12.5cm]{00346.png}
+
+With reference to the frames illustrated above, consider the following Facts:
+<*>
+
+
+
+\begin{itemize}
+	\item Origin of $F_1$ expressed in $F_0$ is \{5,5,0\}
+	\item Origin of $F_2$ expressed in $F_0$ is \{7,1,0\}
+	\item $F_1$ is rotated by $30^{\circ}$ around $Z_0$
+	\item $F_2$ is rotated by $20^{\circ}$ around $Y_1$
+	\item Both rotations are positive in the right hand sense.
+\end{itemize}
+
+Find the origin of $F_1$ expressed in $F_2$
+
+
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:
+
+\[
+{^0P_1} = [5 \quad 5\quad 0]^T
+\]
+
+\[
+{^0P_2} = [7 \quad 1\quad 0]^T
+\]
+
+\[
+\Delta {^0P} = {^0P_1}-{^0P_2} = [-2\quad4\quad 0]^T
+\]
+
+\[
+{^0_2R} = {^0_1R}{^1_2R} = rot(\hat{z},30^\circ)rot(\hat{y},20^\circ)
+\]
+
+\[
+{^2_0R} = \left[ {^0_2R} \right ]^T
+\]
+
+\[
+{^2_0R} = \begin{bmatrix}0.814 & 0.470 & -.342 \\
+                         -0.5 & .866 &  0    \\
+                         0.296 & 0.171 & 0.937\end{bmatrix}
+\]
+(Scilab)
+
+\[
+{^2P_1} = {^2_0R}\Delta {^0P}  = \left[ {^0_2R} \right ]^T [-2 \quad 4 \quad 0]^T
+\]
+
+\[
+{^2P_1} =\begin{bmatrix}0.252 \\ 4.464 \\ 0.092\end{bmatrix}
+\]
+
+}
+<*>
+
+%
+%
+% %%%%** Section 2.1
+% \subsection{}
+% Find the rotation matrix which represents Roll= $10^\circ$, Pitch = $5^\circ$, and Yaw = $3^\circ$.   Evaluate the numerical result
+%
+% <*n>
+% \vspace{0.1in}{\tt SOLUTION:
+% \begin{verbatim}
+% Using a custom scilab function based on section 2.5.1:
+%
+% -->rrpy(10,5,3)
+%  ans  =
+%
+%     0.9948294  - 0.0364272    0.0948021
+%     0.0521368    0.9842502  - 0.1689181
+%   - 0.0871557    0.1729874    0.9810603
+%
+% \end{verbatim}
+% }
+% <*>
+
+%%%%** Section 1.6
+\subsection{}
+Work out a symbolic expression for the rotation matrix which describes the orientation in terms of three ZYX Euler angles,
+\[
+\theta_1,\;\theta_2,\; \theta_3
+\]
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:
+
+(with reference to section 2.5.2)
+
+\[
+R_{ZYX} = rot(\hat{z}, \theta_1)rot(\hat{y}, \theta_2)rot(\hat{x}, \theta_3)
+= \begin{bmatrix}
+c_1c_2     & c_1s_2s_3-s_1c_3       &  c_1s_2c_3+s_1s_3  \\
+s_1c_2     & s_1s_2s_3+c_1c_3       &  s_1s_2c_3-c_1s_3  \\
+-s_2       & c_2s_3                 &  c_2c_3            \\
+\end{bmatrix}
+\]
+}
+<*>
+
+%%%%** Section 1.7
+\subsection{}
+Numerically evaluate the rotation matrix for a rotation about the vector
+\[
+K_1 = [5\quad 4\quad 4]^T
+\]
+by an angle, $\theta = 45^\circ$.    Before plugging in, {\it normalize} $K_1$ so that it has unit magnitude.
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:
+Normalizing,
+
+\[
+K_2 = \frac{K_1}{\sqrt{K_{1X}^2 + K_{1Y}^2+K_{1Z}^2}} = [.662 \quad .529 \quad .529]^T
+\]
+Using section 2.6 (notes):
+\[
+R(K_2, 45^\circ) =
+\]
+\begin{verbatim}
+                                            0.836   -0.272   0.477
+                                            0.477    0.789  -0.386
+                                          - 0.272    0.551   0.789
+\end{verbatim}
+}
+<*>
+
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    2
+%%%%** Section 2 
+\section{Positioning, Homogeneous Transform, Transform Graph}
+
+%%%%** Section 2.1
+\subsection{}\label{rotationcomp}
+
+The following series of rotations is performed, each in the current (local) frame:
+
+\begin{enumerate}
+  \item Rotate around $Z$ by $42^\circ$
+  \item Rotate about the axis $[ 3.2\quad-2.7\quad4.4]^T$ by $135^\circ$.
+  \item Rotate about $X$ by $1.6^\circ$
+\end{enumerate}
+
+Using your numerical functions in *lab, compute the rotation matrix representing the state after all the rotations.
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:}\begin{verbatim}
+R1 = rotz(42);
+R2 = equiv([3.2, -2.7, 4.4]',135);
+R3 = rotx(1.6);
+
+R1*R2*R3
+ ans  =
+
+  - 0.2485652  - 0.4059893    0.8794248
+  - 0.0725190  - 0.8975714  - 0.4348639
+    0.9658966  - 0.1718671    0.1936631
+
+\end{verbatim}
+<*>
+
+%%%%** Section 2.2
+\subsection{}
+Repeat problem \ref{rotationcomp} with quaternions.  Do you get the same answer?
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:}
+\begin{verbatim}
+
+q1 = quaternion(42,  [0,0,1]');
+q2 = quaternion(135,[3.2,-2.7,4.4]');
+q3 = quaternion(1.6,[1,0,0]');
+q4 = qtimes(q1,qtimes(q2,q3))
+
+-->q4
+ q4  =
+
+    0.1090028
+    0.603188
+  - 0.1983247
+    0.7648202
+
+R = quat2rot2(q4);
+
+-->R
+ R  =
+
+  - 0.2485652  - 0.4059893    0.8794248
+  - 0.0725190  - 0.8975714  - 0.4348639
+    0.9658966  - 0.1718671    0.1936631
+
+The methods agree!!
+\end{verbatim}
+<*>
+
+
+%%%%** Section 2.3
+\subsection{}
+
+
+Find a homogeneous 4x4 transform which represents the brick's position and orientation on the table, $^T_BT$.
+
+\includegraphics[width=4.5in]{00481.png}
+
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION: }
+
+Column 4 is simple:   $\bmat 6.5 & 2.0 & 0 & 1\emat^T.$
+
+The rotation is
+\[
+rot(\hat{z},30^\circ) = \bmat .866&-.5&0\\.5&.866&0\\0&0&1\emat
+\]
+Combining:
+\[
+{^A_BT} = \bmat
+.866&-.5&0&6.5\\
+.5&.866&0&2.0\\
+0&0&1&0\\
+0&0&0&1
+\emat
+\]
+
+
+
+<*>
+
+
+
+%%%%** Section 2.4
+\subsection{}
+
+The following series of transformations is performed,  each in the current frame:
+
+\begin{enumerate}
+  \item Translate along $X$ by 4.2m
+  \item Rotate around $Z$ by $42^\circ$
+  \item Rotate about the axis $[ 3.2\quad-2.7\quad4.4]^T$ by $135^\circ$.
+  \item Translate along axis $[-4\quad14.7\quad0.27]^T$ by -16.2.
+  \item Rotate about $X$ by $1.6^\circ$
+\end{enumerate}
+
+Using your numerical functions in *lab, compute the rotation matrix representing the state after all the rotations.
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:}
+\begin{verbatim}
+T1 = trans4([1,0,0]',4.2);
+T2 = rotz4(42);
+T3 = rot4(equiv([3.2,-2.7,4.4]', 135));
+T4 = trans4([-4, 14.7, 0.27]', -16.2);
+T5 = rotx4(1.6);
+
+-->
+
+-->T1*T2*T3*T4*T5
+ ans  =
+
+  - 0.2485652  - 0.4059893    0.8794248    9.6203685
+  - 0.0725190  - 0.8975714  - 0.4348639    13.656625
+    0.9658966  - 0.1718671    0.1936631    6.8232103
+    0.           0.           0.           1.
+
+\end{verbatim}
+<*>
+
+
+
+%%%%** Section 2.5
+\subsection{}
+
+For the frames shown in problem \ref{FramesP1}, and using the facts in that problem, give $^0_1T$, $^1_2T$, and $^0_2T$:
+
+\vspace{0.15in}
+\noindent
+{\bf Hint:}  Think before you compute!  you can save time.
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION: }
+
+\[
+^0_2T = \; ^0_1T \;^1_2T
+\]
+
+The origin of $F_1$ is already given and $^0_1R=\mathrm{Rot}(\hat{z},30^{\circ})$ so
+
+\[
+^0_1T = \left [
+\begin{array}{cccc}
+c30 & -s30 & 0 & 5 \\
+s30 & c30 & 0 & 5 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{array}
+\right ]
+\]
+
+
+\[
+^0_1T =
+\left [
+\begin{array}{cc}
+	\left[
+	\begin{array}{ccc}
+	 & &  \\
+	 & \mathrm{Rot}(\hat{z}, 30^{\circ}) &  \\
+	 & & \\
+	\end{array}
+	\right]
+ &
+	\left [
+	\begin{array}{c}
+	5 \\ 5 \\ 0
+	\end{array}
+	\right ]
+\\
+\begin{array}{ccc}
+0 & 0 & 0
+\end{array}
+& 1
+\end{array}
+\right ]
+\]
+%
+
+What is the position of $F_2$ in $F_1$?   We have the following equation:
+\[
+^0_2P = \;^0_1P + \;^0_1R\;^1_2P
+\]
+the first three terms are known, but $^1_2P$ is unknown.  Solving:
+\[
+^1_2P = (\;^0_1R)^T(^0_2P-\;^0_1P)
+\]
+\[
+^1_2P = \mathrm{Rot}(\hat{z},30^{\circ})^T\left [
+	  \begin{array}{c}
+	    2 \\ -4 \\ 0
+	  \end{array}
+	\right ]
+=
+	\left [
+	  \begin{array}{c}
+	    -0.268 \\ -4.464 \\ 0
+	  \end{array}
+	\right ]
+\]
+\[
+^1_2T =
+\left [
+\begin{array}{cc}
+	\left[
+	\begin{array}{ccc}
+	 & &  \\
+	 & \mathrm{Rot}(\hat{y}, 20^{\circ}) &  \\
+	 & & \\
+	\end{array}
+	\right]
+ & \left [
+ \mathrm{Rot}(\hat{z},30^{\circ})^T
+	\left [
+	\begin{array}{c}
+	2 \\ -4 \\ 0
+	\end{array}
+	\right ]
+ \right ]
+\\
+\begin{array}{ccc}
+0 & 0 & 0
+\end{array}
+& 1
+\end{array}
+\right ]
+\]
+
+Similarly, for $^0_2T$,
+\[
+^0_2R = \;^0_1R\;^1_2R
+\]
+For position, we know the 4th col already from the given facts and do not need to compute it!
+\[
+^0_2T = \left [
+\begin{array}{cccc}
+c30c20 & -s30 & c30s20 & 7 \\
+s30c20 &  c30 & s30s20 & 1 \\
+-s20    &    0 &   c20   & 0 \\
+0 & 0 & 0 & 1
+\end{array}
+\right ]
+\]
+
+\[
+^0_2T = \left [
+\begin{array}{cccc}
+.813 & -.5   & .296  & 7 \\
+.47  &  .866 & .171  & 1 \\
+-.342 &   0   & .940  & 0 \\
+0 & 0 & 0 & 1
+\end{array}
+\right ]
+\]
+If this were an exam problem, working out the numerical values is not required for full credit unless stated.
+
+
+
+<*>
+%%%%** Section 2.6
+\subsection{}
+
+Book Retriever
+
+A camera, mounted on the robot hand, locates a book on a shelf.  The robot will move to the book and pick it up.
+
+
+\begin{tabular}{cp{2.0in}}
+\includegraphics[width=3.5in]{00482.png}
+&
+\vspace{-1.5in}
+The following relationships are known:
+$
+{^W_BT}, {^C_BT}, {^C_GT}, {^C_{Bk}T}
+$
+Draw the transform graph and find $^W_{Bk}T$.
+\end{tabular}
+
+
+<*n>\vspace{0.1in}{\tt SOLUTION: }
+
+\includegraphics[width=92mm]{00882.png}
+
+\[
+{^W_{Bk}T} = {^W_BT}\;{(^C_BT)^{-1}}\;{^C_{Bk}T}
+\]
+
+
+<*>
+
+
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    3
+%%%%** Section 3 
+\section{Forward Manipulator Kinematics I:  Link Frame Assignmemnt}
+
+%%%%** Section 3.1
+\subsection{}
+
+For a single link manipulator:
+
+\includegraphics[width=3.5in]{H004.png}
+
+If the base is located at $x_0 = 3, y_0=0$, and the arm length is $l$, find the position of the end effector in frame 0.
+
+
+<*n>
+\vspace{0.1in}
+{\tt SOLUTION:}
+
+This is a simple plane geometry problem.  Relative to the robot base, the EE position is
+\[
+X = l\cos(\theta) \qquad Y = l\sin(\theta)
+\]
+However, adding in the offset from frame 0 gives the final answer,
+\[
+X = 3.0 + l\cos(\theta) \qquad Y = 0.0 + l\sin(\theta)
+\]
+<*>
+
+
+
+
+%%%%** Section 3.2
+\subsection{}\label{planarFkin2}
+
+Assign link frames to the following planar robot.
+
+
+<h>\includegraphics[width=100mm]{00874.png}
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:}
+
+\includegraphics[width=100mm]{00884.png}
+
+<*>
+
+%%%%** Section 3.3
+\subsection{}\label{stickFkin3}
+
+
+Assign link frames to the following virtual manipulator represented as a stick figure.
+
+\includegraphics[width=82mm]{00875.png}
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:}
+
+
+\includegraphics[width=82mm]{00880.png}
+
+<*>
+%%%%** Section 3.4
+\subsection{}
+Assign link frames to the following manipulator design (Y. Sosnovskaya, EE543 W16)
+
+<h>\includegraphics[width=100mm]{sosnovskayaW16.png}
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:}
+
+\includegraphics[width=100mm]{sosnovskayaW16_soln.png}
+
+<*>
+
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    4
+%%%%** Section 4 
+\section{Forward Manipulator Kinematics II: DH Parameters and Link Transform }
+
+
+
+%%%%** Section 4.1
+\subsection{}
+
+
+Find the DH parameters of the robot of ICP \ref{planarFkin2}.
+
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:}
+
+\begin{tabular}{ccccc}
+N	&	$\alpha_{N-1}$	&	$a_{N-1}$	&	$d_N$	&	$\theta_N$ \\
+\hline
+1	&	$0$		&	$0$		&	$0$	&	$\theta_1$ \\
+2	&	0		&	$l_1$		&	$0$	&	$\theta_2$ \\
+3	&	$0	$	&	$l_2$		&	0	& 	$\theta_3$ \\
+4	&	$0	$	&	$l_3$		&	0	& 	$\theta_4$ \\
+\end{tabular}
+
+<*>
+
+
+%%%%** Section 4.2
+\subsection{}
+
+
+Find the DH parameters of the robot of ICP \ref{stickFkin3}.
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:}
+
+\begin{tabular}{ccccc}
+N	&	$\alpha_{N-1}$	&	$a_{N-1}$	&	$d_N$	&	$\theta_N$ \\
+\hline
+1	&	$0$		&	$0$		&	$h$	&	$\theta_1$ \\
+2	&	$\pi/2$		&	$0$		&	$l_1$	&	$\theta_2$ \\
+3	&	$0$		&	$l_2$		&	$-l_3$	& 	$\theta_3$ \\
+4	&	$0	$	&	$l_4$		&	$0$	& 	$0$ \\
+\end{tabular}
+
+<*>
+
+
+%%%%** Section 4.3
+\subsection{}
+
+
+
+Here is part of a robot manipulator.  Assign link frames and derive the Denavit Hartenberg parameters for link 5.  If any parameters are unlabeled
+in this drawing, identify them.  Assume axis 6 is rotated by $90^\circ$ from axis 5 around the common normal.
+
+\includegraphics[width=3.5in]{H005.png}
+
+
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:}
+
+
+\includegraphics[width=90mm]{00879.png}
+
+\begin{tabular}{ccccc}
+N	&	$\alpha_{N-1}$	&	$a_{N-1}$	&	$d_N$	&	$\theta_N$ \\
+\hline
+5	&	$?$		&	$?$		&	$2$	& 	$\theta_5$ \\
+6	&	$\pi/2$		&	$l_5$		&	$-l6$	& 	$\theta_6$ \\
+\end{tabular}
+
+<*>
+
+
+%%%%** Section 4.4
+\subsection{}
+
+Assign link frames and find the DH parameters for the following  robot.
+
+
+<h>\includegraphics[width=4.25in]{H008.png}
+<n>\includegraphics[width=4.25in]{00883.png}
+
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:}
+
+\begin{tabular}{ccccc}
+N	&	$\alpha_{N-1}$	&	$a_{N-1}$	&	$d_N$	&	$\theta_N$ \\
+\hline
+1	&	$0$		&	$0$		&	$h$	&	$\theta_1$ \\
+2	&	$\pi/2$		&	$0$		&	$0$	&	$\theta_2$ \\
+3	&	$0$		&	$l_1$		&	0	& 	$\theta_3$ \\
+4	&	$0$		&	$l_2$		&	0	& 	$\theta_4$ \\
+5	&	$\pi/2$		&	$0$		&	$l_3$	& 	$\theta_5$ \\
+\end{tabular}
+
+<*>
+
+%%%%** Section 4.5
+\subsection{}
+
+Given the following DH parameters, compute the forward kinematic equations:
+
+\begin{tabular}{ccccc}
+N	&	$\alpha_{N-1}$	&	$a_{N-1}$	&	$d_N$	&	$\theta_N$ \\
+\hline
+1	&	$\pi/2$		&	0		&	$l_1$	&	$\theta_1$ \\
+2	&	0		&	$l_2$		&	$d_2$	&	0	   \\
+3	&	$-\pi/2$	&	0		&	0	& 	$\theta_3$ \\
+\end{tabular}
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:}
+
+The three link transforms are:
+\[
+{^0_1T} = \bmat
+c_1&-s_1&0&0\\
+0&0&-1&-l_1\\
+s_1&c_1&0&0\\
+0&0&0&1
+\emat
+\]
+\[
+{^1_2T} = \bmat
+1&0&0&l_2\\
+0&1&0&0\\
+0&0&1&d_2\\
+0&0&0&1
+\emat
+\]
+\[
+{^2_3T} = \bmat
+c_3&-s_3&0&0\\
+0&0&1&0\\
+-s_3&-c_3&0&0\\
+0&0&0&1
+\emat
+\]
+
+multiplying them together gives
+\[
+{^0_3T} = \bmat
+c_1c_3	& -c_1s_3	& -s_1	& c_1l_2 \\
+s_3	&  c_3 		& 0	& -(l_1+d_2)\\
+s_1c_3  &  -s_1s_3	& c_1	& s_1l_2 \\
+0&0&0&1
+\emat
+\]
+
+<*>
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    5
+\newpage
+%%%%** Section 5 
+\section{Inverse Manipulator Kinematics I: Workspace and Plane Geometry}
+
+%%%%** Section 5.1
+\subsection{}
+
+
+Plot the workspace of the 2-link planar manipulator for $l_1=5, l_2=3$ for the joint motion ranges:
+\[
+45^\circ < \theta_1 < 135^\circ  \qquad  -45^\circ < \theta_2 < 180^\circ
+\]
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:
+
+\includegraphics[width=125mm]{00860.png}
+
+}
+
+
+
+
+<*>
+
+%%%%** Section 5.2
+\subsection{}
+
+
+Plot the workspace of the 2-link planar manipulator for $l_1=2.5, l_2=3.5$ for the joint motion ranges:
+\[
+0^\circ < \theta_1 < 135^\circ  \qquad -90^\circ < \theta_2 < 0^\circ
+\]
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:
+
+\includegraphics[width=125mm]{00859.png}
+
+}
+
+
+
+<*>
+%%%%** Section 5.3
+\subsection{}
+
+
+Solve the inverse kinematics of the following planar robot.  Find all solutions:
+
+\includegraphics[width=3.0in]{00491.png}
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:}
+
+\includegraphics[width=127mm]{00881.png}
+
+<*>
+
+\newpage
+%%%%** Section 5.4
+\subsection{}
+
+
+Geometric Method / Spatial Manipulator
+
+
+\begin{center}
+  \includegraphics[width=1.9in]{00351a.png}
+  \includegraphics[width=1.9in]{00351b.png}
+
+  \includegraphics[width=1.9in]{00352.png}
+
+{Inverse Kinematics Arm}
+\end{center}
+
+Please find all solutions for this arm to reach the point ${X,Y,Z}$.    Geometric method is suggested.
+
+<n>\vspace{0.2in}
+<*n>
+\vspace{0.1in}{\tt SOLUTION:
+
+
+\scalebox{.75}{
+  \includegraphics{00353.png}  \hspace{0.25in}
+  \includegraphics{00354.png}
+   }
+
+\vspace{0.3in}
+Start with the top view:
+\[
+\theta_1 = \mathrm{atan2}(Y,X) + n\pi
+\]
+Now, referring to the side view,
+let
+\[
+r = \sqrt{X^2+Y^2}   \qquad \mathrm{and} \qquad r' = r \pm L_2
+\]
+\[
+d_3 = \pm\sqrt{(r')^2+(Z-L_1)^2}
+\]
+\[
+\theta_2 = \mathrm{atan2}((Z-L_1), r') +n\pi
+\]
+There are 4 solutions since for each of the two $r'/\theta_1$ solutions shown in the side view, there are two $d_3/\theta_2$ solutions.  (Consider the case of  $\theta_2+\pi, d_3 < 0$).
+}
+
+<*>
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    6
+
+\newpage
+%%%%** Section 6 
+\section{Inverse Manipulator Kinematics II: Spatial Examples and Algebraic Method}
+
+
+
+%%%%** Section 6.1
+\subsection{}
+
+The rotation matrix corresponding to rotation about axis $K$, by angle $\theta$ is
+\[
+R_{K\theta} =
+\begin{bmatrix}
+K_X^2v\theta+ c\theta		& K_XK_Yv\theta-K_Zs\theta		&K_XK_Zv\theta+K_Ys\theta \\
+K_XK_Yv\theta+K_Zs\theta	& K_Y^2v\theta+c\theta			&K_YK_Zv\theta-K_Xs\theta \\
+K_XK_Zv\theta-K_Ys\theta	& K_YK_Zv\theta+K_Xs\theta		&K_Z^2v\theta+c\theta
+\end{bmatrix}
+\]
+where
+\[
+v\theta = 1-\cos(\theta) \qquad c\theta = \cos(\theta) \qquad s\theta=\sin(\theta)
+\]
+Assume $|K| =1$.
+
+If you are given a rotation matrix:
+\[
+R_D =
+\begin{bmatrix}
+r_{11}	& r_{12}&r_{13} \\
+r_{21}&r_{22}&r_{23}\\
+r_{31}&r_{32}&r_{33}
+\end{bmatrix}
+\]
+
+Solve for $K, \theta$ in terms of the $r_{ij}$.
+
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:
+\[
+r_{11}+r_{22}+r_{33} = (K_X^2+K_Y^2+K_Z^2)(1-c\theta)+3c\theta
+\]
+\[
+\theta = \cos^{-1}\left ( \frac{r_{11}+r_{22}+r_{33}-1}{2} \right )
+\]
+
+\[
+r_{11} = K_X^2(1-c\theta)+c\theta
+\]
+etc.
+
+\[
+K_X = \pm\sqrt{\frac{r_{11}-c\theta}{1-c\theta}}
+\]
+
+\[
+K_Y = \pm\sqrt{\frac{r_{22}-c\theta}{1-c\theta}}
+\]
+
+\[
+K_Z = \pm\sqrt{\frac{r_{33}-c\theta}{1-c\theta}}
+\]
+
+Comment on choice of sign for each solution.
+}
+<*>
+
+
+%%%%** Section 6.2
+\subsection{}
+Compute the inverse of the 4x4 transform:
+\[
+^1_2T =
+\begin{bmatrix}
+\begin{bmatrix}  1 & 0  &  0 \\ 0  & 0 & -1 \\ 0  & 1 & 0\\ \end{bmatrix}      &
+ \begin{bmatrix} 3 \\ 10 \\ -7 \end{bmatrix}            \\
+ 0 \quad 0 \quad 0      &   1
+\end{bmatrix}
+\]
+
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:}
+
+\[
+R^TP = \bmat 1&0&0 \\ 0&0&1\\ 0&-1&0 \emat
+\bmat 3\\10\\-7 \emat
+=
+\bmat 3\\-7\\-10 \emat
+\]
+Giving
+\[
+{^A_BT^{-1}} = {^B_AT} =
+\bmat
+1&0&0&-3 \\ 0&0&1&7\\ 0&-1&0&10 \\ 0&0&0&1
+\emat
+\]
+
+<*>
+%%%%** Section 6.3
+\subsection{}
+
+A manipulator has the following forward kinematic equations:  (Peter Braathen)
+
+
+\[
+^0_4T =
+\begin{bmatrix}
+\begin{bmatrix}  c_4c_1s_{23}-s_4s_1 &  -s_4c_1s_{23} -s_1c_4 &  c_1c_{23} \\
+                 c_4s_1s_{23}-s_4c_1 &  -s_4s_1s_{23} -c_1c_4 &  s_1c_{23} \\
+                 -c_4c_{23}          &  s_4c_{23}             &  s_{23}      \\
+                 \end{bmatrix}      &
+\begin{bmatrix} c_1c_2a_2-s_1d_2 \\ s_1c_2a_2+c_1d_2 \\ s_2a_2+d_1 \end{bmatrix}            \\
+ 0 \quad 0 \quad 0      &   1
+\end{bmatrix}
+\]
+
+
+solve for $\theta_1, \theta_2, \theta_3, \theta_4$.
+
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:}
+
+\noindent
+$\theta_1$:
+
+\[
+r_{23} = s_1c_{23}, \quad r_{13}=c_1c_{23}
+\]
+\[
+\theta_1 = \mathrm{atan2}(r_{23},r_{13})
+\]
+
+Two solutions for $\theta_2+\theta_3 \neq 90^\circ, 270^\circ$ because $c_{23}$ can have either sign.
+
+
+\noindent
+$\theta_2$:
+
+\[
+s_2 = \frac{r_{34}-d_1}{a_2}
+\]
+\[
+\theta_2  = \mathrm{arcsin}(\frac{r_{34}-d_1}{a_2})
+\]
+
+Two solutions based on arcsin.
+
+
+
+\noindent
+$\theta_3$:
+\[
+r_{33} = s_{23}
+\]
+
+\[
+\theta_3 = \mathrm{arcsin}(r_{33})-\theta_2
+\]
+
+Two solutions based on arcsin (independent of $\theta_2$).
+
+\noindent
+$\theta_4$:
+
+\[
+s_4 = r_{32}/c_{23} \qquad  c_4 = -r_{31}/c_{23}
+\]
+\[
+\theta_4 = \mathrm{atan2}( r_{32}/c_{23},  -r_{31}/c_{23})
+\]
+Two solutions based on sign of $c_{23}$.
+
+
+There are thus a total of 4 solutions based on 2 solutions for $\theta_1$ and two solutions for $\theta_2$.  Choice of $\theta_4$ solution is determined by choices of $\theta_2$ and $\theta_3$.
+
+
+
+
+<*>
+%%%%** Section 6.4
+\subsection{}
+
+(Solution courtesy of Kevin Huang, EE543, Sp2013.  Used with permission.)
+
+Forward Kinematic Equations:
+
+ \[
+ {^0_6T_D} =
+ \begin{bmatrix}
+ r_{11}&r_{12}&r_{13}&P_X \\
+ r_{21}&r_{22}&r_{23}&P_Y \\
+ r_{31}&r_{32}&r_{33}&P_Z \\
+ 0&0&0&1
+ \end{bmatrix}
+ =
+ \begin{bmatrix}
+  c_5(s_1s_4+c_1c_3c_4)+c_1s_3s_5	& -s_5(s_1s_4+c_1c_3s_4)+c_1c_5s_3	\\
+ -c_5(c_1s_4-c_3c_4s_1)+s_1s_3s_5	&  s_5(c_1c_4-c_3c_4s_1)+c_5s_1s_3	\\
+ c_4c_5s_3-c_3s_5			& -c_3c_5-c_4s_3s_5			\\
+ 0					&	0
+ \end{bmatrix}
+ \]
+ (first two columns)
+ \[
+ \begin{bmatrix}
+ c_1c_3s_4-c_4s_1 			&  l_6(c_5(s_1s_4+c_1c_3c_4)+c_1s_3s_5)+l_4c_1s_3   	\\
+ s_1c_3s_4+c_4c_1			& -l_6(c_5(c_1s_4-c_3c_4s_1)-s_1s_3s_5)+l_4s_1s_3	\\
+ s_3s_4					& d_2+l_1-l_4c_3-l_6(c_3c_5-c_4c_5s_3)			\\
+ 0					& 1
+ \end{bmatrix}
+ \]
+ (last two columns)
+
+%%%%** Section 6.4.1 
+\subsubsection{}
+Solve for $\theta_1$
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:}
+
+\[
+P_X = l_6r_{11}+l_4c_1s_3 \qquad  P_Y = l_4s_1s_3+l_6r_{21}
+\]
+\[
+c_1s_3 = \frac{P_X-l_6r_{11}}{l_4} \qquad s_1s_3 = \frac{P_Y-l_6r_{21}}{l_4}
+\]
+\[
+\theta_1 = \mathrm{atan2}(P_Y-l_6r_{21}, P_X-l_6r_{11})
+\]
+Only if $\theta_3 \neq 0$.   Two solutions depending on sign of $\theta_3$.
+
+<*>
+%%%%** Section 6.4.2 
+\subsubsection{}
+Solve for $\theta_3$
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:}
+
+using
+\[
+r_{13} = c_1c_3s_4-c_4s_1  \quad r_{23} = c_1c_4+c_3s_1s_4
+\]
+we can multiply $r_{13}$ by $c_1$ and $r_{23}$ by $s_1$ to get
+
+\[
+c_1r_{13} = c_1^2c_3s_4-c_1c_4s_1  \quad s_1r_{23} = c_1c_4s_1+c_3s_1^2s_4
+\]
+and adding:
+\[
+c_1r_{13}+s_1r_{23} = (c_1^2+s_1^2)c_3s_4 = c_3s_4
+\]
+Since
+\[
+\mathrm{and}\quad r_{33} = s_3s_4
+\]
+We have
+\[
+\theta_3 = \mathrm{atan2}(s_3s_4, c_3s_4) = \mathrm{atan2}(r_{33},c_1r_{13}+s_1r_{23})
+\]
+For $\theta_4 \neq 0$.
+
+<*>
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    7
+\newpage
+%%%%** Section 7 
+\section{Velocities and Jacobian Matrix}
+
+%%%%** Section 7.1
+\subsection{ICP 7: Warm up}
+
+\includegraphics[width=4.0in]{7_1A.png}
+
+
+
+%%%%** Section 7.1.1 
+\subsubsection{} for $V_1=0$, find $^0\left(^0V2\right)$
+<*n>
+
+\begin{solution}
+\[
+^0\left(^0V2\right)= [7.07,7.07,0]'
+\]
+\end{solution}
+<*>
+
+
+
+%%%%** Section 7.1.2 
+\subsubsection{}  find $^1\left(^1V2\right)$
+<*n>
+
+\begin{solution}
+Note the axes of (1) are different than (0)
+\[
+^1\left(^1V2\right) = [7.07,0,7.07]'
+\]
+\end{solution}
+<*>
+
+
+
+%%%%** Section 7.1.3 
+\subsubsection{} Assume $^0\left(^0V_1\right)=[16,42,-10]'$, find $^0\left(^1V2\right)$
+<*n>
+
+\begin{solution}
+Since computation is in (1) we don't see the velocity of (1) so the assumption is irrelevant:
+\[
+^0\left(^1V2\right)=[7.07,7.07,0]'
+\]
+\end{solution}
+<*>
+
+
+
+%%%%** Section 7.1.4 
+\subsubsection{} Find $^0\left(^2V2\right)$
+<*n>
+
+\begin{solution}
+The velocity of the origin is always zero when computed in its own frame:
+\[
+^0\left(^2V2\right) = [0,0,0]'
+\]
+\end{solution}
+<*>
+
+
+
+
+%%%%** Section 7.2
+\subsection{} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\includegraphics[width=2.5in]{00852.png}
+
+A turntable is sliding down a ramp.  We have the following facts:
+
+\begin{itemize}
+   \item  The turntable has a base and a turning portion with  frames, $B$ and $T$ respectively (top view at top of figure).
+   \item The base slides down the ramp  with speed $v$.  The sliding velocity vector is in the $X_w,Z_w$ plane at $45^\circ$ downward.
+   \item $X_B$ points down the ramp in the direction of sliding.
+   \item The turntable rotates around $Z_T$ at $\omega$ rad/sec.
+   \item Point P lies on the $X_T$ axis at a distance $r$ from the $Z_T$ axis.
+   \item $Z_T$ is colinear with $Z_B$.
+\end{itemize}
+
+%%%%** Section 7.2.1 
+\subsubsection{}
+Find
+\[
+^T{(^TV_P)}
+\]
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:
+
+
+\[
+^T{(^TV_P)} = 0
+\]
+This is true in any frame because point $P$ is fixed in frame $T$
+}
+<*>
+
+%%%%** Section 7.2.2 
+\subsubsection{}
+Find
+\[
+^T{(^WV_P)}
+\]
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:
+Overall strategy:   Find base velocity $V_B$ and find velocity of point P on the turntable, $V_{PT}$, both in frame $W$ and add them together.
+
+\[
+^WV_P = {^WV_B} + {^WV_P}
+\]
+(though they are calculated in different frames they can be added if represented in same frame.)
+
+Let $\theta = \omega t$.
+\[
+{^T_WR} = {^T_BR}\;{^B_WR} =
+\begin{bmatrix}
+c\theta		& -s\theta	& 0 \\
+s\theta		& c\theta		& 0 \\
+0		& 0		& 1 \\
+\end{bmatrix}
+\begin{bmatrix}
+.707		& 0		& -.707 \\
+0		& 1		& 0     \\
+.707		& 0		& .707  \\
+\end{bmatrix}
+\]
+\[
+{^T_W}R =
+\begin{bmatrix}
+.707c\theta	& -s\theta	& -.707c\theta	\\
+.707s\theta	& c\theta	& -.707s\theta 	\\
+.707		& 0		& .707
+\end{bmatrix}
+\]
+
+By inspection we can see that
+
+\[
+^W(^WV_B) = \begin{bmatrix} .707v \\ 0 \\ -.707v \end{bmatrix}
+\qquad
+^T(^WV_{PT}) = \begin{bmatrix} 0 \\ r\omega \\ 0    \end{bmatrix}
+\]
+
+Adding together the two components of velocity:
+\[
+^T(^WV_P) = {^T_WR}\begin{bmatrix} .707v \\ 0 \\ -.707v \end{bmatrix} + \begin{bmatrix} 0 \\ r\omega \\ 0    \end{bmatrix}
+\]
+
+\[
+= \begin{bmatrix} vc\theta \\ vs\theta + r\omega \\ 0    \end{bmatrix}
+\]
+}
+
+
+<*>
+%%%%** Section 7.2.3 
+\subsubsection{}
+Find
+\[
+^W{(^WV_P)}
+\]
+
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:
+
+
+\[
+^W{(^WV_P)} = {^W_TR}\;^T(^WV_P) = {^T_WR^T}\;^T(^WV_P)
+\]
+\[
+= \begin{bmatrix}
+.707vc^2\theta+.707vs^2\theta + .707r\omega s\theta    \\
+-vs\theta c\theta + vs\theta c\theta+r\omega c\theta  \\
+-.707vc^2\theta-.707vs^2\theta-.707r\omega s\theta  \\
+\end{bmatrix} =
+\begin{bmatrix}
+.707 \left [ v + r\omega s\theta \right ] \\
+r\omega c\theta \\
+-.707 \left [ v + r\omega s\theta \right ] \\
+\end{bmatrix}
+\]
+
+
+
+}
+<*>
+
+
+
+%%%%** Section 7.3
+\subsection{}\label{HandVelocities}
+For a manipulator with the following DH parameters, compute by hand the  expressions for $^3\omega_3$ and $^3V_3$ in symbolic form using velocity propagation.
+Assume $^0V_0 = ^0\omega_0 = 0$.
+
+
+\begin{tabular}{ccccc}
+N	&	$\alpha_{N-1}$	&	$a_{N-1}$	&	$d_N$	&	$\theta_N$ \\
+\hline
+1	&	$ 90$		&	$0$		&	$l_1$	&	$\theta_1$ \\
+2	&	$-90$		&	$l_2$		&	$0$	&	$\theta_2$ \\
+3	&	$ 90$		&	$0$		&	$l_3$	& 	$\theta_3$ \\
+\end{tabular}
+
+
+<*n>
+\vspace{0.1in}
+
+{\tt SOLUTION:}
+
+\[
+^1\omega_1 = 
+\left[\begin{matrix}0\\0\\qd_{1}\end{matrix}\right]
+\]
+
+\[
+^2\omega_2 =  
+\left[\begin{matrix}- \dot{q}_{1} s_{2}\\- c_{2} \dot{q}_{1}\\\dot{q}_{2}\end{matrix}\right]
+\]
+
+\[
+^3\omega_3 = 
+\left[\begin{matrix}- c_{3} \dot{q}_{1} s_{2} + \dot{q}_{2} s_{3}\\c_{3} \dot{q}_{2} + \dot{q}_{1} s_{2} s_{3}\\c_{2} \dot{q}_{1} + \dot{q}_{3}\end{matrix}\right]
+\]
+
+\[
+^1v_1 =
+\left[\begin{matrix}0\\0\\0\end{matrix}\right]
+\]
+
+\[
+^2v_2 =
+\left[\begin{matrix}0\\0\\l_{2} \dot{q}_{1}\end{matrix}\right]
+\]
+
+\[
+^3v_3  =
+\left[\begin{matrix}c_{3} l_{3} \dot{q}_{2} + s_{3} \left(l_{2} \dot{q}_{1} + l_{3} \dot{q}_{1} s_{2}\right)\\c_{3} \left(l_{2} \dot{q}_{1} + l_{3} \dot{q}_{1} s_{2}\right) - l_{3} \dot{q}_{2} s_{3}\\0\end{matrix}\right]
+\]
+
+<*>
+%%%%** Section 7.4
+\subsection{}
+Derive the Jacobian Matrix from the result of \ref{HandVelocities}
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:}
+
+
+\[
+\begin{bmatrix}l_{2} s_{3} + l_{3} s_{2} s_{3} & c_{3} l_{3} & 0\\
+c_{3} l_{2} + c_{3} l_{3} s_{2} & - l_{3} s_{3} & 0\\
+0 & 0 & 0\\
+- c_{3} s_{2} & s_{3} & 0\\
+s_{2} s_{3} & c_{3} & 0\\
+c_{2} & 0 & 1
+\end{bmatrix}
+\]
+
+
+<*>
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%** Section 7.5
+\subsection{Jacobian Matrix}
+A manipulator has the following DH parameters;
+
+\begin{center}
+\begin{tabular}{c|cccc}
+$N$   	& $\alpha_{N-1}$	& $a_{N-1}$	& $d_N$		& $\theta_{N}$   \\ \hline
+1	&  0			& 0		&  0		& $\theta_1$     \\
+2	&  0			& $l_1$		& $d_2$		& $0$	 \\
+3 	&  $90^\circ$		& 0		& $l_2$		& $\theta_3$	 \\
+4	& $-90^\circ$		& $l_3$		& 0		& $\theta_4$ \\
+\end{tabular}
+\end{center}
+
+Calculate the Jacobian matrix, $^4J_4$,  by the method of velocity propagation using the 
+distributed symbolic computation software package. 
+The variable parameters are $\theta_1, d_2, \theta_3, \theta_4$.
+
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:
+
+Plug these DH parameters in to get ${^0_1T}$ etc.
+
+Velocity propagation gives you:
+
+\[
+^4\omega_4 = \left[\begin{matrix}
+c_{4} \dot{\theta}_{1} s_{3} - \dot{\theta}_{3} s_{4}\\- c_{4} \dot{\theta}_{3} - \dot{\theta}_{1} s_{3} s_{4}\\c_{3} \dot{\theta}_{1} + \dot{\theta}_{4}
+\end{matrix}\right]
+\]
+
+\[
+^4V_4 = \left[\begin{matrix}
+c_{4} \left(c_{3} l_{2} \dot{\theta}_{1} + \dot{\theta}_{2} s_{3}\right) - s_{4} \left(- c_{3} l_{3} \dot{\theta}_{1} - l_{1} \dot{\theta}_{1}\right)\\
+- c_{4} \left(- c_{3} l_{3} \dot{\theta}_{1} - l_{1} \dot{\theta}_{1}\right) - s_{4} \left(c_{3} l_{2} \dot{\theta}_{1} + \dot{\theta}_{2} s_{3}\right)\\
+c_{3} \dot{\theta}_{2} - l_{2} \dot{\theta}_{1} s_{3} + l_{3} \dot{\theta}_{3}
+\end{matrix}\right]
+\]
+
+From these, derive the Jacobian by factoring out $\dot{\theta}_1, \dot{d}_2, \dot{\theta}_3, \dot{\theta}_4.$
+
+\[
+^4J_4 =
+\left[\begin{matrix}c_{3} c_{4} l_{2} + c_{3} l_{3} s_{4} + l_{1} s_{4} & c_{4} s_{3} & 0 & 0\\
+c_{3} c_{4} l_{3} - c_{3} l_{2} s_{4} + c_{4} l_{1} & - s_{3} s_{4} & 0 & 0\\
+- l_{2} s_{3} & c_{3} & l_{3} & 0\\
+c_{4} s_{3} & 0 & - s_{4} & 0\\
+- s_{3} s_{4} & 0 & - c_{4} & 0\\
+c_{3} & 0 & 0 & 1
+\end{matrix}\right] 
+\]
+
+}
+<*>
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    8
+
+%%%%** Section 8 
+\newpage \section{Dynamics and Trajectory Generation}
+
+%%%%** Section 8.1
+\subsection{}
+
+An arm has the following DH parameters:
+
+\vspace{0.1in}
+
+ \begin{tabular}{c|cccc}
+$N$   	& $\alpha_{N-1}$	& $a_{N-1}$	& $d_N$		& $\theta_{N}$   \\ \hline
+1	&  0			& 0		&  3		& $\theta_1$     \\
+2	&  $\pi/2$		& $0.1$		& $d_2$		& $0$	 \\
+3 	&  $-\pi/2$		& 0.8		& $0$		& $\theta_3$
+\end{tabular}
+\vspace{0.1in}
+
+The link mass properties are
+
+\vspace{0.1in}
+\begin{tabular}{c|cl}
+N	& $m_N$	& $^NC_N$ 	\\ \hline
+1	& 30kg	& $[0,\;0,\;-1.5]^T$	\\
+2	& 20kg  & $[.1,\;0,\;-2]^T$	\\
+3	& 10kg 	& $[.1,\;.1,\;.1]^T$
+\end{tabular}
+\vspace{0.1in}
+
+
+In Frame 0, gravity is $[0,\;0,\;-9.8]^T$ and the manipulator pose is
+\[
+\theta_1 = 45^\circ \quad d_2 = 4 \quad \theta_3 = 30^\circ.
+\]
+
+%%%%** Section 8.1.1 
+\subsubsection{}
+Numerically compute the torque due to gravity on joint 2.   (use your *lab functions!).
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:}
+
+\begin{verbatim}
+
+// ICP 8.1   EE543 Univ of Washington
+clear all;
+exec('kinfunc.sce', -1)  // load your EE543 functions
+
+// gravity
+g0 = [0,0,-9.8]';
+
+// manpulator mass parameters
+// link masses
+m1 = 30; // kg
+m2 = 20;
+m3 = 10;
+
+// centers of mass in link frame
+c11 = [ 0, 0,-1.5,1]';  // add 4th row = 1 for homogenous coordinates
+c22 = [.1, 0,-2.0,1]';
+c33 = [.1,.1, .1, 1]';
+
+// manipulator pose
+th1 = 45;
+d2 = 4;
+th3 = 30;
+
+//  Derive link transforms using DH params and pose
+T01 = link(0,0,3,th1);
+T12 = link(90,.1,d2,0);
+T23 = link(-90,.8,0,th3);
+
+// Convert the gravity vector to Frame 2
+T02 = T01*T12;
+R02 = T02(1:3,1:3);
+g2 = R02' * g0;
+
+// Convert c33 to c23
+c23 = T23*c33;
+
+// convert the torque
+mm = m2*c22 + m3*c23;
+t22 = cross(mm,g2);
+
+printf ("\nJoint 2 gravity torque: %6.3d Nm\n", t22(3));  // joint torque is Z component
+\end{verbatim}
+
+<*>
+%%%%** Section 8.1.2 
+\subsubsection{}
+Show that the torque on Joint 1 is 0.
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION}
+
+Since axis $Z_1$ is parallel to the gravity vector at all times, it cannot experience any gravity torque.
+
+<*>
+
+%%%%** Section 8.2
+\subsection{} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+A cubic polynomial trajectory is
+\[
+\theta(t) = a_0 + a_1t+a_2t^2+a_3t^3
+\]
+Solve for the coefficients, $a_i$ such that
+\[
+\begin{array}{lccr}
+(1) & \theta(0) = 10 			&    \theta(25) = 85 		& (2) \\
+(3) & \dot{\theta}(0) = 0		&    \dot{\theta}(25) = 3.0	& (4)\\
+\end{array}
+\]
+
+<*n> {\tt
+
+SOLUTION:
+
+using (1)
+\[
+a_0 = 10
+\]
+
+using (2)
+\[
+\dot{\theta}(t) = a_1 +2a_2t+3a_3t^2 =0
+\]
+For t=0,
+\[
+a_1 = 0
+\]
+using (3)
+\[
+\theta(25) = 85 = 10 + 625a_2 + 15625a_3
+\]
+using (4)
+\[
+\dot{\theta}(25) = 3 = 50a_2 + 1875a_3
+\]
+Solving the last two equations in two unknowns:
+
+\[
+a_2 = 0.24 \qquad a_3 = -4.8\times10^{-3}
+\]
+
+<*>
+
+%%%%** Section 8.3
+\subsection{} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+A trajectory generator uses
+\[
+\theta(t) = \theta_a + A \sin (\omega t + \phi)
+\]
+
+Find $\theta_a, A, \omega, \phi$ for a trajectory taking $t_f$ seconds such that
+\[
+\begin{array}{ll}
+\theta(0) = \theta_1		& \theta(t_f) = \theta_2\\
+\dot{\theta}(0) = 0		& \dot{\theta}(t_f) = 0
+\end{array}
+\]
+
+<*n>
+{\tt
+{\bf SOLUTION:}
+
+\includegraphics[width=4in]{00855.png}
+
+Generically, the function $\sin(\tau)$ fits the bill if we can make the argument, $\tau$, equal to $-pi/2$ at the start of the trajectory and $\tau=\pi/2$ at the end.
+
+
+By inspection:
+\[
+A = \frac{1}{2}(\theta_2-\theta_1)
+\]
+$t_f$ = 1/2 of a period so
+\[
+\omega t_f = \pi
+\]
+\[
+\omega= \pi/t_f
+\]
+for $t=0$, $\omega t + \phi = -\pi/2$ so
+\[
+\phi = -\pi/2
+\]
+for the start of the trajectory, $\theta=\theta_1, t=0$ so
+\[
+\theta_1 = \theta_a + A\sin(-\pi/2) = \theta_a - \theta_2/2+\theta_1/2
+\]
+\[
+\theta_a = \frac{1}{2}(\theta_1+\theta_2)
+\]
+
+
+Checking:
+\[
+\theta(t) =\frac{1}{2}(\theta_1+\theta_2) +  \frac{1}{2}(\theta_2-\theta_1)\sin(\frac{\pi}{t_f} t -\pi/2)
+\]
+\[
+\dot{\theta}(t) = \frac{1}{2}(\theta_2-\theta_1)\cos(\frac{\pi}{t_f}t -\pi/2)\pi/t_f
+\]
+\[
+\dot{\theta}(0) =  \frac{1}{2}(\theta_2-\theta_1)\times 0 \times \pi/t_f = 0
+\]
+The same check works for $\dot{\theta}(t_f) = 0$.
+}
+
+<*>
+\end{document}
+

@@ -1,0 +1,139 @@
+%% Default Latex document template
+%%
+%%  blake@rcs.ee.washington.edu
+
+\documentclass{article}
+
+% Uncomment for bibliog.
+%\bibliographystyle{unsrt}
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+
+%\usepackage{lineno}
+%\linenumbers
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%
+%  Set Up Margins
+\input{templates/pagedim.tex}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%         Page format Mods HERE
+%
+%Mod's to page size for this document
+\addtolength\textwidth{0cm}
+\addtolength\oddsidemargin{0cm}
+\addtolength\headsep{0cm}
+\addtolength\textheight{0cm}
+%\linespread{0.894}   % 0.894 = 6 lines per inch, 1 = "single",  1.6 = "double"
+
+%\lhead{LEFT HEADER}
+%\chead{CENTER HEADER}
+%\rhead{RIGHT HEADER}
+%\lfoot{Hannaford, U. of Washington}
+%\rfoot{\today}
+%\cfoot{\thepage}
+\begin{document}
+
+\title{EE546 HW 2 \\ University of Washington}
+\setcounter{section}{2}
+
+
+\maketitle
+
+\subsection{}          % 1.1
+Find the rotation matrix described by
+\[
+q_3 = q_1\cdot q_2
+\]
+where
+\[
+q_1 = \bmat 9.76\\.096\\-.0512\\-.187\emat \qquad q_2 = \bmat .998\\.00309\\.0604\\-.00810 \emat
+\]
+
+\subsection{}
+
+Find the unit quaternion corresponding to the following sequence of rotations
+\begin{enumerate}
+  \item rotate about the vector $[0.7\; 5\; -.3 ]^T$ by $30^\circ$
+  \item rotate about the current $\hat{y}$  by $16^\circ$
+  \item rotate about the vector $[10\;-1.6\;2 ]^T$ by $23^\circ$ in hte original (unrotated) frame.
+\end{enumerate}
+
+\subsection{}
+
+A car has a roof-attached frame like the car of Example 2.6 (course notes).   The car
+\begin{enumerate}
+    \item drives in reverse for 10m
+    \item turns left by $20^\circ$
+    \item drives forward by 20m
+    \item turns right by $90^\circ$
+    \item goes down a ramp at angle $10^\circ$ for 10m
+\end{enumerate}
+
+What is the 4x4 homogenenous transform which represents the position and orientation of the car's frame after these moves?    Assume that all turns can be accomplished without any translation (unlike a real car).
+
+
+\subsection{}
+A can rolls on a table:
+
+\includegraphics[width=5.0in]{00861.png}
+
+The following facts are known:
+
+\begin{itemize}
+  \item The table is 1m high
+  \item Frame T is rotated by $-30^\circ$ about $Z_W$
+  \item The $X_T, \; Y_T$ coordinates of the origin for $\{C\}$ are
+  \[
+  {^TO_C} = \bmat 7\;3\;? \emat
+  \]
+  \item The radius of the can is 10cm
+  \item ${^TX_C} = [7.707\; 3.707\; ?]$
+  \item $Z_C$ makes an angle of $60^\circ$ with the tabletop
+
+    \includegraphics[width=45mm]{00862.png}
+
+\end{itemize}
+
+Find the configuration of the can in the world:
+\[
+{^W_CT}
+\]
+
+
+\subsection{}
+
+\includegraphics[width=6.5in]{00863.png}
+
+A camera estimates the position and orientation of a puck on a table.  Unfortunately, the camera mount is flexible and is held together by duct tape so we do not
+precisely know the camera location.  The camera can get the position and orientation of a special marker (consisting of three dots) which is mounted on to the table in a known position and orientation.
+
+The following relationships are known
+\[
+{^W_TT}\quad { ^T_MT}\quad  {^B_ET}\quad  {^W_BT}\quad  {^C_MT}\quad  {^C_{P1}T}\:
+\]
+
+Draw the transform graph and find the configuration of the puck in frame $B$, ${^B_{P1}T}$
+
+
+
+\subsection{}
+
+\includegraphics[width=135mm]{00864.png}
+
+\begin{itemize}
+    \item The point $^0P$ is $[9\; 4\; 0]^T$
+    \item The sides of the box are parallel to Frame 0.
+\end{itemize}
+
+Find
+\[
+{^0_BT}
+\]
+
+\end{document}
+

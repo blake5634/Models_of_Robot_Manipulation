@@ -1,0 +1,95 @@
+\documentclass{article}
+
+\usepackage{graphicx}
+\usepackage{graphpap}
+
+
+\usepackage{fancyhdr}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%
+%  Set Up Margins
+\input{templates/pagedim.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%         Page format Mods HERE
+%
+%Mod's to page size for this document
+\addtolength\textwidth{0cm}
+\addtolength\oddsidemargin{0cm}
+\addtolength\headsep{0cm}
+\addtolength\textheight{0cm}
+%\linespread{0.894}   % 0.894 = 6 lines per inch, 1 = "single",  1.6 = "double"
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% HEADER / FOOTER
+\pagestyle{fancy}
+%%%%%  Page header/footer fields for "NSF Style" proposal
+%%%%%  \chead will be changed with each section
+\lhead{\small\sc EE543}
+\rhead{}
+\chead{Problem Set 2}
+\lfoot{Hannaford, U. of Washington}
+\rfoot{\today}
+\cfoot{\thepage}
+%\renewcommand\headrulewidth{1pt}
+%\renewcommand\footrulewidth{1pt}
+
+\begin{document}
+
+\setcounter{section}{1}
+%%%%** Section 1
+\section{Problem Set 2}
+
+\subsection{} 
+Draw or solve the common normals for each set of axes $A,B$ below
+
+\subsubsection{}
+
+\includegraphics[width=1.50in]{hw2_W13_P1a.png}
+
+A is equal to $Z$ axis.
+
+$B = [2 \quad 2 \quad z]^T$
+
+Unique?   \_\_\_ Yes  \_\_\_ No
+
+\subsubsection{}
+
+\includegraphics[width=2.50in]{hw2_W13_P1b.png}
+
+A is in the $XY$ plane.
+
+B is perpendicular to $Z$ axis. 
+
+Unique?   \_\_\_ Yes  \_\_\_ No
+
+\subsubsection{}
+
+Make a drawing and find the Common Normal for:
+
+A = $Y$ axis.
+
+B = $[x \quad 3.0+0.8x \quad 5]^T$.
+
+Unique?   \_\_\_ Yes  \_\_\_ No
+
+
+\newpage
+\subsection{}
+
+Draw Common Normals and assign link frames for the following manipulator:
+
+\includegraphics[width=4.0in]{hw2_W13_P2.png}
+
+\subsection{}
+
+Draw Common Normals and assign link frames for the following manipulator:
+
+\includegraphics[width=4.0in]{hw2_W13_P3.png}
+
+
+\end{document}
+

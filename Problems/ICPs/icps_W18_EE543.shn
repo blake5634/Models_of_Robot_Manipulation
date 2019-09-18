@@ -1,0 +1,1176 @@
+%     EE 543 ICPs -- modified  March 2013 for full 10 wks.
+%
+
+<nh>\documentclass{article}
+<*>
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{amsmath}
+
+\title{
+  \begin{tabular}{c}
+       EE543: In Class Problem Set UPDATE\\
+       \today
+   \end{tabular}
+}
+\author{Blake Hannaford}
+<s>\institute{University of Washington}
+\date{\today}
+
+
+<*hn>
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%
+%  Set Up Margins
+\input{templates/pagedim.tex}
+%\input{~blake/templates/pagedim.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Correct top margin when using pdflatex
+%         (uncomment for pdflatex)
+%\addtolength\topmargin{-0.5in}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%         Page format Mods HERE
+%
+%Mod's to page size for this document
+\addtolength\textwidth{0cm}
+\addtolength\oddsidemargin{0cm}
+\addtolength\headsep{0cm}
+\addtolength\textheight{0cm}
+%\linespread{0.894}   % 0.894 = 6 lines per inch, 1 = "single",  1.6 = "double"
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% HEADER / FOOTER
+\pagestyle{fancy}
+
+
+
+\linespread{1.0}
+
+<*>
+\begin{document}
+%
+% \newcommand\bmat{\begin{bmatrix}}
+% \newcommand\emat{  \end{bmatrix}}
+
+<hn>\maketitle
+
+<n>\begin{center}
+<n> {\Large \tt SOLUTIONS}
+<n>\end{center}
+
+\setcounter{section}{4}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    5
+\newpage
+%%%%** Section 5 
+\section{Inverse Manipulator Kinematics (hand)}
+ 
+
+%%%%** Section 5.1
+\subsection{}
+
+
+Plot the workspace of the 2-link planar manipulator for $l_1=2.5, l_2=3.5$ for the joint motion ranges:
+\[
+0^\circ < \theta_1 < 135^\circ  \qquad -90^\circ < \theta_2 < 0^\circ
+\]
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:
+
+\includegraphics[width=125mm]{00859.png}
+
+}
+
+
+
+<*>
+%%%%** Section 5.2
+\subsection{}
+
+
+Solve the inverse kinematics of the following planar robot.  Find all solutions:
+
+\includegraphics[width=3.0in]{00491.png}
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:}
+
+\includegraphics[width=127mm]{00881.png}
+
+<*>
+
+ 
+%%%%** Section 5.3
+\subsection{}
+
+
+Geometric Method / Spatial Manipulator
+
+
+\begin{center}
+  \includegraphics[width=1.9in]{00351a.png}
+  \includegraphics[width=1.9in]{00351b.png}
+
+  \includegraphics[width=1.9in]{00352.png}
+
+{Inverse Kinematics Arm}
+\end{center}
+
+Please find all solutions for this arm to reach the point ${X,Y,Z}$.    Geometric method is suggested.
+
+<n>\vspace{0.2in}
+<*n>
+\vspace{0.1in}{\tt SOLUTION:
+
+
+\scalebox{.75}{
+  \includegraphics{00353.png}  \hspace{0.25in}
+  \includegraphics{00354.png}
+   }
+
+\vspace{0.3in}
+Start with the top view:
+\[
+\theta_1 = \mathrm{atan2}(Y,X) + n\pi
+\]
+Now, referring to the side view,
+let
+\[
+r = \sqrt{X^2+Y^2}   \qquad \mathrm{and} \qquad r' = r \pm L_2
+\]
+\[
+d_3 = \pm\sqrt{(r')^2+(Z-L_1)^2}
+\]
+\[
+\theta_2 = \mathrm{atan2}((Z-L_1), r') +n\pi
+\]
+There are 4 solutions since for each of the two $r'/\theta_1$ solutions shown in the side view, there are two $d_3/\theta_2$ solutions.  (Consider the case of  $\theta_2+\pi, d_3 < 0$).
+}
+
+<*>
+ 
+ 
+
+<*>
+%%%%** Section 5.4
+\subsection{}
+
+A manipulator has the following forward kinematic equations:  (Peter Braathen)
+
+
+\[
+^0_4T =
+\begin{bmatrix}
+\begin{bmatrix}  c_4c_1s_{23}-s_4s_1 &  -s_4c_1s_{23} -s_1c_4 &  c_1c_{23} \\
+                 c_4s_1s_{23}-s_4c_1 &  -s_4s_1s_{23} -c_1c_4 &  s_1c_{23} \\
+                 -c_4c_{23}          &  s_4c_{23}             &  s_{23}      \\
+                 \end{bmatrix}      &
+\begin{bmatrix} c_1c_2a_2-s_1d_2 \\ s_1c_2a_2+c_1d_2 \\ s_2a_2+d_1 \end{bmatrix}            \\
+ 0 \quad 0 \quad 0      &   1
+\end{bmatrix}
+\]
+
+Noting that $d_i$ in this robot are constants, 
+solve for $\theta_1, \theta_2, \theta_3, \theta_4$.
+
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:}
+
+\noindent
+$\theta_1$:
+
+\[
+r_{23} = s_1c_{23}, \quad r_{13}=c_1c_{23}
+\]
+\[
+\theta_1 = \mathrm{atan2}(r_{23},r_{13})
+\]
+
+Two solutions for $\theta_2+\theta_3 \neq 90^\circ, 270^\circ$ because $c_{23}$ can have either sign.
+
+
+\noindent
+$\theta_2$:
+
+\[
+s_2 = \frac{r_{34}-d_1}{a_2}
+\]
+\[
+\theta_2  = \mathrm{arcsin}(\frac{r_{34}-d_1}{a_2})
+\]
+
+Two solutions based on arcsin.
+
+
+
+\noindent
+$\theta_3$:
+\[
+r_{33} = s_{23}
+\]
+
+\[
+\theta_3 = \mathrm{arcsin}(r_{33})-\theta_2
+\]
+
+Two solutions based on arcsin (independent of $\theta_2$).
+
+\noindent
+$\theta_4$:
+
+\[
+s_4 = r_{32}/c_{23} \qquad  c_4 = -r_{31}/c_{23}
+\]
+\[
+\theta_4 = \mathrm{atan2}( r_{32}/c_{23},  -r_{31}/c_{23})
+\]
+Two solutions based on sign of $c_{23}$.
+
+
+There are thus a total of 4 solutions based on 2 solutions for $\theta_1$ and two solutions for $\theta_2$.  Choice of $\theta_4$ solution is determined by choices of $\theta_2$ and $\theta_3$.
+
+
+
+
+<*>
+%%%%** Section 5.5
+\subsection{}
+
+(Problem and solution courtesy of Kevin Huang, EE543, Sp2013.  Used with permission.)
+
+Forward Kinematic Equations:
+
+(first two colums)
+ \[
+ {^0_6T_D} =
+ \begin{bmatrix}
+ r_{11}&r_{12}&r_{13}&P_X \\
+ r_{21}&r_{22}&r_{23}&P_Y \\
+ r_{31}&r_{32}&r_{33}&P_Z \\
+ 0&0&0&1
+ \end{bmatrix}
+ =
+ \begin{bmatrix}
+  c_5(s_1s_4+c_1c_3c_4)+c_1s_3s_5	& -s_5(s_1s_4+c_1c_3s_4)+c_1c_5s_3	\\
+ -c_5(c_1s_4-c_3c_4s_1)+s_1s_3s_5	&  s_5(c_1c_4-c_3c_4s_1)+c_5s_1s_3	\\
+ c_4c_5s_3-c_3s_5			& -c_3c_5-c_4s_3s_5			\\
+ 0					&	0
+ \end{bmatrix}
+ \]
+ (last two columns)
+ \[
+ \begin{bmatrix}
+ c_1c_3s_4-c_4s_1 			&  l_6(c_5(s_1s_4+c_1c_3c_4)+c_1s_3s_5)+l_4c_1s_3   	\\
+ s_1c_3s_4+c_4c_1			& -l_6(c_5(c_1s_4-c_3c_4s_1)-s_1s_3s_5)+l_4s_1s_3	\\
+ s_3s_4					& d_2+l_1-l_4c_3-l_6(c_3c_5-c_4c_5s_3)			\\
+ 0					& 1
+ \end{bmatrix}
+ \] 
+
+%%%%** Section 5.5.1 
+\subsubsection{}
+Solve for $\theta_1$
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:}
+
+\[
+P_X = l_6r_{11}+l_4c_1s_3 \qquad  P_Y = l_4s_1s_3+l_6r_{21}
+\]
+\[
+c_1s_3 = \frac{P_X-l_6r_{11}}{l_4} \qquad s_1s_3 = \frac{P_Y-l_6r_{21}}{l_4}
+\]
+\[
+\theta_1 = \mathrm{atan2}(P_Y-l_6r_{21}, P_X-l_6r_{11})
+\]
+Only if $\theta_3 \neq 0$.   Two solutions depending on sign of $\theta_3$.
+
+<*>
+%%%%** Section 5.5.2 
+\subsubsection{(if time)}
+Solve for $\theta_3$
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:}
+
+using
+\[
+r_{13} = c_1c_3s_4-c_4s_1  \quad r_{23} = c_1c_4+c_3s_1s_4
+\]
+we can multiply $r_{13}$ by $c_1$ and $r_{23}$ by $s_1$ to get
+
+\[
+c_1r_{13} = c_1^2c_3s_4-c_1c_4s_1  \quad s_1r_{23} = c_1c_4s_1+c_3s_1^2s_4
+\]
+and adding:
+\[
+c_1r_{13}+s_1r_{23} = (c_1^2+s_1^2)c_3s_4 = c_3s_4
+\]
+Since
+\[
+\mathrm{and}\quad r_{33} = s_3s_4
+\]
+We have
+\[
+\theta_3 = \mathrm{atan2}(s_3s_4, c_3s_4) = \mathrm{atan2}(r_{33},c_1r_{13}+s_1r_{23})
+\]
+For $\theta_4 \neq 0$.
+
+<*>
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    7
+\newpage
+%%%%** Section 6 
+\section{Velocities and Jacobian Matrix}
+
+%%%%** Section 6.1
+\subsection{ICP 7: Warm up}
+
+\includegraphics[width=4.0in]{7_1A.png}
+
+
+
+%%%%** Section 6.1.1 
+\subsubsection{} for $V_1=0$, find $^0\left(^0V2\right)$
+<*n>
+
+\begin{solution}
+\[
+^0\left(^0V2\right)= [7.07,7.07,0]'
+\]
+\end{solution}
+<*>
+
+
+
+%%%%** Section 6.1.2 
+\subsubsection{}  find $^1\left(^1V2\right)$
+<*n>
+
+\begin{solution}
+Note the axes of (1) are different than (0)
+\[
+^1\left(^1V2\right) = [7.07,0,7.07]'
+\]
+\end{solution}
+<*>
+
+
+
+%%%%** Section 6.1.3 
+\subsubsection{} Assume $^0\left(^0V_1\right)=[16,42,-10]'$, find $^0\left(^1V2\right)$
+<*n>
+
+\begin{solution}
+Since computation is in (1) we don't see the velocity of (1) so the assumption is irrelevant:
+\[
+^0\left(^1V2\right)=[7.07,7.07,0]'
+\]
+\end{solution}
+<*>
+
+
+
+%%%%** Section 6.1.4 
+\subsubsection{} Find $^0\left(^2V2\right)$
+<*n>
+
+\begin{solution}
+The velocity of the origin is always zero when computed in its own frame:
+\[
+^0\left(^2V2\right) = [0,0,0]'
+\]
+\end{solution}
+<*>
+
+
+
+
+%%%%** Section 6.2
+\subsection{} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\includegraphics[width=2.5in]{00852.png}
+
+A turntable is sliding down a ramp.  We have the following facts:
+
+\begin{itemize}
+   \item  The turntable has a base and a turning portion with  frames, $B$ and $T$ respectively (top view at top of figure).
+   \item The base slides down the ramp  with speed $v$.  The sliding velocity vector is in the $X_w,Z_w$ plane at $45^\circ$ downward.
+   \item $X_B$ points down the ramp in the direction of sliding.
+   \item The turntable rotates around $Z_T$ at $\omega$ rad/sec.
+   \item Point P lies on the $X_T$ axis at a distance $r$ from the $Z_T$ axis.
+   \item $Z_T$ is colinear with $Z_B$.
+\end{itemize}
+
+%%%%** Section 6.2.1 
+\subsubsection{}
+Find
+\[
+^T{(^TV_P)}
+\]
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:
+
+
+\[
+^T{(^TV_P)} = 0
+\]
+This is true in any frame because point $P$ is fixed in frame $T$
+}
+<*>
+
+%%%%** Section 6.2.2 
+\subsubsection{}
+Find
+\[
+^T{(^WV_P)}
+\]
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:
+Overall strategy:   Find base velocity $V_B$ and find velocity of point P on the turntable, $V_{PT}$, both in frame $W$ and add them together.
+
+\[
+^WV_P = {^WV_B} + {^WV_P}
+\]
+(though they are calculated in different frames they can be added if represented in same frame.)
+
+Let $\theta = \omega t$.
+\[
+{^T_WR} = {^T_BR}\;{^B_WR} =
+\begin{bmatrix}
+c\theta		& -s\theta	& 0 \\
+s\theta		& c\theta		& 0 \\
+0		& 0		& 1 \\
+\end{bmatrix}
+\begin{bmatrix}
+.707		& 0		& -.707 \\
+0		& 1		& 0     \\
+.707		& 0		& .707  \\
+\end{bmatrix}
+\]
+\[
+{^T_W}R =
+\begin{bmatrix}
+.707c\theta	& -s\theta	& -.707c\theta	\\
+.707s\theta	& c\theta	& -.707s\theta 	\\
+.707		& 0		& .707
+\end{bmatrix}
+\]
+
+By inspection we can see that
+
+\[
+^W(^WV_B) = \begin{bmatrix} .707v \\ 0 \\ -.707v \end{bmatrix}
+\qquad
+^T(^WV_{PT}) = \begin{bmatrix} 0 \\ r\omega \\ 0    \end{bmatrix}
+\]
+
+Adding together the two components of velocity:
+\[
+^T(^WV_P) = {^T_WR}\begin{bmatrix} .707v \\ 0 \\ -.707v \end{bmatrix} + \begin{bmatrix} 0 \\ r\omega \\ 0    \end{bmatrix}
+\]
+
+\[
+= \begin{bmatrix} vc\theta \\ vs\theta + r\omega \\ 0    \end{bmatrix}
+\]
+}
+
+
+<*>
+%%%%** Section 6.2.3 
+\subsubsection{}
+Find
+\[
+^W{(^WV_P)}
+\]
+
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:
+
+
+\[
+^W{(^WV_P)} = {^W_TR}\;^T(^WV_P) = {^T_WR^T}\;^T(^WV_P)
+\]
+\[
+= \begin{bmatrix}
+.707vc^2\theta+.707vs^2\theta + .707r\omega s\theta    \\
+-vs\theta c\theta + vs\theta c\theta+r\omega c\theta  \\
+-.707vc^2\theta-.707vs^2\theta-.707r\omega s\theta  \\
+\end{bmatrix} =
+\begin{bmatrix}
+.707 \left [ v + r\omega s\theta \right ] \\
+r\omega c\theta \\
+-.707 \left [ v + r\omega s\theta \right ] \\
+\end{bmatrix}
+\]
+
+
+
+}
+<*>
+
+
+
+%%%%** Section 6.3
+\subsection{}\label{HandVelocities}
+For a manipulator with the following DH parameters, compute by hand the  expressions for $^3\omega_3$ and $^3V_3$ in symbolic form using velocity propagation.
+Assume $^0V_0 = ^0\omega_0 = 0$.
+
+
+\begin{tabular}{ccccc}
+N	&	$\alpha_{N-1}$	&	$a_{N-1}$	&	$d_N$	&	$\theta_N$ \\
+\hline
+1	&	$ 90$		&	$0$		&	$l_1$	&	$\theta_1$ \\
+2	&	$-90$		&	$l_2$		&	$0$	&	$\theta_2$ \\
+3	&	$ 90$		&	$0$		&	$l_3$	& 	$\theta_3$ \\
+\end{tabular}
+
+
+<*n>
+\vspace{0.1in}
+
+{\tt SOLUTION:}
+
+\[
+^1\omega_1 = 
+\left[\begin{matrix}0\\0\\qd_{1}\end{matrix}\right]
+\]
+
+\[
+^2\omega_2 =  
+\left[\begin{matrix}- \dot{q}_{1} s_{2}\\- c_{2} \dot{q}_{1}\\\dot{q}_{2}\end{matrix}\right]
+\]
+
+\[
+^3\omega_3 = 
+\left[\begin{matrix}- c_{3} \dot{q}_{1} s_{2} + \dot{q}_{2} s_{3}\\c_{3} \dot{q}_{2} + \dot{q}_{1} s_{2} s_{3}\\c_{2} \dot{q}_{1} + \dot{q}_{3}\end{matrix}\right]
+\]
+
+\[
+^1v_1 =
+\left[\begin{matrix}0\\0\\0\end{matrix}\right]
+\]
+
+\[
+^2v_2 =
+\left[\begin{matrix}0\\0\\l_{2} \dot{q}_{1}\end{matrix}\right]
+\]
+
+\[
+^3v_3  =
+\left[\begin{matrix}c_{3} l_{3} \dot{q}_{2} + s_{3} \left(l_{2} \dot{q}_{1} + l_{3} \dot{q}_{1} s_{2}\right)\\c_{3} \left(l_{2} \dot{q}_{1} + l_{3} \dot{q}_{1} s_{2}\right) - l_{3} \dot{q}_{2} s_{3}\\0\end{matrix}\right]
+\]
+
+<*>
+%%%%** Section 6.4
+\subsection{}
+Derive the Jacobian Matrix from the result of \ref{HandVelocities}
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:}
+
+
+\[
+\begin{bmatrix}l_{2} s_{3} + l_{3} s_{2} s_{3} & c_{3} l_{3} & 0\\
+c_{3} l_{2} + c_{3} l_{3} s_{2} & - l_{3} s_{3} & 0\\
+0 & 0 & 0\\
+- c_{3} s_{2} & s_{3} & 0\\
+s_{2} s_{3} & c_{3} & 0\\
+c_{2} & 0 & 1
+\end{bmatrix}
+\]
+
+
+<*>
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%** Section 6.5
+\subsection{Jacobian Matrix}
+A manipulator has the following DH parameters;
+
+\begin{center}
+\begin{tabular}{c|cccc}
+$N$   	& $\alpha_{N-1}$	& $a_{N-1}$	& $d_N$		& $\theta_{N}$   \\ \hline
+1	&  0			& 0		&  0		& $\theta_1$     \\
+2	&  0			& $l_1$		& $d_2$		& $0$	 \\
+3 	&  $90^\circ$		& 0		& $l_2$		& $\theta_3$	 \\
+4	& $-90^\circ$		& $l_3$		& 0		& $\theta_4$ \\
+\end{tabular}
+\end{center}
+
+Calculate the Jacobian matrix, $^4J_4$,  by the method of velocity propagation using the 
+distributed symbolic computation software package. 
+The variable parameters are $\theta_1, d_2, \theta_3, \theta_4$.
+
+
+<*n>
+\vspace{0.1in}{\tt SOLUTION:
+
+Plug these DH parameters in to get ${^0_1T}$ etc.
+
+Velocity propagation gives you:
+
+\[
+^4\omega_4 = \left[\begin{matrix}
+c_{4} \dot{\theta}_{1} s_{3} - \dot{\theta}_{3} s_{4}\\- c_{4} \dot{\theta}_{3} - \dot{\theta}_{1} s_{3} s_{4}\\c_{3} \dot{\theta}_{1} + \dot{\theta}_{4}
+\end{matrix}\right]
+\]
+
+\[
+^4V_4 = \left[\begin{matrix}
+c_{4} \left(c_{3} l_{2} \dot{\theta}_{1} + \dot{\theta}_{2} s_{3}\right) - s_{4} \left(- c_{3} l_{3} \dot{\theta}_{1} - l_{1} \dot{\theta}_{1}\right)\\
+- c_{4} \left(- c_{3} l_{3} \dot{\theta}_{1} - l_{1} \dot{\theta}_{1}\right) - s_{4} \left(c_{3} l_{2} \dot{\theta}_{1} + \dot{\theta}_{2} s_{3}\right)\\
+c_{3} \dot{\theta}_{2} - l_{2} \dot{\theta}_{1} s_{3} + l_{3} \dot{\theta}_{3}
+\end{matrix}\right]
+\]
+
+From these, derive the Jacobian by factoring out $\dot{\theta}_1, \dot{d}_2, \dot{\theta}_3, \dot{\theta}_4.$
+
+\[
+^4J_4 =
+\left[\begin{matrix}c_{3} c_{4} l_{2} + c_{3} l_{3} s_{4} + l_{1} s_{4} & c_{4} s_{3} & 0 & 0\\
+c_{3} c_{4} l_{3} - c_{3} l_{2} s_{4} + c_{4} l_{1} & - s_{3} s_{4} & 0 & 0\\
+- l_{2} s_{3} & c_{3} & l_{3} & 0\\
+c_{4} s_{3} & 0 & - s_{4} & 0\\
+- s_{3} s_{4} & 0 & - c_{4} & 0\\
+c_{3} & 0 & 0 & 1
+\end{matrix}\right] 
+\]
+
+}
+<*>
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    7
+\newpage
+%%%%** Section 7 
+\section{Python}
+%%%%** Section 7.1
+\subsection{Install Python 2.7.X on your preferred Laptop platform}
+For windows and Mac we recommend an installation package called \href{https://www.anaconda.com/download/#linux}{Anaconda}.
+Anaconda includes {\tt numpy, sympy} and all the stuff you need in one download/install.  Here are the Windows and Mac instructions.
+If you are a Linux user, we will do it piecemeal:
+
+\begin{itemize}
+    \item Do not install Python 3.  If you already have Python 3, see 
+    \href{https://www.howtogeek.com/197947/how-to-install-python-on-windows/}{instructions} on how to set up both environments.
+    \item Windows: \href{https://courses.edx.org/asset-v1:MITx+6.008.1x+3T2016+type@asset+block/anaconda.html}{MIT Edx instructions}
+    \item Mac: Mac OS X
+    \begin{enumerate}
+        \item \href{https://www.youtube.com/watch?v=TcSAln46u9U}{Video Tutorial (3:39)(but we will choose Python 2.7)}
+        \item Open \url{http://continuum.io/downloads} with your web browser.
+        \item Download the {\bf Python 2.7} installer for OS X. Mac
+        \item Install Python 2.7 using all of the defaults for installation.
+    \end{enumerate}
+
+    \item Linux: 
+    \begin{enumerate}
+        \item Most linux distributions default to python 2.7
+        \item Verify if you have python already installed and check version: \\
+        {\tt >python --version}
+        \item If you have Version 2.7.x (most likely) you are good but do step 5 to be sure. 
+        \item If you have Version 3.x or 2.3, edit your file \begin{verbatim}~/.bashrc\end{verbatim} and add the line \\
+        {\tt alias python=/usr/local/bin/python2.7}
+        \item make sure you have the libraries: \\
+        {\tt > sudo pip install numpy sympy}
+        \end{enumerate}
+    \end{itemize}
+%%%%** Section 7.2
+\subsection{}
+Write and test a python ``Hello World" program. 
+%%%%** Section 7.3
+\subsection{}  Make sure you start off with 
+\begin{verbatim}
+import numpy as np
+\end{verbatim}
+\paragraph{Important note about types:} {\bf All matrices should be of the type 
+{\tt np.matrix}} (note capitalization). You declare these as follows: if your matrix is 
+\[
+\mathrm{my\_matrix} = \begin{bmatrix}
+ 1.2& 3.6& -0.5 \\0.287& -0.324& 127\\6&5&4 
+ \end{bmatrix}
+\]
+then use
+\begin{verbatim} 
+my_matrix = np.matrix([ [1.2, 3.6, -0.5], [0.287, -0.324, 127], [6,5,4]  ] )
+\end{verbatim}
+(include all parens and brackets as shown).
+All column vectors must also be {\tt np.matrix}  as follows:  if your vector is 
+\[
+\mathrm{my\_vector} = \begin{bmatrix} a\\ b\\ c \end{bmatrix}
+\]
+then use
+
+\begin{verbatim} 
+my_vector = np.matrix([ [a], [b], [c]  ] )
+\end{verbatim}
+default 2D arrays (type {\tt np.array}) should be avoided.  The benefit of 
+{\tt np.matrix} types include:
+\begin{itemize}
+\item  Just use * to multiply them, including matrix-vector multiplication
+\item  if {\tt X} is a {\tt np.matrix}, then {\tt X.T} is its transpose!
+\end{itemize}
+To initialize a matrix:
+\begin{verbatim}
+X = np.matrix( np.eye(4) )    # gives a 4x4 identity matrix
+\end{verbatim}
+
+\subsubsection*{Write the following Python functions.}
+
+In each function name, the suffix {\bf \_N} indicates that we 
+are doing regular numerical computation (floating point).
+
+
+\paragraph{RotX\_N(theta)}  A function which returns a 3x3 rotation matrix $Rot(\hat{x},\theta)$
+\paragraph{RotY\_N(theta), RotZ\_N(theta)}
+The same thing for the $Y$, and $Z$ axes. 
+\paragraph{T\_N(x,R)}  A function to return a 4x4 homogeneous transform combining translation {\bf x} and rotation {\bf R}.
+\paragraph{RPY(r,p,y)} return a 3x3 Rotation matrix representing the roll-pitch-yaw angles.
+\paragraph{Tinv(T)} return the 4x4 inverse of a 4x4 Homogeneous transform.  Be sure to exploit the homogeneous transform 
+structure (i.e. do not use a general matrix inverse function). 
+%%%%** Section 7.4
+\subsection{}
+Write some simple tests of your functions (you do not have to use a unit testing framework). 
+
+Examples:
+
+\begin{itemize}
+    \item Create 10 matrices which rotate by $36^\circ$ about the $Y$ axis.   Multiply them all together.   You should
+    get an Identity matrix (right?).
+    \item If the Roll, Pitch, Yaw angles are (0,$45^\circ$, 0), that is equivalent to $Rot(\hat{y}, 45^\circ)$.   
+    Is $\mathrm{RPY}(0,45^\circ,0) == \mathrm{RotY\_N}(45^\circ)$ true if you use your functions?
+    \item Make up a similar test. 
+\end{itemize}
+
+
+
+%%%%** Section 7.5
+\subsection{Link Transform}
+\subsubsection*{Robot Parameters and Poses}
+We will now consider a robot with 3 rotary and one prismatic joints, with the following DH parameters:
+
+\begin{center}\label{DHparamtableICP}
+\begin{tabular}{|ccccc|}\hline
+N	&	$\alpha_{N-1}$	&	$a_{N-1}$	&	$d_N$	&	$\theta_N$ \\
+\hline
+1	&	$0$		        &	  $0$		&   $l_1$	&	$\theta_1$ \\ 
+\hline
+2	&	$\pi/2$	        &	  $0$		&   $l_2$	&	$\theta_2$ \\ 
+\hline
+3	&	$\pi/2$	        &	  $0$		&   $d_3$	&	$\pi/2$    \\ 
+\hline
+4	&	$-\pi/2$        &	  $l_4$		&    $0$	&	$\theta_4$ \\ \hline
+\end{tabular}
+\end{center}
+We also define
+
+Pose 1:
+\[
+\theta_1 = 37^\circ, \theta_2 = -122^\circ ,d_3 = 0.68m , \theta_4=192^\circ
+\]
+
+Pose 2:
+\[
+\theta_1 = 120^\circ, \theta_2 = -27^\circ ,d_3 = 0.25m , \theta_4=63^\circ
+\]
+
+%%%%** Section 7.5.1 
+\subsubsection{}
+Write the   function,
+    {\bf Link\_N(alpha,a,d,theta)} A function to return a 4x4 {\bf numerical} link transform based on the DH parameters. 
+    Your function must use {\tt numpy} functions and data types (as described above).   
+    Assume angles are expressed in {\bf Radians}.
+
+<*n>
+\begin{solution}
+\begin{verbatim}
+import numpy as np
+
+# Homogeneous transform for link based on DH parameters
+def Link_N(al, a, d, th):
+  t = np.matrix ([
+    [np.cos(th),                -np.sin(th),               0,                a],
+    [np.sin(th)*np.cos(al),  np.cos(th)*np.cos(al), -np.sin(al), -np.sin(al)*d],
+    [np.sin(th)*np.sin(al),  np.cos(th)*np.sin(al),  np.cos(al),  np.cos(al)*d],
+    [0  ,0  ,0  ,1]
+    ])
+  return t
+\end{verbatim}
+\end{solution}
+<*>
+%%%%** Section 7.5.2 
+\subsubsection{}
+Write a Python script to use {\tt Link\_N()} to create a link transform for each row, print them out, multiply them to 
+    get ${^0_4T}$
+<*n>
+\begin{solution}
+\begin{verbatim}
+def arm_FK(th_1,th_2,d_3,th_4):     
+    T01 = Link_N(       0,     0,  l_1,  th_1)
+    T12 = Link_N( np.pi/2,     0,  l_2,  th_2)
+    T23 = Link_N( np.pi/2,     0,  d_3,  np.pi/2)
+    T34 = Link_N(-np.pi/2,   l_4,    0,  th_4)
+
+    print 'T01'
+    print T01
+
+    print 'T12'
+    print T12
+    
+    print 'T23'
+    print T23
+    
+    print 'T34'
+    print T34
+     
+    print 'T04'
+    print T01*T12*T23*T34\end{verbatim}
+\end{solution}
+<*>
+
+
+%%%%** Section 7.5.3 
+\subsubsection{}
+Run your function on the two poses. 
+<*n>
+\begin{solution}
+\begin{verbatim}
+CODE:
+deg = np.pi/180  # conversion factor deg to rad
+#Pose 1
+print '-------------- Pose 1'
+
+arm_FK(37*deg,-122*deg,0.68,192*deg) 
+
+#Pose 2
+print '-------------- Pose 2'
+
+arm_FK(120*deg,-27*deg,0.25, 63*deg)
+ 
+OUTPUT:
+> python EE543_ICP8.py 
+-------------- Pose 1
+T01
+[[ 0.79863551 -0.60181502  0.          0.        ]
+ [ 0.60181502  0.79863551 -0.         -0.        ]
+ [ 0.          0.          1.          1.        ]
+ [ 0.          0.          0.          1.        ]]
+T12
+[[ -5.29919264e-01   8.48048096e-01   0.00000000e+00   0.00000000e+00]
+ [ -5.19279693e-17  -3.24481965e-17  -1.00000000e+00  -5.00000000e-01]
+ [ -8.48048096e-01  -5.29919264e-01   6.12323400e-17   3.06161700e-17]
+ [  0.00000000e+00   0.00000000e+00   0.00000000e+00   1.00000000e+00]]
+T23
+[[  6.12323400e-17  -1.00000000e+00   0.00000000e+00   0.00000000e+00]
+ [  6.12323400e-17   3.74939946e-33  -1.00000000e+00  -6.80000000e-01]
+ [  1.00000000e+00   6.12323400e-17   6.12323400e-17   4.16379912e-17]
+ [  0.00000000e+00   0.00000000e+00   0.00000000e+00   1.00000000e+00]]
+T34
+[[ -9.78147601e-01   2.07911691e-01   0.00000000e+00   2.50000000e-01]
+ [ -1.27309193e-17  -5.98942664e-17   1.00000000e+00   0.00000000e+00]
+ [  2.07911691e-01   9.78147601e-01   6.12323400e-17   0.00000000e+00]
+ [  0.00000000e+00   0.00000000e+00   0.00000000e+00   1.00000000e+00]]
+T04
+[[-0.72947863 -0.53735672  0.42321234 -0.00919003]
+ [ 0.67507192 -0.66526098  0.31891337 -0.94602693]
+ [ 0.11017641  0.51833926  0.8480481   1.3603451 ]
+ [ 0.          0.          0.          1.        ]]
+-------------- Pose 2
+T01
+[[-0.5       -0.8660254  0.         0.       ]
+ [ 0.8660254 -0.5       -0.        -0.       ]
+ [ 0.        -0.         1.         1.       ]
+ [ 0.         0.         0.         1.       ]]
+T12
+[[  8.91006524e-01   4.53990500e-01   0.00000000e+00   0.00000000e+00]
+ [ -2.77989006e-17   5.45584144e-17  -1.00000000e+00  -5.00000000e-01]
+ [ -4.53990500e-01   8.91006524e-01   6.12323400e-17   3.06161700e-17]
+ [  0.00000000e+00   0.00000000e+00   0.00000000e+00   1.00000000e+00]]
+T23
+[[  6.12323400e-17  -1.00000000e+00   0.00000000e+00   0.00000000e+00]
+ [  6.12323400e-17   3.74939946e-33  -1.00000000e+00  -2.50000000e-01]
+ [  1.00000000e+00   6.12323400e-17   6.12323400e-17   1.53080850e-17]
+ [  0.00000000e+00   0.00000000e+00   0.00000000e+00   1.00000000e+00]]
+T34
+[[  4.53990500e-01  -8.91006524e-01   0.00000000e+00   2.50000000e-01]
+ [  5.45584144e-17   2.77989006e-17   1.00000000e+00   0.00000000e+00]
+ [ -8.91006524e-01  -4.53990500e-01   6.12323400e-17   0.00000000e+00]
+ [  0.00000000e+00   0.00000000e+00   0.00000000e+00   1.00000000e+00]]
+T04
+[[ 0.19091306 -0.87468797  0.44550326  0.70626787]
+ [ 0.57730988 -0.26700904 -0.77163428  0.27670817]
+ [ 0.79389263  0.4045085   0.4539905   0.77724837]
+ [ 0.          0.          0.          1.        ]]
+\end{verbatim}
+\end{solution}
+<*>
+
+%<z>  %turn this off until ready
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    7
+\newpage
+%%%%** Section 8 
+\section{Symbolic Forward and Inverse Kinematics in Python}
+
+
+\subsection*{Symbolic Libraries} 
+For the first part we will ``roll our own", then we will use our new IKBT package:
+
+For the first part: Your file needs to   {\tt import} the Python symbolic functions (sympy) as {\tt sp} for short:
+  
+    {\tt import sympy as sp} 
+
+%%%%** Section 8.1
+\subsection{} Write the function {\bf Link\_S($\alpha,a,d,\theta$)} A function to return a 4x4 symbolic link 
+    transform based on the DH parameters.  Your function must use {\tt sympy} functions and data types (such as {\tt sp.Matrix} -
+    note Capital ``M'' with sympy matrices).
+    
+<*n>
+    \begin{solution}
+    \begin{verbatim}
+# Homogeneous transform for link based on DH parameters
+def Link_S(al, a, d, th):
+  t = sp.Matrix ([
+    [sp.cos(th),                -sp.sin(th),               0,                a],
+    [sp.sin(th)*sp.cos(al),  sp.cos(th)*sp.cos(al), -sp.sin(al), -sp.sin(al)*d],
+    [sp.sin(th)*sp.sin(al),  sp.cos(th)*sp.sin(al),  sp.cos(al),  sp.cos(al)*d],
+    [0  ,0  ,0  ,1]
+    ])
+  return t
+    \end{verbatim}
+    \end{solution}
+<*>
+    
+%%%%** Section 8.2
+\subsection{} Write a Python script to use {\tt Link\_S()} to create a link transform for each row in
+the DH table of \ref{DHparamtableICP},     print them out,  and multiply them together in proper order
+     to   get ${^0_4T}$ {\it in symbolic form}.
+<*n>
+    \begin{solution}
+    \begin{verbatim}    
+import sympy as sp 
+sp.init_printing()
+# declare symbolic variables to sympy
+sp.var('l_1 l_2 l_4 th_1 th_2 d_3 th_4')
+
+# Homogeneous transform for link based on DH parameters
+def Link_S(al, a, d, th):
+  al = al*deg2rad
+  th = th*deg2rad
+  t = sp.Matrix ([
+    [sp.cos(th),                -sp.sin(th),               0,                a],
+    [sp.sin(th)*sp.cos(al),  sp.cos(th)*sp.cos(al), -sp.sin(al), -sp.sin(al)*d],
+    [sp.sin(th)*sp.sin(al),  sp.cos(th)*sp.sin(al),  sp.cos(al),  sp.cos(al)*d],
+    [0  ,0  ,0  ,1]
+    ])
+  return t
+
+def arm_FK_S(th_1,th_2,d_3,th_4):     
+    T01 = Link_S(       0,     0,  l_1,  th_1)
+    T12 = Link_S( sp.pi/2,     0,  l_2,  th_2)
+    T23 = Link_S( sp.pi/2,     0,  d_3,  sp.pi/2)
+    T34 = Link_S(-sp.pi/2,   l_4,    0,  th_4)
+
+    print 'T01'
+    sp.pprint( T01)
+
+    print 'T12'
+    sp.pprint( T12)
+    
+    print 'T23'
+    sp.pprint( T23)
+    
+    print 'T34'
+    sp.pprint( T34)
+     
+
+    print 'T04'
+    sp.pprint (T01*T12*T23*T34)
+
+    
+print ' Symbolic FK output'
+print '-------------- Both Poses'
+
+arm_FK_S(th_1,th_2,d_3,th_4) 
+    \end{verbatim}
+and the output is:
+
+% \begin{center}
+
+\end{solution} 
+<*>
+
+%%%%** Section 8.3
+\subsection{IKBT}
+\subsubsection{}
+
+First install and setup IKBT:
+
+(even if you have done this already, {\tt git pull} or re-install from {\tt .zip} because there have been a 
+few tweaks to the Puma560 model used below). 
+
+\begin{enumerate}
+    \item go to \url{https://github.com/uw-biorobotics/IKBT}
+    
+    \item Change to a (new) empty folder which you will use for only this work
+    
+    \includegraphics[width=2.5in]{gitclone.png}
+    
+    \item if you use git, type 
+    
+    {\tt > git clone https://github.com/uw-biorobotics/IKBT.git} (copy/paste the URL from the browser). 
+    
+    \item if you do not use git, select ``Download Zip'' and extract the file in this 
+    folder.
+    
+    \item You will see a new folder:  {\tt IKBT}, {\tt cd} into that and open a command line (console).
+    
+    \item enter 
+    
+    {\tt > python ikSolver.py  Wrist }
+    
+    to solve the basic wrist example.   This could take 1-3 minutes. You will see intermediate output on the console. 
+    
+    
+    \end{enumerate}
+
+
+
+\subsubsection{}
+Now try a more difficult robot, the Puma 560 
+
+\includegraphics[width=4.5in]{puma560.png}
+
+Puma 560 was one of the first ever electric commercial robot arms.  It is one of the more difficult IK problems. 
+
+{\tt >python ikSolver.py Puma}
+
+Allow 5-10 minutes!
+
+\subsubsection{Generated Code}
+After {\tt ikSolver.py Puma } completes, 
+
+\begin{enumerate}
+    \item  Download the python file {\tt test\_IK\_NOequationsPuma.py} from Canvas: {\tt Files/Code/}.
+    \item  Locate the generated python code in {\tt IKBT/CodeGen/Python} where you can find {\tt IK\_equationsPuma.py}
+    \item  Copy the equations and related code from {\tt IK\_equationsPuma.py} to the indicated place in {\tt test\_IK\_NOequationsPuma.py}
+    \item  Edit {\tt test\_IK\_NOequationsPuma.py} to set the desired pose to (meters and degrees)
+    \[
+    X = 0.4, Y = 0.3, Z = 0.6, th = 2\pi/3
+    \] 
+  
+  You should get 8 solutions in numerical form as a set of  vectors: $[\theta_1 \dots \theta_6]_{1-8}$
+
+<*n>
+\begin{solution}
+\begin{verbatim}
+Set pose to: 
+
+# Pose in "middle" of workspace
+    px = 0.4  # desired EE position
+    py = 0.3
+    pz = 0.6   #  assumes d1 = 0.6  (sometimes set to 0)
+    th = 2*np.pi/3  # just a random angle
+    
+Output: 
+
+  --- pose --- 
+x,  y,  z 
+0.4 0.3 0.6
+---------------
+
+ ------
+[22.45, -31.43, -55.98, 24.56, -119.39, 122.99, -88.59]
+
+ ------
+[231.31, 148.59, 124.03, 24.56, -72.19, -83.86, -147.42]
+
+ ------
+[231.31, 36.81, 236.0, -199.19, 89.2, 108.81, -78.35]
+
+ ------
+[22.45, -143.21, 55.98, -199.19, 132.01, -100.39, -143.95]
+
+ ------
+[231.31, 148.59, 124.03, 24.56, 107.82, 83.86, 32.6]
+
+ ------
+[22.45, -31.43, -55.98, 24.56, 60.62, -122.99, 91.42]
+
+ ------
+[22.45, -143.21, 55.98, -199.19, -48.0, 100.39, 36.06]
+
+ ------
+[231.31, 36.81, 236.0, -199.19, -90.82, -108.81, 101.66]
+
+\end{verbatim}
+
+\end{solution}
+<*>
+
+    \item  Now try the pose:
+    \[
+    X = 0.0, Y = 0.8731, Z = 0.6, th = 2\pi/3
+    \] 
+    
+    What do you observe about the solutions for $\theta_3$?   
+    
+<*n>
+\begin{solution}
+\begin{verbatim}
+  --- pose --- 
+x,  y,  z 
+0 0.8731 0.6
+---------------
+
+ ------
+[81.81, -85.81, -1.51, -84.3, -73.54, 73.39, -35.54]
+
+ ------
+[278.22, 94.2, 178.51, -84.3, -75.29, -55.33, 148.47]
+
+ ------
+[278.22, 91.19, 181.52, -90.33, 106.7, 56.15, -35.05]
+
+ ------
+[81.81, -88.82, 1.51, -90.33, 105.59, -72.56, 147.5]
+
+ ------
+[278.22, 94.2, 178.51, -84.3, 104.72, 55.33, -31.54]
+
+ ------
+[81.81, -85.81, -1.51, -84.3, 106.48, -73.39, 144.48]
+
+ ------
+[81.81, -88.82, 1.51, -90.33, -74.42, 72.56, -32.51]
+
+ ------
+[278.22, 91.19, 181.52, -90.33, -73.31, -56.15, 144.96]
+
+Remarks:    
+Since X=0, theta_1 should be approx {90, 270} -- check. 
+Note that theta_2 is about +- 90, and theta_3 is very close to zero/180deg.   
+This means the arm is stretched out almost to edge of workspace.  
+
+\end{verbatim}
+
+\end{solution}
+<*>
+
+\end{enumerate}
+
+<*>
+\end{document}
+

@@ -1,0 +1,114 @@
+%% Default Latex document template
+%%
+%%  blake@rcs.ee.washington.edu
+
+\documentclass{article}
+
+% Uncomment for bibliog.
+%\bibliographystyle{unsrt}
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+
+%\usepackage{lineno}
+%\linenumbers
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%
+%  Set Up Margins
+\input{templates/pagedim.tex}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%         Page format Mods HERE
+%
+%Mod's to page size for this document
+\addtolength\textwidth{0cm}
+\addtolength\oddsidemargin{0cm}
+\addtolength\headsep{0cm}
+\addtolength\textheight{0cm}
+%\linespread{0.894}   % 0.894 = 6 lines per inch, 1 = "single",  1.6 = "double"
+
+%\lhead{LEFT HEADER}
+%\chead{CENTER HEADER}
+%\rhead{RIGHT HEADER}
+%\lfoot{Hannaford, U. of Washington}
+%\rfoot{\today}
+%\cfoot{\thepage}
+\begin{document}
+
+\title{EE546 HW 1 \\ University of Washington}
+\setcounter{section}{1}
+
+
+\maketitle
+
+Computer software may be used for any problem.   If computer software is used, please state which package you have used and give a concise script in addition to the result.
+
+\subsection{}          % 1.1
+A point in 3-Space is located at
+\[
+^0P = \bmat 5 \\-7\\3 \emat
+\]
+in Frame 0 and
+\[
+{^1P} = \bmat 16\\0\\3\emat \qquad {^3P} = \bmat 1.7\\-6\\-4\emat
+\]
+Finally, we are given that
+\[
+{^0_1R} = \bmat .961 & -.276&0\\.234 & .815 &-.530\\.146 & .509 & .848\emat
+\]
+
+\subsubsection{}
+Find the origin of Frame 1 expressed in Frame 0.  Draw a diagram of the frames (does not have to be to scale) and give the numerical value of $O_1$.
+
+\subsubsection{}
+If
+\[
+{^1_2R} =  I
+\]
+Find $^1O_2$.
+
+
+
+\subsection{}
+Give the rotation matrix corresponding to a rotation about $X$ by $\theta$ followed by a rotation about the new $Z$ axis by $\alpha$.
+
+
+
+
+\subsection{}
+Frames $A$ and $B$ start out superimposed.  Then
+\begin{enumerate}
+  \item $B$ is rotated by $\theta_1$ about $X_A$.
+  \item $B$ is rotated by $\theta_2$ about $Y_A$.
+  \item $B$ is rotated by $\theta_3$ about $X_B$.
+\end{enumerate}
+Find ${^A_BR}$ after these rotations.  Multiply out the answer in symbolic form.
+
+
+\subsection{}
+Using the result of Section 2.6 (see notes), show that if $K=\bmat 0 & 1 & 0 \emat ^T$ then
+\[
+Rot(K,\theta) = rot(\hat{y}, \theta)
+\]
+
+
+\subsection{}
+
+The following rotations are performed
+
+\begin{enumerate}
+  \item A roll-pitch-yaw rotation in which
+
+   Roll = $16^\circ$, Pitch = $5^\circ$, Yaw = $4^\circ$
+
+  \item A rotation about the current $Y$ axis by $45^\circ$.
+  \item A rotation about the original $X$ (Roll) axis by $20^\circ$.
+\end{enumerate}
+
+Find the rotation matrix which represents the final orientation.   Multiply out your answer in numerical form.
+
+\end{document}
+

@@ -1,0 +1,363 @@
+<nh>\documentclass{article}
+<*>
+\usepackage{graphicx}
+\usepackage{amsmath}
+% \usepackage{graphpap}
+
+<*hn>
+\usepackage{fancyhdr}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%
+%  Set Up Margins
+\input{templates/pagedim.tex}
+
+%\linespread{0.894}   % 0.894 = 6 lines per inch, 1 = "single",  1.6 = "double"
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% HEADER / FOOTER
+\pagestyle{fancy}
+%%%%%  Page header/footer fields for "NSF Style" proposal
+%%%%%  \chead will be changed with each section
+\lhead{\small\sc EE543}
+<h>\rhead{Due 12-Feb-18}
+<n>\rhead{SOLUTION}
+\chead{HW 5}
+\lfoot{Hannaford, U. of Washington}
+\rfoot{\today}
+\cfoot{\thepage}
+%\renewcommand\headrulewidth{1pt}
+%\renewcommand\footrulewidth{1pt}
+
+
+\linespread{1.0}
+
+<*>
+\begin{document}
+
+
+%  Table row height
+\renewcommand\arraystretch{1.0}% Vertical Row size, 1.0 is for standard spacing)
+
+\setcounter{section}{5}   % set to N
+
+\section*{HW 5}
+
+
+%%%%** Section 5.1
+\subsection{Velocities and Frames}
+\begin{center}
+\includegraphics[width=4in]{01138.png}
+\end{center}
+Here are some facts:
+\begin{itemize}
+\item Frame \{1\} is a moving frame along the line with the $30^\circ$ slope
+
+\item $^1(^WV_1)=[0,0.867,0.5]^T$
+
+\item $|V_p|=2$.
+\end{itemize}
+
+
+%%%%** Section 5.1.1 
+\subsubsection{}\label{previous}
+What is $^W(^1V_P)$?
+
+<*n>
+\begin{solution}
+\[
+^W(^1V_P) = {^W_1R}\;{^1(^1V_P)} = {^W_1R}[2\cos(-45^\circ),2\sin(-45^\circ),0]^T
+\]
+by writing down the unit vectors of F$_1$ in terms of F$_2$:
+\[
+{^W_1R} = \begin{bmatrix}
+0 & 0 & 1\\ 0.867 & -0.5 & 0 \\ 0.5 & 0.867 & 0 
+\end{bmatrix}
+\]
+
+\[
+^W(^1V_P) = [0,-1.933,-0.519]^T
+\]
+\end{solution}
+<*>
+
+
+%%%%** Section 5.1.2 
+\subsubsection{}
+What is $^W(^WV_P)$?
+
+<*n>
+\begin{solution}
+In ANY frame: 
+\[
+^WV_P = {^WV_1}+^1V_P
+\]
+Adding velocities in F$_1$ and converting to $W$ frame with ${^W_1R}$:
+\[
+^W(^WV_P) = {^W_1R}\left[ {^1(^WV_1)} + {^1(^1V_P)} \right]
+\]
+using the previous results (\ref{previous}) in the answer:
+\[
+{^W_1R} = \begin{bmatrix}
+0 & 0 & 1\\ 0.867 & -0.5 & 0 \\ 0.5 & 0.867 & 0 
+\end{bmatrix}
+\begin{bmatrix} 0 \\0.867 \\0.5
+\end{bmatrix}
++
+\begin{bmatrix}  0\\1.933\\-0.519
+\end{bmatrix}=
+\begin{bmatrix} 0.5\\1.499 \\ 0.233
+\end{bmatrix}
+\]
+\end{solution}
+<*>
+
+
+%%%%** Section 5.1.3 
+\subsubsection{}
+What is $^W(^1V_1)$?
+
+<*n>
+\begin{solution}
+$^1V_1 = 0$ in any frame!
+so
+\[
+^WV_1 = 0
+\]
+\end{solution}
+<*>
+
+
+
+
+<n>\newpage
+%%%%** Section 5.2
+\subsection{Velocity (Numerical)}\label{previous2}
+Perform the following computations numerically, you may use any combination of hand calculations, Python, Scilab, Matlab or any other software you wish.
+
+For the following DH parameter Table
+\[
+\begin{bmatrix}
+\alpha_{N-1}  & a_{N-1} & d_N & \theta_N \\ \hline
+   0               & 7  & 0 & \theta_{1} \\
+-\frac{\pi}{2}     & 0  & 1 & \theta_{2} \\
+    \pi            & 2  & 2 & \theta_{3} \end{bmatrix}
+\]
+The pose of the robot is:
+\[
+\theta_1 = 90^\circ \quad \theta_2 = 25^\circ \quad \theta_3 = -68^\circ
+\]
+The joint velocities are:
+\[
+ \dot{\theta_1} = 10^\circ/sec \quad (= \dot{q}_1 )
+\]
+\[
+ \dot{\theta_2} = -15^\circ/sec \quad (= \dot{q}_2 )
+\]
+\[
+\dot{\theta_3} = 3^\circ/sec \quad (= \dot{q}_3 )
+\]
+Assume that
+\[
+{^0\omega_0} = {^0v_0} = [0,0,0]^T
+\]
+Find
+%%%%** Section 5.2.1 
+\subsubsection{}  $^3\omega_3$
+
+<*n>
+\vspace{0.15in}
+{\bf Solution: }
+\begin{verbatim}
+5.1.1     w33: 
+[[ -9.98629535]
+ [ -0.52335956]
+ [ 18.        ]]
+
+5.1.2    v33: 
+[[-28.3388752 ]
+ [ 21.22449315]
+ [-38.12615574]]
+
+5.1.3    R03*w33: 
+[[  1.80000000e+01]
+ [ -1.50284517e-15]
+ [  1.00000000e+01]]
+
+5.1.4    R03*v33: 
+[[-38.12615574]
+ [ 22.67854785]
+ [ 27.18923361]]
+
+\end{verbatim}
+For this and following, here is a Python Script:
+
+\begin{verbatim}
+#EE543  Solution:  hw5_Prob 5.1   Jan 2018
+import numpy as np 
+
+deg2rad = 2.0*np.pi/360.0
+
+al0 = 0 ;    
+deg = np.pi/180  # conversion factor deg to rad
+
+# Homogeneous transform for link based on DH parameters
+def Link_N(al, a, d, th):
+  al = al*deg2rad
+  th = th*deg2rad
+  t = np.matrix ([
+    [np.cos(th),                -np.sin(th),               0,                a],
+    [np.sin(th)*np.cos(al),  np.cos(th)*np.cos(al), -np.sin(al), -np.sin(al)*d],
+    [np.sin(th)*np.sin(al),  np.cos(th)*np.sin(al),  np.cos(al),  np.cos(al)*d],
+    [0  ,0  ,0  ,1]
+    ])
+  return t
+ 
+
+def colcross(a,b): # we need our own cross product function because np.cross(a,b) does
+                   # not use column vectors (as we do).
+    m = np.matrix([[0    , -a[2],  a[1]],
+                   [a[2] ,     0, -a[0]],
+                   [-a[1],  a[0],    0 ]
+                   ])
+    return m*b
+
+def wprop(T,wn,thd):
+    R = T[0:3,0:3].T
+    wn1 = R*wn + np.matrix([[0,0,thd]]).T
+    return wn1
+def vprop(T,wn,vn,thd,ddot): #  set wn=0 for prismatic joint, ddot=0 for rotary
+    R = T[0:3,0:3].T
+    P = T[0:3,3]
+    #print 'Shapes:'
+    #print np.shape(wn)
+    #print np.shape(P)
+    vn1 = R*(vn+colcross(wn,P)) + np.matrix([[0,0,ddot]]).T
+    return vn1
+
+
+### All DH parameters
+##   (including values for the pose: theta_i)
+al0 =  0;      a0 = 7      ; d1 = 0   ; th1 = 90
+al1 = -90;     a1 = 2      ; d2 = 1   ; th2 = 25
+al2 = 180;     a2 = 2      ; d3 = 2   ; th3 = -68
+
+# Joint velocities
+# (only one of each pair should be non-zero)
+
+dd1 =    0;  # m/sec
+thd1 =  10;  # deg/sec
+dd2 =    0;
+thd2 =   -15;
+dd3  =   0;
+thd3 =   3;
+
+#  The link transforms
+T01 = Link_N(al0,a0,d1,th1);
+T12 = Link_N(al1,a1,d2,th2);
+T23 = Link_N(al2,a2,d3,th3);
+
+R03 = T01[0:3,0:3]*T12[0:3,0:3]*T23[0:3,0:3]
+
+# base does not move
+w00 = np.matrix([[0,0,0]]).T  # .T = transpose
+v00 = np.matrix([[0,0,0]]).T
+
+# angular velocity prop
+w11 = wprop(T01,w00,thd1)
+w22 = wprop(T12,w11,thd2)
+w33 = wprop(T23,w22,thd3)
+
+print '\n5.1.1     w33: '
+print w33
+
+
+# linear velocity propagation
+v11 = vprop(T01,w00,v00,thd1,dd1);
+v22 = vprop(T12,w11,v11,thd2,dd2);
+v33 = vprop(T23,w22,v22,thd3,dd3);
+
+print '\n5.1.2    v33: '
+print v33
+
+print '\n5.1.3    R03*w33: '
+print R03*w33
+
+print '\n5.1.4    R03*v33: '
+print R03*v33
+\end{verbatim}
+%
+%
+% \[
+% \begin{bmatrix}c_{3} \dot{q}_{1} s_{2} - \dot{q}_{2} s_{3}\\- c_{3} \dot{q}_{2} - \dot{q}_{1} s_{2} s_{3}\\c_{2} \dot{q}_{1} + \dot{q}_{3}\end{bmatrix}
+% \]
+
+<*h>
+%%%%** Section 5.2.2 
+\subsubsection{} \label{3V_3Num} $^3V_3$
+ 
+%%%%** Section 5.2.3 
+\subsubsection{}  $^0\omega_3$
+
+ 
+%%%%** Section 5.2.4 
+\subsubsection{}  $^0V_3$
+
+<*>
+<n>\newpage
+%%%%** Section 5.3
+\subsection{Velocity (Symbolic)}\label{previous3}
+The following question must be done by hand in symbolic form:
+
+For the following DH parameter Table
+\[
+\begin{bmatrix}
+\alpha_{N-1}       & a_{N-1}    & d_N   & \theta_N \\ \hline
+   0               & l_1      & 0     & \theta_{1} \\
+-\frac{\pi}{2}     & 0        & l_2   & \theta_{2} \\
+    \pi            & l_3      & l_4   & \theta_{3} \end{bmatrix}
+\]
+
+
+
+Assume $^0V_0 = ^0\omega_0 = 0$.
+
+Apply the sum-of-angles and similar trig identities where possible to simplify your results.
+
+%%%%** Section 5.3.1 
+\subsubsection{}
+Compute     $^3\omega_3$  in symbolic form using velocity propagation.
+ 
+<*>
+%%%%** Section 5.3.2 
+\subsubsection{}\label{3V_3Sym}
+Compute     $^3V_3$ in symbolic form using velocity propagation.
+ 
+<*>
+%%%%** Section 5.3.3 
+\subsubsection{}
+
+Derive the Jacobian matrix from the previous result
+
+<*n>
+\begin{solution}
+Please see attached scanned pages. 
+\end{solution}
+<*>
+%%%%** Section 5.4
+\subsection{Cross Checking Results}   
+Create new expressions  in the code you wrote for Problem \ref{previous2} corresponding to  your symbolic results for ${^3V_3}$ (Problem \ref{3V_3Sym}).  Note that the DH parameters are the same 
+when
+\[
+l_1 = 7\quad l_2 = 1\quad l_3 = 2\quad l_4 = 2
+\]
+
+Making these substitutions and substituting the pose for the joint values into the symbolic expression, print out  the numerical  value of the symbolic expression from \ref{3V_3Sym}, 
+and also the numerical result from \ref{previous2}.   Do your two results for ${^3V_3}$ agree?
+
+
+<*n>
+\begin{solution}  Please see the file {\tt hw5\_w18\_543.py}
+\end{solution}
+<*>
+\end{document}
+

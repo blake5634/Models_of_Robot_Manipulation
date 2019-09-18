@@ -1,0 +1,10 @@
+*.bbl
+*.aux
+*.log
+*.pdf
+*.ps
+*.bak
+*.cfg
+*backup*
+*converted-to*
+

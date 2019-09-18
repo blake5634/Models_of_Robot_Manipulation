@@ -1,0 +1,161 @@
+<nh>\documentclass{article}
+<*>
+\usepackage{graphicx}
+\usepackage{amsmath}
+% \usepackage{graphpap}
+
+<*hn>
+\usepackage{fancyhdr}
+
+\usepackage{breqn}     %break up long equations marked by \begin{dmath}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%
+%  Set Up Margins
+\input{templates/pagedim.tex}
+
+%\linespread{0.894}   % 0.894 = 6 lines per inch, 1 = "single",  1.6 = "double"
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% HEADER / FOOTER
+\pagestyle{fancy}
+%%%%%  Page header/footer fields for "NSF Style" proposal
+%%%%%  \chead will be changed with each section
+\lhead{\small\sc EE543}
+<h>\rhead{Due 5-Mar-18}
+<n>\rhead{SOLUTION (Feb 18)}
+\chead{HW 7(rev)}
+\lfoot{Hannaford, U. of Washington}
+\rfoot{\today}
+\cfoot{\thepage}
+%\renewcommand\headrulewidth{1pt}
+%\renewcommand\footrulewidth{1pt}
+
+
+\linespread{1.0}
+
+<*>
+\begin{document}
+
+
+%  Table row height
+\renewcommand\arraystretch{1.0}% Vertical Row size, 1.0 is for standard spacing)
+
+\setcounter{section}{7}   % set to N
+
+\section*{HW 7}
+
+\begin{solution}For all solutions, see the Python file: {\tt hw7\_w18.py }
+\end{solution}
+%%%%** Section 5.1
+\subsection{Python Installation}
+Make sure Python is installed on your computer, the same as in ICP 7.   (Should be done already!)
+
+Document that you have completed all steps of ICP 7 (if any steps were not completed in ICP 7 turn-in material).
+
+
+\subsection{Forward Kinematic Equations: Puma 560}
+
+In this problem we study the Puma 560, one of the first ever commercial electrically operated robot arms. 
+
+\begin{center} \includegraphics[width=3.5in]{puma560.png}
+\end{center}
+
+
+For the following DH parameters, create a function which computes the 4x4 ${^0_6T}$ matrix for any value
+of $\Theta$.    The kinematic parameters for this robot are
+\[ 
+\left [ \alpha_{i-1}, \quad a_{i-1}, \quad d_i, \quad \theta_i \right  ] 
+\]
+\begin{dmath} \left[\begin{matrix}0 & 0 & d_1 & \theta_{1}\\
+- \frac{\pi}{2} & 0 & 0 & \theta_{2}\\
+0 & a_{2} & d_{3} & \theta_{3}\\
+- \frac{\pi}{2} & a_{3} & d_{4} & \theta_{4}\\
+\frac{\pi}{2} & 0 & 0 & \theta_{5}\\
+- \frac{\pi}{2} & 0 & 0 & \theta_{6}
+\end{matrix}\right] 
+\end{dmath}
+    
+where 
+\[
+d_1 = 0.660, a_2=0.432, a_3=0.0203, d_3=0.1245, d_4=0.432         
+\]
+in meters.
+
+% 
+%     
+% \begin{tabular}{|c|c|c|c|}\hline
+% $\alpha_{N-1}$    &  $a_{N-1}$    &    $d_N$    &   $\theta_N$   \\ \hline
+%          &           &         &                  \\ \hline
+%          &           &         &                   \\ \hline
+%          &           &         &                   \\ \hline
+%          &           &         &                   \\ \hline
+%          &           &         &                   \\ \hline
+%          &           &         &                   \\ \hline
+% \end{tabular}
+
+
+Give the ${^0_6T}$ for 
+\[
+\Theta = [-125^\circ, 12.7^\circ, -40^\circ, 32.7^\circ, -63.7^\circ, 44.2^\circ ]^T
+\]
+
+\subsection{Approximate workspace}
+
+\subsubsection{}
+Assume that the robot has NO joint limits on rotary joints.    Write a function to 
+generate  100,000 random joint poses.   As each ${^0_6T}$ is computed, find the Min and Max values 
+of $P_x = {^0_6T_{1,4}}$,$P_y = {^0_6T_{2,4}}$,$P_x = {^0_6T_{3,4}}$.  Print out the min and max values 
+for $X,Y,Z$.   This is a bounding box on the work volume.
+
+\subsubsection{}
+How do the Min/Max values relate to DH parameters?
+ 
+
+\subsubsection*{Extra Credit: create a convex hull of the points and visualize it using Matplotlib (python matlab-like plotting)}
+\begin{quotation}
+You might need to go down to fewer than 100,000 points to make this work in reasonable time. \\
+
+{\tt Graphics:} Rotate your viewpoint to look down from the top (in negative $Z$ direction).   What do you 
+notice?   Explanation?
+\end{quotation}
+
+
+<*n>
+\begin{solution}
+\includegraphics[width=3.5in]{workvol_ConvHull_top.png}
+
+There is a cylinder around the $Z$ axis ($X=0, Y=0$) which cannot be reached due to the joint offset at the shoulder, $d_3$.
+see the Python file: {\tt hw7\_w18.py }
+\end{solution}
+
+<*>
+\subsection{}
+Now assume {\bf joint limits} as follows:
+
+
+
+\begin{align*}
+-170 < &\theta_1< 170 \\
+-225 < &\theta_2< 45 \\
+-250 < &\theta_3< 75  \\
+-135 < &\theta_4< 135  \\
+-100 < &\theta_5< 100  \\
+-180 < &\theta_6< 180
+\end{align*}
+(all degrees)
+
+Now repeat the work volume bounding box problem with these joint limits
+
+\vspace{0.1in}
+Explain any difference in the min/max values 
+
+<*n>
+\vspace{1.0in}
+\begin{solution}
+For all solutions, see the Python file: {\tt hw7\_w18.py }
+
+\end{solution}
+ 
+<*>
+\end{document}
+

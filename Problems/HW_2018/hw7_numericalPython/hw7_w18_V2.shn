@@ -1,0 +1,82 @@
+<nh>\documentclass{article}
+<*>
+\usepackage{graphicx}
+\usepackage{amsmath}
+% \usepackage{graphpap}
+
+<*hn>
+\usepackage{fancyhdr}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%
+%  Set Up Margins
+\input{templates/pagedim.tex}
+
+%\linespread{0.894}   % 0.894 = 6 lines per inch, 1 = "single",  1.6 = "double"
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% HEADER / FOOTER
+\pagestyle{fancy}
+%%%%%  Page header/footer fields for "NSF Style" proposal
+%%%%%  \chead will be changed with each section
+\lhead{\small\sc EE543}
+<h>\rhead{Due 5-Mar-18}
+<n>\rhead{SOLUTION (Feb 18)}
+\chead{HW 7(rev)}
+\lfoot{Hannaford, U. of Washington}
+\rfoot{\today}
+\cfoot{\thepage}
+%\renewcommand\headrulewidth{1pt}
+%\renewcommand\footrulewidth{1pt}
+
+
+\linespread{1.0}
+
+<*>
+\begin{document}
+
+
+%  Table row height
+\renewcommand\arraystretch{1.0}% Vertical Row size, 1.0 is for standard spacing)
+
+\setcounter{section}{7}   % set to N
+
+\section*{HW 7}
+
+
+%%%%** Section 5.1
+\subsection{Python Installation}
+Make sure Python is installed on your computer, the same as in ICP 7.   (Should be done already!)
+
+Also, if needed, use this ``Problem" to document that you have completed all steps of ICP 7.
+
+
+\subsection{Forward Kinematic Equations}
+
+For the following DH parameters, create a function which computes the 4x4 ${^0_6T}$ matrix for any value
+of $\Theta$. 
+
+Give the ${^0_6T}$ for 
+\[
+\Theta = [.........................]^T
+\]
+
+\subsection{Approximate workspace}
+
+\subsubsection{}
+Assume that the robot has NO joint limits on rotary joints and $0<d_X<2.0$.    Write a function to 
+generate  100,000 random joint poses.   As each ${^0_6T}$ is computed, find the Min and Max values 
+of $P_x = {^0_6T_{1,4}}$,$P_y = {^0_6T_{2,4}}$,$P_x = {^0_6T_{3,4}}$.    This is a bounding box on the 
+work volume.
+
+\subsubsection{}
+How do the Min/Max values relate to DH parameters?
+ 
+
+\subsubsection*{Extra Credit: create a convex hull of the points and visualize it using Matplotlib (python matlab-like plotting)}
+You might need to go down to fewer than 100,000 points to make this work in reasonable time. 
+
+\subsection{}
+ 
+<*>
+\end{document}
+

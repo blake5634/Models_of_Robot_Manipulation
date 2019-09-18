@@ -1,0 +1,12 @@
+#$! /bin/bash
+
+f=icps_EE543.n.pdf
+
+pdftk $f cat 2-5   output   icp543_1_soln.pdf
+pdftk $f cat 6-9   output   icp543_2_soln.pdf
+pdftk $f cat 10-14 output   icp543_3_soln.pdf
+pdftk $f cat 15-20 output   icp543_4_soln.pdf
+pdftk $f cat 21-25 output   icp543_5_soln.pdf
+pdftk $f cat 26-28 output   icp543_6_soln.pdf
+pdftk $f cat 29-29 output   icp543_7_soln.pdf
+pdftk $f cat 30-34 output   icp543_8_soln.pdf

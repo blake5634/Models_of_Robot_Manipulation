@@ -1,0 +1,19 @@
+
+
+t2 = 50/57.3; // radians
+
+c2 = cos(t2);
+s2 = sin(t2);
+
+a2 = 1;
+d2 = 1;
+d1 = 1;
+
+th1 =  [-%pi/2: 1/57.3 : %pi/2] ;
+
+x = cos(th1)*c2*a2-sin(th1)*d2;
+//y = sin(th1)*c2*a2-cos(th1)*d2;
+y = sin(th1)*c2*a2+cos(th1)*d2;
+z = s2*a2+d1;
+
+plot(x,z)

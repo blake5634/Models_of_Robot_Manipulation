@@ -1,0 +1,15 @@
+% Problem Statement and Learning Objectives for Chapter 03
+\paragraph{Problem Statement}
+ This chapter addresses the problem of computing the position and orientation of an end effector, knowing the geometry of the manipulator and the position values of each joint.  Joints may be rotary in which case the joint value is an angle, or prismatic, in which case the joint value is a displacement. We seek a general way to represent any serial manipulator. 
+
+\paragraph{Learning Objectives}
+ 
+After completing this chapter, the student will be able to derive the forward kinematic model of a serial manipulator.  Specifically to
+\begin{itemize} 
+  \item Identify the link and joint geometry from a picture or engineering drawing of a serial mechanism containing rotary and prismatic joints.
+  \item Be able to assign a coordinate system to each link in a standardized manner. 
+  \item Be able to derive Denavit-Hartenberg parameters for each link
+  \item Be able to form the 4x4 homogeneous transform for each link based on the DH parameters and be able to multiply these link matrices together to get a symbolic expression for the forward kinematic equations in the form of a 4x4 homogenous transform matrix. 
+\end{itemize}
+The result is a computation of the position and orientation of the end effector knowing the geometric dimensions  of each link and the position of each joint in the mechanism.  
+
