@@ -1,0 +1,19 @@
+*.aux
+*.log
+*.ps
+*.pdf
+/fig*/*converted-to.pdf
+*.dvi
+*.dvi.pdf
+*.bbl
+*.blg
+*.toc
+*.out
+# beamer files
+*.nav
+*.snm
+
+# editor backup files
+
+*~
+
