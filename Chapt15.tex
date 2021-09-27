@@ -390,7 +390,7 @@ In the electrical 2-port of Figure \ref{ElectricTwoPort}, $i_1$ and $i_2$ are th
 %%%%** Figure 12
 \begin{figure}[h]	%<hn>
 \centering \includegraphics[width=3.5in]{figs14/00309.eps}
-\caption{Bond graphs (Figure \ref{BondGraphs}) illustrate ways energy can flow within networks.}\label{BondGraphs}	%<hn>
+\caption{Bond graphs (Figureillustrate ways energy can flow within networks.}\label{BondGraphs}	%<hn>
 \end{figure}	%<hn>
 
  When two ports are connected as in Figure \ref{ConnectedOnePorts}, we can say they are wired in series, but also that they are wired in parallel.  However if three ports are connected together, we need to consider how they are connected.  Series connection means that all the ports have the same flow value and parallel means they share the same effort but have different flows.  Bond Graphs are an abstraction of networks into energy bonds between lumped parameter elements. A ``bond" is a general way of connecting multiple ports together.     Elements are connected at bonds which correspond to Kirchoffs/Newtons laws.	%<hn>
@@ -398,7 +398,7 @@ In the electrical 2-port of Figure \ref{ElectricTwoPort}, $i_1$ and $i_2$ are th
 	%<*>
 ``1 Junction" a bond in which $\sum\limits_i \ef_i = 0$ and $\fl_i = \fl_j$.  For example an electrical series loop or a mass.
 
-``0 Junction" a bond in which $\sum\limits_i \fl_i = 0$ and $\ef_i = \ef_j$.  For example an electrical node (parallel connection) or   mechanical elements which share the same force.
+``0 Junction" a bond in which $\sum\limits_i \fl_i = 0$ and $\ef_i = \ef_j$.  For example an electrical node (parallel connection) or   mechanical elements which share the same force (Figure \ref{BondGraphs}).
 
 %\end{slide}
 %\begin{slide}
@@ -548,6 +548,7 @@ Effort:      &  $\ef=0$  &      free motion                &  short circuit     
 
 %%%%** Section 6.5
 \subsection{Finding Elements of H}
+% \begin{example}
 
 Exercise:   Find the elements of $H$ (eqn(\ref{HMatrixDef})
 
@@ -567,7 +568,7 @@ First expand eqn(\ref{HMatrixDef}) to get
 \eq
 
 	%<*n>
-Now set some boundary conditions on the network:  $\fl_1  = 0$ or $\fl_2 = 0$.  This allows us to solve for each element of $H$:
+Now set some boundary conditions on the network:  $\fl_1  = 0$ or $\ef_2 = 0$.  This allows us to solve for each element of $H$:
 
 
 \bq
@@ -586,7 +587,7 @@ h_{22} = \left . \frac{\fl_2}{\ef_2}\right |_{\fl_1=0}
 \end{array}
 \right ]
 \eq
-
+% \end{example}
 	%<*>
 
 %\end{slide}
@@ -635,7 +636,7 @@ For a bilateral teleoperation system  (Figure \ref{BasicBilateralTeleop}) we hav
 %%%%** Figure 15
 \begin{figure}[h]	%<hn>
 \centering \includegraphics[width=3.5in]{figs14/00320.eps}
-\caption{Simple bi-lateral teleoperation system has two ports: the master and slave robots (here shown as a completely symmetrical system) contact two separate environments. The human operator is usually shown in place of the left side environment.}\label{BasicBilateralTeleop}	%<hn>
+\caption{Simple bi-lateral teleoperation system has two ports: the leader and follower robots (here shown as a completely symmetrical system) contact two separate environments. The human operator is usually shown in place of the left side environment.}\label{BasicBilateralTeleop}	%<hn>
 \end{figure}	%<hn>
 
 
@@ -665,18 +666,18 @@ h_{22} = \left . \frac{\dot{x}_2}{f_2}\right |_{\dot{x}_1=0}
 Note that $h_{11}$ (eqn (\ref{h11})) is an effort over a flow and thus it is an impedance.    Furthermore, we observe:	%<hn>
 \begin{itemize}
   \item $h_{11}$ involves only variables at the input port.
-  \item Because of the applicable boundary condition, $f_2=0$, $h_{11}$ can only be measured or computed when the output port is in free motion.
+  \item Because of the applicable boundary condition, $f_2=0$, $h_{11}$ can only be measured or computed when the output port is in free motion (e.g. not in contact fro which $f_2=0$).
   \item $h_{11} = z_{11}$
 \end{itemize}
-With these considerations, $h_{11}$ represents the input impedance (i.e. resistance felt by the human operator) when the slave is not touching anything.
+With these considerations, $h_{11}$ represents the input impedance (i.e. resistance felt by the human operator) when the follower is not touching anything.
 
 Similarly, $h_{12}$ is a ratio of the two forces at the ports.   We observe:
 
 \begin{itemize}
   \item $h_{12}$ is dimensionless.
-  \item $h_{12}$ represents a gain or transfer function from slave force to master force.
+  \item $h_{12}$ represents a gain or transfer function from follower force to leader force.
   \item $h_{12}$ characterizes the nature of force feedback to the operator.
-  \item The boundary condition for $h_{12}$ requires that it be measured or computed with the master device locked so that it cannot move.
+  \item The boundary condition for $h_{12}$ requires that it be measured or computed with the leader device locked so that it cannot move.
 \end{itemize}
 
 Extending this reasoning to the other $H$ parameters, we have
@@ -684,10 +685,10 @@ Extending this reasoning to the other $H$ parameters, we have
 \vspace{0.25in}
 \begin{tabular}{ll}
 \hline
-$h_{11}$        &    Input Impedance with Free Slave Motion.   \\
-$h_{12}$        &    Force Feedback Gain with Locked Master, $\lambda_f$. \\
-$h_{21}$        &    Forward Velocity Gain with Free Slave Motion,  $\lambda_p$.   \\
-$h_{11}$        &    Input impedance with Free Slave Motion.   \\
+$h_{11}$        &    Input Impedance with Free Follower Motion.   \\
+$h_{12}$        &    Force Feedback Gain with Locked Leader, $\lambda_f$. \\
+$h_{21}$        &    Forward Velocity Gain with Free Follower Motion,  $\lambda_p$.   \\
+$h_{11}$        &    Input impedance with Free Follower Motion.   \\
 \hline
 \end{tabular}
 
@@ -752,8 +753,8 @@ Clearly this channel is used in natural manipulation.    How can kinesthesia be 
 Approaches:
 \begin{itemize}
 
-\item Send force from master to slave and force from slave to master.
-\item Send position from master to slave, force from slave to master (``force feedback").
+\item Send force from leader to follower and force from follower to leader.
+\item Send position from leader to follower, force from follower to leader (``force feedback").
 \item Send position in both directions.
 
 \end{itemize}
@@ -772,13 +773,13 @@ How do we analyze a control system where each end is both an input and output?
 %%%%** Section 9
 \section{Ideal Bilateral teleoperator: Massless Stick}
 
-First let's put these ideas to work on bilateral kinesthetic systems.    First consider a massless stick with which a human is pushing on the environment  in the axial direction (Figure \ref{MasslessStick}).
+First let's put these ideas to work on bilateral kinesthetic systems.    First consider a rigid massless stick with which a human is pushing on the environment  in the axial direction (Figure \ref{MasslessStick}).
 
 
 %%%%** Figure 18
 \begin{figure}[h]	%<hn>
  \centering \includegraphics[width=3.5in]{figs14/00312.eps}
-\caption{Massless stick held by operator at one end and touching an environment at the other can be analyzed as a two port system.}\label{MasslessStick}	%<hn>
+\caption{Rigid and massless stick held by operator at one end and touching an environment at the other can be analyzed as a two port system.}\label{MasslessStick}	%<hn>
 \end{figure}	%<hn>
 
 
@@ -790,7 +791,7 @@ Clearly the ports are the two ends of the stick.   Following Section \ref{Signs}
 
 {\bf Note:}
 
-Designation of ``Master" and ``Slave" ends is completely arbitrary.
+Designation of ``Leader" and ``Follower" ends is completely arbitrary.
 
 With a massless stick, we have a direct kinesthetic correspondance between hand force/velocity and environment force/velocity.
 
@@ -801,7 +802,9 @@ With a massless stick, we have a direct kinesthetic correspondance between hand 
 %%%%** Section 9.1
 \subsection{Hybrid Matrix of Massless Stick}
 
-With the correct sign conventions, and using intuition about massless sticks, we write
+With the correct sign conventions, and 
+using intuition extrapolated from real-world experiences using low-mass sticks, 
+we write
 \bq
 \dot{x_1} = -\dot{x_2} \qquad \mathrm{and} \qquad f_1 = f_2
 \eq
@@ -827,11 +830,14 @@ h_{22} = \left . \frac{\dot{x}_2}{f_2}\right |_{\dot{x}_1=0}     0
 or
 
 \bq\label{HIdeal}
-H_{ideal}  = \left [
-\begin{array}{cc}
+% H_{ideal}  = \left [
+% \begin{array}{cc}
+% 0 & 1 \\ -1 & 0
+% \end{array}
+% \right]
+H_{ideal}  = \begin{bmatrix}
 0 & 1 \\ -1 & 0
-\end{array}
-\right]
+\end{bmatrix}
 \eq
 
 Note that applying similar analysis to the $Z$ matrix give us
@@ -841,23 +847,23 @@ Z_{ideal} = \left [
 \begin{array}{cc}
 \infty & \infty \\ \infty & \infty
 \end{array}
-\right]
+\right] 
 \eq
 
 The different two port models do not always exist.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%** Section 10
-\section{Position error-based Master-Slave Teleoperation}
+\section{Position error-based Leader-Follower Teleoperation}
 
 %
 %%%%** Figure 19
 \begin{figure}[h]	%<hn>
 \centering \includegraphics[width=3.5in]{figs14/00313.eps}
-\caption{Classical master-slave bi-lateral teleoperation control system.  Master and slave devices are represented as Thevenin equivalent circuits.  Mechanical impedances represent viscous and inertial properties of the devices such as motor inertia.}\label{ClassicalMasterSlave}	%<hn>
+\caption{Classical leader-follower bi-lateral teleoperation control system.  Leader and follower devices are represented as Thevenin equivalent circuits.  Mechanical impedances represent viscous and inertial properties of the devices such as motor inertia. $f_i$: forces (efforts), $\dot{x}_i$: velocities (flows)}\label{ClassicalLeaderFollower}	%<hn>
 \end{figure}	%<hn>
 
-We now consider the original bilateral control method (going back to Ray Goertz) in which position error between master and slave is used to generate a force feedback signal (Figure \ref{ClassicalMasterSlave}).  Here we have a diagram showing the master and slave units as Thevenin equivalent one-ports.  These are reasonable models of electric motor driven motion axes.  The source in each one-port is a dependent effort source such that
+We now consider the original bilateral control method (going back to Ray Goertz) in which position error between leader and follower is used to generate a force feedback signal (Figure \ref{ClassicalLeaderFollower}).  Here we have a diagram showing the leader and follower units as Thevenin equivalent one-ports.  These are reasonable models of electric motor driven motion axes.  The source in each one-port is a dependent effort source such that
 \bq
 f_2 = f_3 = (\dot{x}_1 + \dot{x}_2)G
 \eq
@@ -870,8 +876,8 @@ f_2 = f_3 = (\dot{x}_1 + \dot{x}_2)G
    \begin{array}{c} f_1 \\ \dot{x}_4  \end{array}
    \right]
 =
-H_{cs}  \left [
-   \begin{array}{c} \\dot{x}_1 \\ f_4  \end{array}
+H_{LF}  \left [
+   \begin{array}{c} \dot{x}_1 \\ f_4  \end{array}
    \right]
 \eq
 
@@ -879,7 +885,7 @@ You can show:
 
 
 \bq\label{HClassical}
-H_{cs}  = \left [
+H_{LF}  = \left [
 \begin{array}{cc}
 Z_3 + G\left[ 1- \frac{G}{Z_3+G} \right ]
 &
@@ -921,7 +927,7 @@ h_{11} \rightarrow Z_3 \qquad \mathrm{as} \quad |G| \rightarrow \infty
 
 
 %%%%** Section 11
-\section{Forward Flow Master Slave Teleoperation}
+\section{Forward Flow Leader Follower Teleoperation}
 
 (future material)
 
@@ -983,7 +989,7 @@ Here's how the $h$ parameters describe physical phenomena in the brush.
 \bq\label{HBrush2}
 H_{ideal}  = \left [
 \begin{array}{cc}
-\mathrm{Brush \quad inertial \quad behavior.}
+\mathrm{Brush \quad inertial \quad behavior}
 &
 \mathrm{Mechanical \quad Advantage}
 \\
@@ -1008,7 +1014,7 @@ We can also show that when using the paintbrush, the impedance ``seen" by the pa
 Z_{AB} = Z_A \left( \frac{r_0}{r_0+r_1} \right)^2
 \eq
 
-By varying his/her grip on the brush, the artist changes $r_0$ and $r_1$ keeping their total constant.
+By varying his/her grip on the brush, the artist changes $r_0$ and $r_1$, keeping their total constant.
 
 Let's consider extreme cases,
 
@@ -1019,7 +1025,7 @@ In this case $Z_{AB} \rightarrow 0$.    Recall that when impedance is 0, we have
 
 2)  $r_1 \rightarrow 0$
 
-In this case $Z_{AB} \rightarrow Z_A$.     Recall that when impedance is $\infty$, we have an ideal velocity/position (flow) source.  Although the artist cannot achieve infite impedance, $Z_A$ may be the highest impedance that the artist can achieve.
+In this case $Z_{AB} \rightarrow Z_A$.     Recall that when impedance is $\infty$, we have an ideal velocity/position (flow) source.  Although the artist cannot achieve infinite impedance, $Z_A$ may be the highest impedance that the artist can achieve.
 
 %\end{slide}
 %\begin{slide}
@@ -1044,7 +1050,7 @@ Already a huge range of scale factors ($10^{10}$) have been implemented in teleo
 %%%%** Section 13.1
 \subsection{Scaled Mechanical Impedance}
 
-Consider $\lambda_p \neq 1$ and $\lambda_f \neq 1$.  If the slave robot is in contact with a mechanical impedance $Z_E$, what is the impedance experienced or felt by the human operator?  We denote this impedance $Z_{felt}$ and illustrate where it is measured and defined in Figure \ref{Zfelt}.
+Consider $\lambda_p \neq 1$ and $\lambda_f \neq 1$.  If the follower robot is in contact with a mechanical impedance $Z_E$, what is the impedance experienced or felt by the human operator?  We denote this impedance $Z_{felt}$ and illustrate where it is measured and defined in Figure \ref{Zfelt}.
 %                      (19)
 %%%%** Figure 22
 \begin{figure}[h]	%<hn>
@@ -1088,7 +1094,7 @@ Z_{felt} =  h_{11} + \left [ \frac{\lambda_p\lambda_f}{1+Z_Eh_{22}} \right ] Z_E
 %is dimensionless.
 	%<*>
 
-If the master and slave mechanisms are perfect or idealized (that is they have no losses due to friction or compliance), then	%<hn>
+If the leader and follower mechanisms are perfect or idealized (that is they have no losses due to friction or compliance), then	%<hn>
 ideally $h_{11} = 0$ and $Z_E h_{22} = 0$.  Giving
 \bq
 \boxed{   Z_{felt} = \lambda_p\lambda_f Z_E     }
@@ -1098,7 +1104,7 @@ ideally $h_{11} = 0$ and $Z_E h_{22} = 0$.  Giving
 %\begin{slide}
 
 %%%%** Section 13.2
-\subsection{Power Gain from Master to Slave}
+\subsection{Power Gain from Leader to Follower}
 
 It can be shown\footnote{ B. Hannaford,  'Kinesthetic Feedback Techniques in Teleoperated Systems,'  In ``Advances in Control and Dynamic Systems", pp. 1-32, C. Leondes, Ed., Academic Press, San Diego, 1991.} that for the system of Figure \ref{ScaledTwoPort},
 

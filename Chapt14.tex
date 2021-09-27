@@ -24,6 +24,31 @@
 \section{Introduction}
 This chapter will introduce analytical models of teleoperation systems with multiple degrees of freedom.
 
+We will focus on how to convert motion and force information as it flows back 
+and forth in a remotely controlled telemanipulation system.
+
+Students completing this chapter will be able to
+\begin{itemize}
+\item Explain and diagram at the block diagram level historical and current standard
+remote control schemes for teleoperation, including methods with force feedback to the 
+human operator. 
+\item Define and formulate design requrements for scaling and indexing (offsetting)
+between the human operator's motion and the remote manipulator's motion. 
+\item Analyze the relevant coordinate frames for teleoperation with indexing. 
+\item Apply dynamical systems concepts to electromechanical networks to study 
+flows of energy, force, and motion in teleoperation systems.
+\item Model teleoperation systems with force feedback in terms of 2-port networks. 
+\end{itemize}
+
+
+\section{Special Historical Note}
+Going back to it's founding in the 1940's, the teleoperation field used language
+which is fundamentally offensive to many groups (especially Black-Indiginous-and People
+of Color (BOPIC) people).  Specifically, the side of the system interfacing the 
+human operator was referred to as "master" and the remote robot side the "slaves" side. 
+
+This book adopts the terms "Leader" and "Follower" to denote the human-facing and 
+task/environment-facing sides of the teleoperation system. 
 
 
 	%<*>
@@ -34,15 +59,15 @@ This chapter will introduce analytical models of teleoperation systems with mult
 \begin{enumerate}
 	\item Joint Rate Control
 	\item Resolved Rate Control
-	\item Master-Slave Control
-	\item Generalized Master-Slave Control
+	\item Leader-Follower Control
+	\item Generalized Leader-Follower Control
 \end{enumerate}
 
 
 %%%%** Section 2.1
 \subsection{Joint Rate Control}
 
-\includegraphics[width=4.0in]{figs14/00398.eps}
+\includegraphics[width=4.0in]{figs14/00398.jpg}
 
 A basic control panel with knobs to control the rate of each joint.
 
@@ -63,7 +88,7 @@ Human must do inverse kinematics in their heads.
 %%%%** Section 2.2
 \subsection{Resolved Rate Control}
 
-\includegraphics[width=4.0in]{figs14/00399.eps}
+\includegraphics[width=4.0in]{figs14/00399.jpg}
 
 
 \subsubsection*{Advantages}
@@ -71,18 +96,12 @@ Human must do inverse kinematics in their heads.
 	\item Modest computational requirements
 	\item Can be adapted to task (i.e. change of reference frame or reference point).
 
-	\includegraphics[width=4.0in]{figs14/00400.eps} \includegraphics[width=2.5in]{figs14/hubbleRMS.eps}	%<hn>
+	\includegraphics[width=4.0in]{figs14/00400.jpg} \includegraphics[width=2.5in]{figs14/hubbleRMS.eps}	%<hn>
 
         Example of the Hubble space telescope manipulated by space shuttle robot arm (RMS).   The reference frame for resolved rate control can be programmed to the center of mass of the telescope or any convenient point. 	%<hn>
 \end{itemize}
 
-
-%\end{slide}
-%\begin{slide}
-%	\includegraphics[width=2.5in]{figs14/00400.eps} \includegraphics[width=1.5in]{figs14/hubbleRMS.eps}
-%\end{slide}
-%\begin{slide}
-
+ 
 
 \subsubsection*{Disadvantages}
 \begin{itemize}
@@ -93,7 +112,7 @@ Human must do inverse kinematics in their heads.
             \end{itemize}
    \item Need to watch out for singualrities in Jacobian Matrices.
 
-System may demand infinite joint rates from slave robot.
+System may demand infinite joint rates from follower robot.
 \end{itemize}
 
 
@@ -105,32 +124,32 @@ System may demand infinite joint rates from slave robot.
 %\begin{slide}
 
 %%%%** Section 2.3
-\subsection{Master Slave Control}
+\subsection{Leader Follower Control}
 
-This situation describes teleoperators where the master and slave devices are kinematically the same.
+This situation describes teleoperators where the leader and follower devices are kinematically the same.
 
-\includegraphics[width=4.0in]{figs14/00401.eps}
+\includegraphics[width=4.0in]{figs14/00401.jpg}
 
 Controller must make sure that
 \bq
-\theta_s = \theta_m
+\theta_F = \theta_L
 \eq
 Since the kinematic parameters (i.e. Denavit Hartenberg Parameters) are the same, this implies
 \bq
-^0_6T_s = ^0_6T_m
+^0_6T_F = ^0_6T_L
 \eq
 Also, if
 \[
-\tau_m = \tau_s
+\tau_L = \tau_F
 \]
 then
 \bq
-F_m = F_s
+F_L = F_F
 \eq
 
 One such controller is
 
-\includegraphics[width=4.0in]{figs14/00403.eps}
+\includegraphics[width=4.0in]{figs14/00403.jpg}
 
 %\end{slide}
 %\begin{slide}
@@ -144,8 +163,8 @@ One such controller is
 
 \subsubsection*{Disadvantages}
 \begin{itemize}
-   \item Master and Slave must be same design.
-   \item Master and Slave must be in same configuration
+   \item Leader and Follower must be same design.
+   \item Leader and Follower must be in same configuration
    \item Can't index or scale the motion.
 \end{itemize}
 
@@ -158,28 +177,28 @@ One such controller is
 \subsubsection{Definitions}
 
 \begin{description}
-\item [Indexing:] Provision of an arbitrary offsett between master and slave configurations.
+\item [Indexing:] Provision of an arbitrary offsett between leader and follower configurations.
 \item [Scaling:]  Ability to multiply position commands by an arbitrary constant.
 \end{description}
 
 
 %%%%** Section 2.4.2
 \subsubsection{Problems with Scaling and Indexing}
-Consider a Master/slave system which is moved by $\Delta x_i$ at the master resulting in slave motion $\Delta x_0$.
+Consider a Leader/follower system which is moved by $\Delta x_i$ at the leader resulting in follower motion $\Delta x_0$.
 
-\includegraphics[width=4.0in]{figs14/00402.eps}
+\includegraphics[width=4.0in]{figs14/00402.jpg}
 
 
 if $\lambda_p =1$ and $\theta_0 = 0$, then
 \bq
-\theta_m = \theta_s, J_m(\theta_m) = J_s(\theta_s)
+\theta_L = \theta_F, J_L(\theta_L) = J_F(\theta_F)
 \eq
 	%<*>
 
 and
 
 \[
-\Delta x_0 = J_s(\theta_s)J^{-1}_m(\theta_m)\Delta x_i
+\Delta x_0 = J_F(\theta_F)J^{-1}_L(\theta_L)\Delta x_i
 \]
 \[
 \Delta x_0 = \Delta x_i
@@ -192,10 +211,10 @@ Consider indexing:
 
 if $\theta_0 \ne 0$
 \[
-\theta_s = \theta_m + \theta_0
+\theta_F = \theta_L + \theta_0
 \]
 \[
-J_s(\theta_m+\theta_0)J^{-1}_m(\theta_m) \ne I
+J_F(\theta_L+\theta_0)J^{-1}_L(\theta_L) \ne I
 \]
 
 %\end{slide}
@@ -205,10 +224,10 @@ Consider scaling:
 
 if $\lambda_p \ne 1$
 \[
-\theta+s = \lambda_p\theta_m
+\theta+s = \lambda_p\theta_L
 \]
 \[
-J_s(\lambda_p\theta_m)J^{-1}_m(\theta_m) \ne \lambda_p I
+J_F(\lambda_p\theta_L)J^{-1}_L(\theta_L) \ne \lambda_p I
 \]
 
 
@@ -217,11 +236,11 @@ J_s(\lambda_p\theta_m)J^{-1}_m(\theta_m) \ne \lambda_p I
 %\begin{slide}
 
 %%%%** Section 2.5
-\subsection{Generalized Master Slave Control}
+\subsection{Generalized Leader Follower Control}
 
-\includegraphics[width=4.0in]{figs14/00404.eps}
+\includegraphics[width=4.0in]{figs14/00404.jpg}
 
-Master and Slave mechanisms kinematically different.
+Leader and Follower mechanisms kinematically different.
 
 Communication options:
 
@@ -237,9 +256,9 @@ Communication options:
 
 1) No indexing:
 
-\includegraphics[width=3.0in]{figs14/00405.eps}
+\includegraphics[width=3.0in]{figs14/00405a.png}
 
- The master and slave frames are superimposed on the same points(!)    There is actually of course an offset between the frames but mathematically we ignore it to lock their motions together. 	%<hn>
+ The leader and follower frames are superimposed on the same points(!)    There is actually of course an offset between the frames but mathematically we ignore it to lock their motions together. 	%<hn>
 
 
 %\end{slide}
@@ -247,20 +266,20 @@ Communication options:
 
 2) With an index offset:
 
-\includegraphics[width=3.0in]{figs14/00406.eps}
+\includegraphics[width=3.0in]{figs14/00406a.png}
 
- Operator first works with index offset $j$, and then creates a new offset $^m_sT_{j+1}$ by pressing a button and moving the master to a new location (with the slave frozen).  Analyzing the diagram, 	%<hn>
+ Operator first works with index offset $j$, and then creates a new offset $^L_FT_{j+1}$ by pressing a button and moving the leader to a new location (with the follower frozen).  Analyzing the diagram, 	%<hn>
 
 \bq
-^m_sT_{j+1} = \left ( ^6_0T'_m \right )^{-1} {^6_0T_s}
+^L_FT_{j+1} = \left ( ^6_0T'_L \right )^{-1} {^6_0T_F}
 \eq
 
 %\end{slide}
 %\begin{slide}
 
-The system then discards $^m_sT_j$ and continues on with $^m_sT_{j+1}$
+The system then discards $^L_FT_j$ and continues on with $^L_FT_{j+1}$
 
-\includegraphics[width=3.0in]{figs14/00407.eps}
+\includegraphics[width=3.0in]{figs14/00407a.png}
 
 %\end{slide}
 %\begin{slide}
@@ -270,7 +289,7 @@ The system then discards $^m_sT_j$ and continues on with $^m_sT_{j+1}$
 \noindent
 1) Normal Teleoperation:
 \bq
-^0_6T_s = ^0_6T_m(t)^M_sT_j
+^0_6T_F = ^0_6T_L(t)^L_FT_j
 \eq
 
 \noindent
@@ -278,21 +297,21 @@ The system then discards $^m_sT_j$ and continues on with $^m_sT_{j+1}$
 
 
 \bq
-\mathrm{Slave \quad position \quad locked} \qquad ^0_6T_s = constant
+\mathrm{Follower \quad position \quad locked} \qquad ^0_6T_F = constant
 \eq
 
 \noindent
-3) Operator moves to new position, $^0_6T'_m$:
+3) Operator moves to new position, $^0_6T'_L$:
 
 \bq
-^M_sT_{j+1} = \left (^0_6T'_m\right )^{-1} {^0_6T_s}
+^L_FT_{j+1} = \left (^0_6T'_L\right )^{-1} {^0_6T_F}
 \eq
 
 \noindent
 4) Resume Manipulation:
 
 \bq
-^0_6T_s = ^0_6T_m(t)^M_sT_{j+1}
+^0_6T_F = ^0_6T_L(t)^L_FT_{j+1}
 \eq
 
 
@@ -308,13 +327,13 @@ Easier!
 
 
 \bq\label{IncTeleop}
-\Delta X_s = \Delta X_m = X_m(t) - X_m(t-\Delta t)
+\Delta X_F = \Delta X_L = X_L(t) - X_L(t-\Delta t)
 \eq
 
 to index:
 \begin{enumerate}
-	\item Set $\Delta X_s = 0$
-	\item Move master device to new position.
+	\item Set $\Delta X_F = 0$
+	\item Move leader device to new position.
 	\item resume teleoperation using equation \ref{IncTeleop}
 \end{enumerate}
 
@@ -324,10 +343,10 @@ to index:
 %%%%** Section 2.5.4
 \subsubsection{Scaling (using 4x4 Frames)}
 
-We might apply the following method to scale the command to the slave:
+We might apply the following method to scale the command to the follower:
 \bq
-^0_6T_s =  \lambda_p I \left (
-                 {^0_6T_m}{^m_sT_j}
+^0_6T_F =  \lambda_p I \left (
+                 {^0_6T_L}{^L_FT_j}
                  \right )
 \eq
 this is {\bf not} OK.  (Why?)
@@ -335,7 +354,7 @@ this is {\bf not} OK.  (Why?)
 However we could break inside the $T$ matrix and use
 
 \bq
-^0_6T_s = \left [
+^0_6T_F = \left [
  \begin{array}{cc}
      \left [ R \right ]      & \lambda_p \left [ \begin{array}{c} P_x \\ P_y \\  P_z \end{array}\right ] \\
      \left [ 0 \quad 0 \quad 0 \right ] & 1 \\
@@ -354,7 +373,7 @@ because orientation is not scaled by $\lambda_p$.
 
 
 \bq
-\Delta x_s = \lambda_p \Delta x_m
+\Delta x_F = \lambda_p \Delta x_L
 \eq
 
 Simple!
@@ -365,19 +384,20 @@ Simple!
 
 
 %%%%** Section 2.5.6
-\subsubsection{Rate Control Option for Generalized Master Slave}
+\subsubsection{Rate Control Option for Generalized Leader Follower}
 
 
-Resolved rate control is an option which can be software selected in a generalized master slave system.	%<hn>
+Resolved rate control is an option which can be software selected in a generalized leader follower system.	%<hn>
 
 \bq
-\Delta x_s = \alpha_i(x_m-x_0)
+\Delta x_F = \alpha_i(x_L-x_0)
 \eq
-where $x_0$ is a zero reference position such as the middle of the master device motion range.	%<hn>
+where $x_0$ is a zero reference position such as the middle of the leader device motion range.	%<hn>
 
-Slave moves with a velocity proportional to master deflection
-
-Need hardware or software spring return.
+In this mode, the follower moves with a velocity proportional to the leader deflection
+To make sure the follower velocity stays under control, there is a need
+for a hardware or software spring return function to automatically set the leader
+command to zero when there is no user force applied. 
 
 %\end{slide}
 %\begin{slide}
@@ -390,8 +410,8 @@ Modes:
 \begin{itemize}
 	\item Joint Rate Control
 	\item Resolved Rate Control
-	\item Master Slave Control
-	\item Generalized Master Slave Control
+	\item Leader Follower Control
+	\item Generalized Leader Follower Control
 \end{itemize}
 
 %\end{slide}
@@ -401,8 +421,8 @@ Modes:
                 & Indexing         & Scaling        & Kinesthesia      & Ease   \\ \hline
 Joint Rate      &    Y             &   Y            &    N             &  Low     \\
 Resolved Rate   &    Y             &   Y            &    N             &        \\
-Master Slave    &    N             &   N            &    Y             &        \\
-Generalized Master Slave
+Leader Follower    &    N             &   N            &    Y             &        \\
+Generalized Leader Follower
                 &    Y             &   Y            &    Y             & High  \\ \hline
 \end{tabular}
 
