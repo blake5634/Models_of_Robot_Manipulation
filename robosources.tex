@@ -1,0 +1,72 @@
+%% Default Latex document template
+%%
+%%  blake@rcs.ee.washington.edu
+
+\documentclass[letterpaper]{article}
+
+% Uncomment for bibliog.
+\bibliographystyle{unsrt}
+
+\usepackage{graphicx}
+\usepackage{lineno}
+%\usepackage{fancyhdr}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%
+%  Set Up Margins
+\input{templates/pagedim.tex}
+
+%
+%        Font selection
+%
+%\renewcommand{\rmdefault}{ptm}             % Times
+%\renewcommand{\rmdefault}{phv}             % Helvetica
+%\renewcommand{\rmdefault}{pcr}             % Courier
+%\renewcommand{\rmdefault}{pbk}             % Bookman
+%\renewcommand{\rmdefault}{pag}             % Avant Garde
+%\renewcommand{\rmdefault}{ppl}             % Palatino
+%\renewcommand{\rmdefault}{pch}             % Charter
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%         Page format Mods HERE
+%
+%Mod's to page size for this document
+\addtolength\textwidth{0cm}
+\addtolength\oddsidemargin{0cm}
+\addtolength\headsep{0cm}
+\addtolength\textheight{0cm}
+%\linespread{0.894}   % 0.894 = 6 lines per inch, 1 = "single",  1.6 = "double"
+
+%\lhead{LEFT HEADER}
+%\chead{CENTER HEADER}
+%\rhead{RIGHT HEADER}
+%\lfoot{Hannaford, U. of Washington}
+%\rfoot{\today}
+%\cfoot{\thepage}
+
+% Make table rows deeper
+%\renewcommand\arraystretch{2.0}% Vertical Row size, 1.0 is for standard spacing)
+
+\begin{document}
+\setpagewiselinenumbers        %  Line numbers for edits to drafts.
+\modulolinenumbers[1]          %  number every N lines
+
+% \linenumbers                   %  start numbering lines here
+
+
+Sources used in this book:
+
+\cite{springerhandbook}
+\cite{paul1981robot}
+\cite{asada1986robot}
+\cite{nakamura1990advanced}
+\cite{yoshikawa1990foundations}
+\cite{Craig86}
+\cite{jazar2007theory}
+
+%  Use name of bibliography files without .bib extension
+\bibliography{Master}
+\end{document}
+

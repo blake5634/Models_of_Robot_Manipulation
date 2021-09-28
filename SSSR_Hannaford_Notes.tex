@@ -1,0 +1,100 @@
+%% Default Latex document template
+%%
+%%  blake@rcs.ee.washington.edu
+
+\documentclass[letterpaper]{book}
+
+% Uncomment for bibliog.
+%\bibliographystyle{unsrt}
+
+\usepackage{boxedminipage}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{tex/lineno}
+% Uncomment this for hyperlinks in the TOC etc. 
+\usepackage{hyperref}
+
+
+\newcommand{\grad}{\bigtriangledown}
+\newcommand{\pd}{\partial}
+\newcommand{\br}{\epsilon \mathcal{R}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%
+%  Set Up Margins
+\input{pagedim.tex}
+% \input{pagedimsmall.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%         Page format Mods HERE
+%
+%Mod's to page size for this document
+\addtolength\textwidth{0cm}
+\addtolength\oddsidemargin{0cm}
+\addtolength\headsep{0cm}
+\addtolength\textheight{0cm}
+%\linespread{0.894}   % 0.894 = 6 lines per inch, 1 = "single",  1.6 = "double"
+
+%\pagestyle{fancy}
+\lhead{Chapter \thechapter}
+%\chead{CENTER HEADER}
+\rhead{\today}
+%\lfoot{Hannaford, U. of Washington}
+%\rfoot{\today}
+\cfoot{\thepage/\pageref{LastPage}}
+
+
+%%%%%%%%%%%%%%%%%%%%
+\input{rbook_environments.tex}
+
+\begin{document}
+
+
+
+\frontmatter
+
+\title{Montpellier Summer School on Surgical Robotics\\Blake Hannaford Lecture Notes on Haptics}\author{(from ``Robot Manipulators'', in progress by Jacob Rosen and Blake Hannaford)}
+
+\date{\today\\(C) Copyright 2007 --- 2011, Jacob Rosen and Blake Hannaford, all rights reserved. }
+
+\maketitle
+
+\tableofcontents
+
+\mainmatter
+
+ \part{Introduction to Robotic Control}
+%  \input{Chapt01.tex}   		% Intro
+%  \input{Chapt02.tex}		% Rotations and transforms
+%  \input{Chapt03.tex}		% Forward Kinematic Equations
+%  \input{Chapt04.tex}		% Inverse Kinematics
+%  \input{Chapt05.tex}		% Velocities and Jacobian Matrix
+% \input{Chapt06.tex}		% (Dynamics)
+%  \input{Chapt07.tex}		% Trajectory Generation
+%  \input{Chapt08.tex}		% Introduction to Motion Planning
+% \input{Chapt09.tex}		% Kinematics of Parallel Mechanisms
+%  \input{Chapt10.tex}		% Mechatronics and Design (Force Sensing and DC Motors)
+%  \input{Chapt11.tex}		% (Position and Velocity Control)
+%  \input{Chapt12.tex}		% (Kinematic Manipulabilty)
+%   \input{Chapt13.tex}		% Kinematic Redundancy
+
+% % 
+  \part{Teleoperation}
+  \input{Chapt14.tex}		% Teleoperation and Bilateral Teleop (2 Chapts)
+%  \input{Chapt15.tex}		% (Haptic Perception)
+%  \input{Chapt16.tex}		% (Haptic Devices and Rendering)
+% \input{Chapt17.tex}           % 
+% 
+ \part{Appendices}
+ \appendix
+% 
+ \input{apdces.tex}
+
+\backmatter
+%\bibliography{brl}
+\label{LastPage}
+\end{document}
+

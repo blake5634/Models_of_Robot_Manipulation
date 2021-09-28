@@ -1,12 +1,20 @@
-*.bbl
 *.aux
-*.out
-*.toc
+*.bbl
 *.log
-*.pdf
 *.ps
+*.pdf
 *.bak
 *.cfg
 *backup*
 *converted-to*
+/fig*/*converted-to.pdf
+*.dvi
+*.dvi.pdf
+*.blg
+*.toc
+*.out
+# beamer files
+*.nav
+*.snm
+ 
 

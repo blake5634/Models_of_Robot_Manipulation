@@ -1,0 +1,85 @@
+\documentclass[oneside]{book}
+
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{boxedminipage}
+% \usepackage{tex/lineno}
+\usepackage{lineno}
+\usepackage{hyperref}
+
+
+\newcommand{\grad}{\bigtriangledown}
+\newcommand{\pd}{\partial}
+\newcommand{\br}{\epsilon \mathcal{R}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%
+%  Set Up Margins
+\input{templates/pagedim.tex}
+% \input{pagedim.tex}
+
+
+
+%%%%%%%%%%%%%%%%%%%%00
+\input{rbook_environments.tex}
+
+\begin{document}
+\setpagewiselinenumbers
+\modulolinenumbers[5]
+
+\setcounter{chapter}{0}
+
+
+%  \frontmatter
+
+ \title{EE543  Winter 2016\\Robot Manipulators}
+
+ \author{Blake Hannaford}
+
+ \date{\today\\(C) Copyright 2007-2016 Blake Hannaford}
+
+ \maketitle
+
+\tableofcontents
+
+\mainmatter
+
+\linenumbers
+% 
+% \part{Fundamentals}
+% \input{Chapt01.tex}
+% %  \setcounter{chapter}{6}
+%  \input{Chapt02.tex}  % coordinate transforms & rigid body motions
+%  \input{Chapt03.tex}  % Forward Kinematics
+%  \input{Chapt04.tex}  % Inverse Kinematics
+%  \input{Chapt05.tex}  % Differential Kinematics- Jacobian
+%  \input{Chapt06.tex}  % Manipulator Dynamics (Partial)
+%  \input{Chapt07.tex}  % Trajectory Generation
+%  \input{Chapt08.tex}  % Motion Planning
+% %  \input{Chapt09.tex}  % Parallel Kinematics (STUB)
+%  \input{Chapt10.tex}  % Mechatronics & Design of Manipulators
+% %  \input{Chapt11.tex}  % Control (STUB)
+% %
+%
+\setcounter{chapter}{10}
+\setcounter{part}{1}
+\part{Advanced Topics}
+\input{Chapt12.tex}
+\input{Chapt13.tex}
+\input{Chapt14.tex}
+\input{Chapt15.tex}
+\input{Chapt16.tex}
+\input{Chapt17.tex}
+% 
+% \appendix
+
+% \input{apdces.tex}
+
+%\backmatter
+%\bibliography{brl}
+\label{LastPage}
+ %
+\end{document}

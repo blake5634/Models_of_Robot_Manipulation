@@ -1,0 +1,342 @@
+%% Default Latex document template
+%%
+%%  blake@rcs.ee.washington.edu
+
+\documentclass[letterpaper]{article}
+
+% Uncomment for bibliog.
+%\bibliographystyle{unsrt}
+
+\usepackage{graphicx}
+\usepackage{lineno}
+\usepackage{amsmath}
+%\usepackage{fancyhdr}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%
+%  Set Up Margins
+\input{templates/pagedim.tex}
+
+%
+%        Font selection
+%
+%\renewcommand{\rmdefault}{ptm}             % Times
+%\renewcommand{\rmdefault}{phv}             % Helvetica
+%\renewcommand{\rmdefault}{pcr}             % Courier
+%\renewcommand{\rmdefault}{pbk}             % Bookman
+%\renewcommand{\rmdefault}{pag}             % Avant Garde
+%\renewcommand{\rmdefault}{ppl}             % Palatino
+%\renewcommand{\rmdefault}{pch}             % Charter
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%         Page format Mods HERE
+%
+%Mod's to page size for this document
+\addtolength\textwidth{0cm}
+\addtolength\oddsidemargin{0cm}
+\addtolength\headsep{0cm}
+\addtolength\textheight{0cm}
+%\linespread{0.894}   % 0.894 = 6 lines per inch, 1 = "single",  1.6 = "double"
+
+% header options for fancyhdr
+
+%\pagestyle{fancy}
+%\lhead{LEFT HEADER}
+%\chead{CENTER HEADER}
+%\rhead{RIGHT HEADER}
+%\lfoot{Hannaford, U. of Washington}
+%\rfoot{\today}
+%\cfoot{\thepage}
+
+
+
+% Make table rows deeper
+%\renewcommand\arraystretch{2.0}% Vertical Row size, 1.0 is for standard spacing)
+
+\begin{document}
+\setpagewiselinenumbers        %  Line numbers for edits to drafts.
+\modulolinenumbers[1]          %  number every N lines
+ 
+\section{Ultra-simplified linear block diagram}
+\beq
+\mathrm{H.O.} = \mathrm{Mechanical~Admittance} = \frac{\dot{x}_h(s)}{F_h{s}} = A_{HO}(s)
+\eeq
+\beq
+\mathrm{Env} = \mathrm{Mechanical~Impedance} = \frac{F_E(s)}{\dot{x}_E(s)} = Z_{Env}(s)
+\eeq
+Loop Gain:
+\beq
+G(s) = A_{HO}(s)Z_{Env}(s)H_1(s)H_2(s)
+\eeq
+
+Characteristic equation of Closed Loop system:
+\beq
+1+G(s)  = 0
+\eeq
+
+Nyquist criteria:
+\beq
+|G(s)| \geq 1  \quad \mathrm{and} \quad \angle{G(s)} \geq 180^\circ
+\eeq
+
+Assume: 
+\[
+|H_1(s)|  = |H_2(s)| = 1, \quad \angle{H_1(s)H_2(s)} \approx 180^\circ
+\]
+Then 
+\beq
+|G(s)| = |Z_{Env} A_{HO}| = \left |\frac{Z_{Env}}{Z_{HO}} \right |,\quad \angle{G(s)} \approx 180^\circ
+\eeq
+Stability is determined by impedance ratio:
+\beq
+\left |\frac{Z_{Env}}{Z_{HO}} \right | \stackrel{?}{>} 1
+\eeq
+
+Delay:
+\beq
+\angle{Z_{Env}} - \angle{Z_{Env}} + \angle{e^{-sT}} \geq 180^\circ
+\eeq
+
+What about phase shift assumption?  Think of 
+\begin{itemize}
+ \item Sampling
+ \item Computation delay
+ \item Communication delay
+ \item Phase Lag in mechanisms, environment
+ \item Cognitive, biomechanical and reflex delays in human
+\end{itemize}
+
+\section{Stabilization Approaches}
+\subsection{Virtual Coupling}
+Ed Colgate et al. 
+\subsection{Passivity}
+A system having one port, with variables $\dot{x}$, and $F$ is passive if
+\beq
+\int_{-\infty}^{t} F(t)\dot{x}(t)dt \geq 0 \quad \forall t
+\eeq
+or
+\beq
+\int_{0}^{t} F(t)\dot{x}(t)dt + E(0) \geq 0 \quad \forall t>0
+\eeq
+Where
+\beq
+E(0) = \int_{-\infty}^{0} F(t)\dot{x}(t)dt
+\eeq
+For a two port system, the equation becomes
+
+
+\beq
+\int_{0}^{t} \left (F_1(t)\dot{x}_1(t)dt +F_2(t)\dot{x}_2(t)dt\right) + E(0) \geq 0 \quad \forall t>0
+\eeq
+
+Llewellyn's Absolute stability:
+
+If a two port system has matrix description 
+\[
+\left [
+\begin{array}{cc}
+    p_{11} & p_{12} \\
+    p_{21} & p_{22}
+\end{array}
+\right ]
+\]
+Then it is stable for any pair of 1-port terminations iff
+\beq\label{LlewellynCrit}
+\begin{aligned}
+\Re(p_{11}) &\geq 0 \\
+\Re(p_{22}) &\geq 0 \\
+2\Re(p_{11})\Re(p_{22}) - |p_{12}p_{21}| - \Re(p_{12}p_{21}) &\geq 0 
+\end{aligned}
+\eeq
+
+\section{Passivity Observer / Controller }
+
+\subsection{Passivity Observer}
+Consider a discrete time one-port system.  We can refer to its port variables, 
+$F(k)$ and $\dot{x}(k)$ as conjugate variables (their product is power).
+The passivity definition of the one port is
+\beq\label{POineq}
+\sum_{k=1}^{n} F(k)\dot{x}(k) + E(0) \geq 0 \quad \forall n>0
+\eeq
+
+If the two energy variables $F(k), \dot{x}(k)$ are monitored by sensors and fed into a computer system, we can observe this energy as
+\beq
+E_{obsv}(n) = \sum_{k=1}^{n} F(k)\dot{x}(k) + E(0) 
+\eeq
+Software can then determine any instant of time $n$ at which the system violates 
+(\ref{POineq}).  This ``passivity observer" is shown in the figure 
+
+%    01104
+
+A similar observer can be developed for multiple ports.  For $m$ ports, 
+
+\beq
+E_{obsv} =  \sum_{p=1}^m \sum_{k=1}^{n} F_p(k)\dot{x}_p(k) + E(0)  
+\eeq
+
+This is illustrated in figure
+
+%  01105
+
+\subsection{Passivity Controller}  Going back to the one-port, since such systems often have control over one of their conjugate variables (i.e. an output), why not modify 
+the output in real time to constrain 
+\[
+E_{obsv} > 0
+\]
+
+To do this we introduce a ``Passivity Controller" (PC) into the system which modifies the computed output.  There are two forms we can use, the serial PC and the parallel PC. 
+
+The Series PC can be described by the following algorithm which computes a modified output force 
+based on desired/computed force and current velocity:
+\begin{enumerate}
+    \item $\dot{x}(k)$ is an input measured velocity
+    \item $F_c(k)$ is the output computed by the system block
+    \item $E_{obsv}(n) = E_{obsv}(n-1)+[F_c(n)\dot{x}(n)+\alpha(n-1)\dot{x}(n-1)^2]\Delta T$
+    \item  
+    $\alpha(n) = \begin{cases} 
+       -E_{obsv}(n)/(\Delta T\dot{x}(n)^2 & E_{obsv}(n) < 0 \\
+       0                                 & E_{obsv}(n) \geq 0
+       \end{cases}
+       $
+    \item $F_{out}(n) = F_c(n)+\alpha(n)\dot{x}_n$
+\end{enumerate}
+
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+\section{2017 ACC Workshop}
+\subsection{Hashtrudi-Zaad: (2001)}
+
+Position-position
+
+2-port can be active but absolute stability 
+
+Haykin '70:    Stability-Activity Diagram  (Graphical version of the inequality (\ref{LlewellynCrit})
+
+Limitations:   Only passive environments.  
+
+\subsubsection{``Circle method"}  Edwards '92, Haddadi et al 2010, Haddadi et al. 2015
+
+Scattering Representation / Scattering Matrix  /  Reflection Coefficients
+
+
+Passivity:  unit disk in scattering domain
+
+Environment stability region / all active or passive env's for which combined system is passive. 
+
+ESR a function of frequency:  a circle which is function of scattering params.
+
+(overlap of circles at each frequency )  Does ESR cover unit passivity disk?
+
+Now move from scattering domain to impedance params. 
+
+Application: Transparency Optimized 4-Channel Controller  (ToC)
+
+Absolute stability - requires acceleration estimate  
+
+\subsubsection{Adding Human Operator Damping}
+Haddadi et al. 2015.
+
+With acceleration:
+As operator adds more damping, ESR region grows. 
+
+Without acceleration:
+There is no damping for which all passive envs are stable. 
+
+\subsection{Absolute Stability of multilateral systems and multi-DOF systems}
+M. Tavakholi
+
+Application: tele-rehab
+
+Apply Llewellyn to 3-port terminated by 3 $Z_i$s.
+
+Definition:  Youla Passive N-Port IRE 1959.
+
+Use Youla's lemmas: reciprocal N-port matrices. 
+
+Raisbeck's criterion  (more conservative.)
+
+Derivation of Counterpart to Llewellyn for 3-ports and counterpart to Raisbeck's criterion.
+
+N-port, M-DOF system (linearized by Feedback Linearization)
+
+``Complementary" DOF (IET Control Theory \& Applications 2014).  Contact tasks constraining some DOFs.
+
+Peg-in-hole example: i.e Master one for free motion, master two for peg insertion
+
+
+\subsection{Energy Aware Robotics} Stefano Stramigioli
+
+"casmir function for control" IFAC 1998
+
+Port-based thinking
+
+world is non-linear
+
+Proper geometry makes multi-dimensional systems as simple as 1-D
+
+A model is not reality:  can't base stability on "environment model"
+
+``Passivity" is not conservative as often thought -- think instead about Energy Awareness.
+
+Electrical Networks give misleading topology - doesn't represent energy flow. 
+
+Stability is not difficult if we respect physics. / "listening to the math and physics" can avoid problems.
+
+Contrast non-interactive control (e.g. sattelite dish) vs interactive control (robot holding object). Not the same as Robust Control.
+
+example: bi-ped control by "system composition" e.g. bond-graphs
+
+Examples: DLR grasping 
+
+\subsection{Stability using Multiplier THeory and IQC}  J. Carrasco, H. Tugal, Univ of Manchester
+
+Assumptions: Human is Passive. Environment = Force = F(V)
+
+"bi-lateral teleoperation IQC formulation" Ilham Polat 2012
+
+Assume environment is monotone static nonlinear operator (Passive plus more)
+
+convex search using "IQC" for controller. 
+
+``Integral Quadratic Constraint" (IQC):  Megretski 1997 IQC theorem  (cf Multiplier theory, Desoer and Vidyasagar 1975)
+
+Zames-Falb Muiltpliers for absolute stability, Carrasco et all EJC 2017.
+
+\subsection{Passivity and Life Hearafter} Gunter Niemeyer, Disney Research
+
+Goal checkup:  Transparency ? or User Projection ?     Leverage wider robotics community.
+
+Event based haptics.
+
+Allure of Passivity. ``all natural"
+
+lack of model is strength but also weakness of passivity.
+
+
+\begin{itemize}  \item HF ($>$30Hz)    open loop
+\item MF (3Hz)  Passivity
+\item LF ($<$1Hz) Active may be OK
+\end{itemize}
+
+Experiment: metal-to-metal contact with 4 sec time delay
+
+Intent is encoded in human's grasp impedance.  
+
+GN idea/video: Squeeze sensor on gripper driving slave stiffness.
+
+\subsection{} (Ilia Polushin, Western University, Canada)
+
+Induced Master Motion - (Kukhenbecker \& Niemeyer, 2006)
+
+Decouple the reflected force into two parts: "Interaction component" (coupled to HO)  \& "motion inducing component" (causes feedback loop to displacement and instability.
+
+Seek a smart aglorithm which would attenuate only the motion inducing component.
+
+Idea:  project feedback force onto HO force.   Dot product is the interaction component. 
+
+
+\end{document}
+
