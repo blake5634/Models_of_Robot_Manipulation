@@ -503,15 +503,139 @@ s_1 = \frac {yk_1-xk_2}  {k_1^2 +k_2^2}
 \[
 \theta_1 = \mathrm{atan2}(yk_1-xk_2, \quad xk_1+yk_2)
 \]
-(Since the demoninators are always positive, we can drop them from the atan2. Also, note that
+(Since the denominators are always positive, we can drop them from the atan2(). Also, note that
 we need another equation to get $\theta_2$.)
 
 
 
 
+\subsection{The simplify-last-link trick}
+
+\begin{figure}\centering
+    \includegraphics[width=4.25in]{figs04/01174.png}
+    \caption{The last three joints of a 6 axis manipulator with non-zero $d_6$.}\label{lastframetrickfig}
+\end{figure}
+
+Figure \ref{lastframetrickfig} indicates a typical situation for many 6 axis manipulators in that 
+there is an offset $d_6$ from the wrist center to the most useful location for frame 6 (typically 
+a mounting flange).   For mechanical reasons, this end-effector attachment point cannot be right
+at the point where the wrist axes intersect. 
+
+This $d_6$ offset can add complexity to column 4 of the kinematic equations.   Because of $d_6$,
+the position of the origin of Frame 6 will depend on $\theta_4$ and $\theta_5$ whereas if $d_6$ 
+were zero, those dependencies would vanish.   In this situation, we can use the fact that Frame 6 is
+known ($^0_6T_d$) to easily derive simpler kinematic equations.
+
+Our basic equation is:
+\[
+^0_6T_d =
+\begin{bmatrix}
+\begin{bmatrix}  &  &  \\  & ^0_6R&  \\ & & \\ \end{bmatrix}      &
+ \begin{bmatrix} ^0X_6 \\ ^0Y_6  \\ ^0Z_6 \\ \end{bmatrix}            \\
+ 0 \quad 0 \quad 0      &   1
+\end{bmatrix} =
+^0_1T{^2_2T}\dots{^5_6T}
+\]
+Now let's consider the point ``$P$" (origin of Frame 5) in Figure \ref{lastframetrickfig}.  We know 
+\[
+^6P = [0,0,-d_6]^T
+\]
+Transforming to Frame 0 can be done with our known $^0_6T_d$:
+
+\[
+^0P={^0_6T_d}{^6P} = 
+\begin{bmatrix}
+\begin{bmatrix}  &  &  \\  & ^0_6R&  \\ & & \\ \end{bmatrix}      &
+ \begin{bmatrix} ^0X_6 \\ ^0Y_6  \\ ^0Z_6 \\ \end{bmatrix}            \\
+ 0 \quad 0 \quad 0      &   1
+\end{bmatrix} 
+\begin{bmatrix}
+    0 \\ 0 \\ -d_6 \\1
+\end{bmatrix} =
+{^0_6T_d}\begin{bmatrix}
+    0 & 0 & -d_6 & 1
+\end{bmatrix}^T
+\]
+Let's let 
+\[
+\hat{T}_d = \begin{bmatrix}
+\begin{bmatrix}  &  &  \\  & ^0_6R&  \\ & & \\ \end{bmatrix}      &
+\begin{bmatrix} \\ ^0P \\ \\ \end{bmatrix}            \\
+ 0 \quad 0 \quad 0      &   1
+\end{bmatrix}
+\]
+
+Because the transformation back to point $P$ does not change the orientation of Frame 6,
+solving the IK w.r.t. $\hat{T}_d$ will give the exact same joint angles as with $T_d$ but the 
+equations will be easier.  Thus the steps to an inverse kinematic solution would be:
+\begin{enumerate}
+    \item Solve the inverse kinematics for $d_6=0$. 
+    \item for each IK problem, compute $\hat{T}_d$ and apply it to the IK solution.
+\end{enumerate}
+
+Alternatively, 
+consider our basic kinematic equation 
+
+\[
+^0_6T_d =
+\begin{bmatrix}
+\begin{bmatrix}  &  &  \\  & ^0_6R&  \\ & & \\ \end{bmatrix}      &
+ \begin{bmatrix} ^0X_6 \\ ^0Y_6  \\ ^0Z_6 \\ \end{bmatrix}            \\
+ 0 \quad 0 \quad 0      &   1
+\end{bmatrix} =
+^0_1T{^2_2T}\dots{^5_6T}
+\]
+
+pre-multiply both sides by $\mathrm{Trans}([0,0,-d_6]^T)$ giving
+
+\[
+\mathrm{Trans}([0,0,-d_6]^T) {^0_6T_d} = 
+\mathrm{Trans}([0,0,-d_6]^T) {^0_1T}{^2_2T}\dots{^5_6T}
+\]
+or
+\[\begin{bmatrix}
+\begin{bmatrix}  &  &  \\  & ^0_6R&  \\ & & \\ \end{bmatrix}      &
+ \begin{bmatrix} ^0X_6 \\ ^0Y_6  \\ ^0Z_6-d_6 \\ \end{bmatrix}            \\
+ 0 \quad 0 \quad 0      &   1
+\end{bmatrix} =
+\mathrm{Trans}([0,0,-d_6]^T) {^0_1T}{^2_2T}\dots{^5_6T}
+\]
+
+which {\it might} also give easier equations for a 1-step IK solution.  But this IK solution would 
+have the transformation to point $``P"$ baked in so it could be used in one step. 
 
 
+\begin{Example}
+    We will study Puma 560 kinematic equations (particularly column 4) 
+with the cases $d_6=0 $ and $d_6 \neq 0$.  (Equations were computed with the 
+\href{https://github.com/uw-biorobotics/IKBT}{IKBT package}).
 
+\vspace{0.3in}
+
+$d_6 = 0$
+
+\[
+\mathrm{Column \quad4}\\
+\left[\begin{matrix}a_{2} c_{1} c_{2} + a_{3} c_{1} c_{23} - c_{1} d_{4} s_{23} - d_{3} s_{1}\\
+    a_{2} c_{2} s_{1} + a_{3} c_{23} s_{1} + c_{1} d_{3} - d_{4} s_{1} s_{23}\\
+    - a_{2} s_{2} - a_{3} s_{23} - c_{23} d_{4} + d_{1}\\
+    1\end{matrix}
+\right]
+\]
+
+$d_6 \neq 0$
+\[
+\mathrm{Column \quad4}\\\left[\begin{matrix}a_{2} c_{1} c_{2} + a_{3} c_{1} c_{23} - c_{1} d_{4} s_{23} - d_{3} s_{1} - d_{6} \left(c_{1} c_{5} s_{23} - s_{5} \left(c_{1} c_{23} c_{4} + s_{1} s_{4}\right)\right)\\
+    a_{2} c_{2} s_{1} + a_{3} c_{23} s_{1} + c_{1} d_{3} - d_{4} s_{1} s_{23} - d_{6} \left(c_{5} s_{1} s_{23} - s_{5} \left(- c_{1} s_{4} + c_{23} c_{4} s_{1}\right)\right)\\
+    - a_{2} s_{2} - a_{3} s_{23} - c_{23} d_{4} + d_{1} - d_{6} \left(c_{23} c_{5} + c_{4} s_{23} s_{5}\right)\\
+    1 \end{matrix}
+\right]
+\]
+
+A non-zero $d_6$ brings new terms into column 4  (but not 1-3) and adds new variables $\theta_4$ 
+and $\theta_5$ (potentially unknown
+still) to the equations. 
+\end{Example}
 
 
 \section{Algebraic Solution}
