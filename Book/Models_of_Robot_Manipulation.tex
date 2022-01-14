@@ -1,0 +1,84 @@
+\documentclass[oneside]{book}
+
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{amsmath}
+\usepackage{boxedminipage}
+% \usepackage{tex/lineno}
+\usepackage{lineno}
+\usepackage{hyperref}
+
+
+\newcommand{\grad}{\bigtriangledown}
+\newcommand{\pd}{\partial}
+\newcommand{\br}{\epsilon \mathcal{R}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%
+%  Set Up Margins
+\input{pagedim.tex}
+% \input{pagedim.tex}
+
+
+
+%%%%%%%%%%%%%%%%%%%%00
+\input{rbook_environments.tex}
+
+\begin{document}
+\setpagewiselinenumbers
+\modulolinenumbers[5]
+
+\setcounter{chapter}{0}
+
+
+%  \frontmatter
+
+ \title{Models of Robot Manipulation}
+
+ \author{Blake Hannaford}
+
+ \date{\today\\(C) Copyright 2007-2022 Blake Hannaford}
+
+ \maketitle
+
+\tableofcontents
+
+\mainmatter
+
+\linenumbers
+
+% \part{Fundamentals}
+ \input{Chapt01.tex}
+%  \setcounter{chapter}{6}
+ \input{Chapt02.tex}  % coordinate transforms & rigid body motions
+ \input{Chapt03.tex}  % Forward Kinematics
+ \input{Chapt04.tex}  % Inverse Kinematics
+ \input{Chapt05.tex}  % Differential Kinematics- Jacobian
+ \input{Chapt06.tex}  % Manipulator Dynamics (Partial)
+ \input{Chapt07.tex}  % Trajectory Generation
+ \input{Chapt08.tex}  % Motion Planning
+%  \input{Chapt09.tex}  % Parallel Kinematics (STUB)
+ \input{Chapt10.tex}  % Mechatronics & Design of Manipulators
+%  \input{Chapt11.tex}  % Control (STUB)
+%
+%
+% \part{Advanced Topics}
+ \input{Chapt12.tex}    % Manipulability
+ \input{Chapt13.tex}    % Kinematic redundancy 
+  \input{Chapt14.tex}   % Teleoperation
+ \input{Chapt15.tex}    % Bilateral Control
+%  \input{Chapt16.tex}    % Haptic Perception STUB
+%  \input{Chapt17.tex}    % Haptic Devices and Rendering STUB
+
+\part{Appendices}
+\appendix
+
+\input{apdces.tex}
+
+%\backmatter
+%\bibliography{brl}
+\label{LastPage}
+ %
+\end{document}
