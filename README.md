@@ -7,8 +7,9 @@ robot manipulator kinematics, design, and control.
 
 
 (Initial Github distribution: September 2019. )
+![Give me the Book PDF!](Models_of_Robot_Manipulation.pdf)
 
-![Robot Kinematics Problem](Book/readme_image.png)
+<!-- ![Robot Kinematics Problem](Book/readme_image.png) -->
 
 This project is a package of materials for teaching a course in robot manipulator kinematics and control. 
 The Book evolved from course notes and contains influences from famous previous texts.  
