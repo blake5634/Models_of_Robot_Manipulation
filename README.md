@@ -5,9 +5,7 @@ robot manipulator kinematics, design, and control.
 
 ### Blake Hannaford
 
-
-(Initial Github distribution: September 2019. )
-![Give me the Book PDF!](Models_of_Robot_Manipulation.pdf)
+[Give me the Book PDF!](Models_of_Robot_Manipulation.pdf)
 
 <!-- ![Robot Kinematics Problem](Book/readme_image.png) -->
 
